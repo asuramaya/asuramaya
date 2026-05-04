@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>asuramaya — independent AI researcher</title>
-  <meta name="description" content="Independent AI researcher. Building MCP servers and the predictive-descendants stack: decepticons (kernel), chronohorn (runtime), heinrich (forensics)." />
-  <meta property="og:title" content="asuramaya — independent AI researcher" />
-  <meta property="og:description" content="Independent AI researcher. MCP servers and predictive-descendants research." />
+  <title>asuramaya — Hector Chavez · independent AI researcher</title>
+  <meta name="description" content="Hector Chavez (asuramaya). Independent AI researcher in Houston, TX. MCP server author. Building the predictive-descendants stack: decepticons (kernel) → chronohorn (runtime) → heinrich (forensics)." />
+  <meta property="og:title" content="asuramaya — Hector Chavez · independent AI researcher" />
+  <meta property="og:description" content="MCP servers and predictive-descendants research. Houston, TX." />
   <meta property="og:url" content="https://asuramaya.com/" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
@@ -23,10 +23,10 @@
       --fg: #ececef;
       --fg-dim: #9b9ba2;
       --fg-mute: #5f5f68;
-      --accent: #f4a743;        /* amber */
+      --accent: #f4a743;
       --accent-2: #ffc375;
-      --accent-cool: #66a3ff;   /* cool counterweight */
-      --green: #64d27e;         /* status: live */
+      --accent-cool: #66a3ff;
+      --green: #64d27e;
       --max: 1080px;
       --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       --sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -34,13 +34,9 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
+      background: var(--bg); color: var(--fg);
+      font-family: var(--sans); font-size: 16px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased; min-height: 100vh;
     }
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-2); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
@@ -51,74 +47,41 @@
     h1, h2, h3 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.01em; }
 
     /* Topbar */
-    .topbar {
-      position: sticky; top: 0; z-index: 10;
-      background: rgba(10, 10, 12, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-    .topbar .wrap {
-      display: flex; align-items: center; justify-content: space-between;
-      padding-top: 14px; padding-bottom: 14px;
-    }
-    .brand {
-      font-family: var(--mono);
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--fg);
-      letter-spacing: 0.02em;
-    }
+    .topbar { position: sticky; top: 0; z-index: 10; background: rgba(10,10,12,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; padding-bottom: 14px; }
+    .brand { font-family: var(--mono); font-size: 1rem; font-weight: 700; color: var(--fg); letter-spacing: 0.02em; }
     .brand .dot { color: var(--accent); }
-    .topbar nav { display: flex; gap: 28px; align-items: center; }
-    .topbar nav a { color: var(--fg-dim); font-size: 0.88rem; }
+    .topbar nav { display: flex; gap: 26px; align-items: center; }
+    .topbar nav a { color: var(--fg-dim); font-size: 0.86rem; }
     .topbar nav a:hover { color: var(--accent); text-decoration: none; }
-    @media (max-width: 720px) {
-      .topbar nav { gap: 16px; }
+    @media (max-width: 760px) {
+      .topbar nav { gap: 14px; }
       .topbar nav a:not(.cta) { display: none; }
     }
 
     /* Hero */
-    .hero { padding: 88px 0 64px; }
+    .hero { padding: 84px 0 60px; }
     .hero .kicker {
-      font-family: var(--mono);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--accent);
-      font-size: 0.74rem;
-      font-weight: 500;
-      margin-bottom: 24px;
-      display: flex; align-items: center; gap: 10px;
+      font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.18em;
+      color: var(--accent); font-size: 0.74rem; font-weight: 500; margin-bottom: 22px;
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     }
     .hero .kicker::before {
-      content: "";
-      width: 8px; height: 8px;
-      background: var(--green);
-      border-radius: 50%;
-      box-shadow: 0 0 12px var(--green);
-      animation: pulse 2.4s ease-in-out infinite;
+      content: ""; width: 8px; height: 8px; background: var(--green); border-radius: 50%;
+      box-shadow: 0 0 12px var(--green); animation: pulse 2.4s ease-in-out infinite;
     }
     @keyframes pulse { 50% { opacity: 0.4; } }
-    .hero h1 {
-      font-size: clamp(2.4rem, 6.5vw, 4.6rem);
-      line-height: 1.05;
-      margin-bottom: 0.4em;
-      color: var(--fg);
-    }
+    .hero h1 { font-size: clamp(2.4rem, 6.5vw, 4.6rem); line-height: 1.05; margin-bottom: 0.3em; color: var(--fg); }
     .hero h1 .accent { color: var(--accent); }
-    .hero .lede {
-      font-size: clamp(1.05rem, 2vw, 1.2rem);
-      color: var(--fg-dim);
-      max-width: 60ch;
-      margin-bottom: 1.6em;
+    .hero .name-line {
+      font-family: var(--mono); font-size: clamp(0.92rem, 1.6vw, 1.05rem);
+      color: var(--fg-dim); margin-bottom: 1.4em; letter-spacing: 0.02em;
     }
+    .hero .name-line strong { color: var(--fg); font-weight: 600; }
+    .hero .name-line .sep { color: var(--line-2); margin: 0 10px; }
+    .hero .lede { font-size: clamp(1.05rem, 2vw, 1.2rem); color: var(--fg-dim); max-width: 60ch; margin-bottom: 1.6em; }
     .hero .lede strong { color: var(--fg); font-weight: 600; }
-    .meta {
-      display: flex; flex-wrap: wrap; gap: 22px;
-      font-family: var(--mono);
-      font-size: 0.84rem;
-      color: var(--fg-mute);
-    }
+    .meta { display: flex; flex-wrap: wrap; gap: 22px; font-family: var(--mono); font-size: 0.84rem; color: var(--fg-mute); }
     .meta span::before { content: "·  "; color: var(--line-2); }
     .meta span:first-child::before { content: ""; }
     .meta a { color: var(--fg-dim); }
@@ -126,143 +89,113 @@
     /* Sections */
     section { padding: 56px 0; border-top: 1px solid var(--line); }
     section h2 {
-      font-size: 0.84rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--accent);
-      margin-bottom: 34px;
-      padding-bottom: 14px;
+      font-size: 0.84rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em;
+      color: var(--accent); margin-bottom: 30px; padding-bottom: 14px;
       border-bottom: 1px solid var(--line);
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
     }
-    section h2 .count {
-      font-family: var(--mono);
-      color: var(--fg-mute);
-      font-size: 0.78rem;
-      letter-spacing: 0.05em;
-    }
+    section h2 .count { font-family: var(--mono); color: var(--fg-mute); font-size: 0.78rem; letter-spacing: 0.05em; text-transform: lowercase; }
 
     /* Currently */
     .stack-art {
-      font-family: var(--mono);
-      font-size: clamp(0.78rem, 2vw, 0.92rem);
-      color: var(--fg-dim);
-      background: var(--bg-3);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 22px 24px;
-      white-space: pre;
-      overflow-x: auto;
-      margin-bottom: 24px;
-      line-height: 1.55;
+      font-family: var(--mono); font-size: clamp(0.78rem, 2vw, 0.92rem); color: var(--fg-dim);
+      background: var(--bg-3); border: 1px solid var(--line); border-radius: 10px;
+      padding: 22px 24px; white-space: pre; overflow-x: auto; margin-bottom: 24px; line-height: 1.55;
     }
     .stack-art .label-1 { color: var(--accent); }
     .stack-art .label-2 { color: var(--accent-cool); }
     .stack-art .label-3 { color: var(--green); }
-    .stack-art .arrow  { color: var(--fg-mute); }
+    .stack-art .arrow { color: var(--fg-mute); }
     .currently-text { color: var(--fg-dim); max-width: 64ch; }
     .currently-text strong { color: var(--fg); font-weight: 600; }
 
     /* Cards */
-    .cards { display: grid; gap: 18px; grid-template-columns: 1fr; }
+    .cards { display: grid; gap: 16px; grid-template-columns: 1fr; }
     @media (min-width: 720px) { .cards { grid-template-columns: 1fr 1fr; } }
-
     .card {
-      display: block;
-      background: var(--bg-2);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 22px 24px;
-      color: var(--fg);
+      display: block; background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px;
+      padding: 22px 24px; color: var(--fg);
       transition: border-color 0.15s, transform 0.15s, background 0.15s;
     }
-    .card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-      background: var(--bg-3);
-      text-decoration: none;
-      color: var(--fg);
-    }
-    .card-head {
-      display: flex; align-items: baseline; justify-content: space-between;
-      gap: 14px; margin-bottom: 10px;
-    }
-    .card-name {
-      font-family: var(--mono);
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--fg);
-      letter-spacing: -0.01em;
-    }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); background: var(--bg-3); text-decoration: none; color: var(--fg); }
+    .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-bottom: 10px; }
+    .card-name { font-family: var(--mono); font-size: 1.1rem; font-weight: 700; color: var(--fg); letter-spacing: -0.01em; }
     .card:hover .card-name { color: var(--accent); }
-    .card-meta {
-      font-family: var(--mono);
-      font-size: 0.74rem;
-      color: var(--fg-mute);
-      white-space: nowrap;
-      letter-spacing: 0.04em;
-    }
+    .card-meta { font-family: var(--mono); font-size: 0.74rem; color: var(--fg-mute); white-space: nowrap; letter-spacing: 0.04em; }
     .card-meta .stat { color: var(--fg-dim); }
     .card-meta .stat .n { color: var(--accent); font-weight: 700; }
-    .card p {
-      color: var(--fg-dim);
-      font-size: 0.94rem;
-      line-height: 1.55;
-      margin-bottom: 12px;
-    }
-    .card-tags {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--fg-mute);
-    }
-    .card-tags span {
-      padding: 2px 8px;
-      border: 1px solid var(--line-2);
-      border-radius: 99px;
-      letter-spacing: 0.04em;
-    }
+    .card p { color: var(--fg-dim); font-size: 0.94rem; line-height: 1.55; margin-bottom: 12px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--mono); font-size: 0.72rem; color: var(--fg-mute); }
+    .card-tags span { padding: 2px 8px; border: 1px solid var(--line-2); border-radius: 99px; letter-spacing: 0.04em; }
 
-    /* Other work — list */
-    .other {
-      list-style: none;
-      display: grid; gap: 4px;
-      font-family: var(--mono);
-      font-size: 0.88rem;
-    }
-    .other li {
+    /* Live activity */
+    .activity-list { list-style: none; display: grid; gap: 0; font-family: var(--mono); font-size: 0.88rem; }
+    .activity-list li {
       display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 22px;
-      padding: 10px 0;
+      grid-template-columns: 22px 180px 1fr 100px;
+      gap: 14px; align-items: center;
+      padding: 12px 0;
       border-bottom: 1px dashed var(--line);
     }
-    .other li:last-child { border-bottom: none; }
-    .other a { color: var(--fg); font-weight: 500; }
-    .other a:hover { color: var(--accent); }
-    .other span { color: var(--fg-mute); font-family: var(--sans); font-size: 0.88rem; }
-    @media (max-width: 540px) {
-      .other li { grid-template-columns: 1fr; gap: 4px; }
+    .activity-list li:last-child { border-bottom: none; }
+    .ev-icon { color: var(--accent); font-size: 1rem; text-align: center; }
+    .ev-icon.push { color: var(--accent); }
+    .ev-icon.create { color: var(--accent-cool); }
+    .ev-icon.release { color: var(--green); }
+    .ev-icon.fork, .ev-icon.watch { color: var(--fg-mute); }
+    .ev-repo { color: var(--fg); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ev-repo:hover { color: var(--accent); }
+    .ev-action { color: var(--fg-dim); font-family: var(--sans); font-size: 0.92rem; line-height: 1.4; word-break: break-word; }
+    .ev-time { color: var(--fg-mute); font-size: 0.78rem; text-align: right; white-space: nowrap; }
+    .activity-loading, .activity-error {
+      padding: 20px 0; color: var(--fg-mute); font-family: var(--mono); font-size: 0.88rem; text-align: center;
     }
+    .activity-loading::before { content: "⏵ "; color: var(--accent); animation: pulse 1.4s ease-in-out infinite; }
+    @media (max-width: 720px) {
+      .activity-list li { grid-template-columns: 22px 1fr; gap: 10px; }
+      .activity-list .ev-action, .activity-list .ev-time { grid-column: 2; padding-left: 0; }
+      .activity-list .ev-time { font-size: 0.74rem; opacity: 0.7; }
+    }
+    .activity-foot { margin-top: 18px; font-family: var(--mono); font-size: 0.82rem; color: var(--fg-mute); text-align: right; }
+
+    /* Background section */
+    .bg-grid { display: grid; gap: 32px; grid-template-columns: 1fr; }
+    @media (min-width: 760px) { .bg-grid { grid-template-columns: 1.4fr 1fr; } }
+    .bio { color: var(--fg-dim); max-width: 60ch; line-height: 1.65; }
+    .bio strong { color: var(--fg); font-weight: 600; }
+    .bio + .bio { margin-top: 0.8em; }
+    .timeline { list-style: none; display: grid; gap: 0; }
+    .timeline li { padding: 14px 0; border-bottom: 1px dashed var(--line); display: grid; grid-template-columns: 90px 1fr; gap: 18px; align-items: baseline; }
+    .timeline li:last-child { border-bottom: none; }
+    .timeline .when { font-family: var(--mono); font-size: 0.78rem; color: var(--fg-mute); letter-spacing: 0.04em; }
+    .timeline .what { color: var(--fg); font-size: 0.94rem; }
+    .timeline .what strong { color: var(--fg); font-weight: 600; }
+    .timeline .what .role { color: var(--fg-dim); display: block; font-size: 0.86rem; margin-top: 2px; }
+    .skills { margin-top: 28px; display: grid; gap: 16px; }
+    .skills-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+    .skills-label { font-family: var(--mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); white-space: nowrap; }
+    .skills-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skills-tags span { padding: 3px 10px; border: 1px solid var(--line-2); border-radius: 4px; font-family: var(--mono); font-size: 0.74rem; color: var(--fg-dim); letter-spacing: 0.02em; }
+    .resume-link {
+      margin-top: 20px;
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono); font-size: 0.86rem; font-weight: 500;
+      color: var(--accent); border: 1px solid var(--accent); padding: 8px 16px; border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .resume-link:hover { background: var(--accent); color: var(--bg); text-decoration: none; }
+    .resume-link::before { content: "↓"; font-weight: 700; }
 
     /* Footer */
-    footer {
-      padding: 64px 0 80px;
-      border-top: 1px solid var(--line);
-      color: var(--fg-mute);
-      font-size: 0.86rem;
-      font-family: var(--mono);
-    }
-    footer .row {
-      display: flex; flex-wrap: wrap; gap: 24px;
-      justify-content: space-between;
-      align-items: baseline;
-    }
-    footer .links { display: flex; gap: 22px; flex-wrap: wrap; }
+    footer { padding: 56px 0 80px; border-top: 1px solid var(--line); color: var(--fg-mute); font-size: 0.86rem; font-family: var(--mono); }
+    footer .row { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: baseline; }
+    footer .links { display: flex; gap: 18px; flex-wrap: wrap; }
     footer .links a { color: var(--fg-dim); }
     footer .links a:hover { color: var(--accent); text-decoration: none; }
     footer .copy { color: var(--fg-mute); margin-top: 14px; font-size: 0.78rem; }
+    footer .archive { margin-top: 8px; font-size: 0.78rem; color: var(--fg-mute); }
+    footer .archive a { color: var(--fg-mute); }
+    footer .archive a:hover { color: var(--accent); }
 
     ::selection { background: var(--accent); color: var(--bg); }
   </style>
@@ -276,7 +209,8 @@
       <a href="#currently">Currently</a>
       <a href="#mcp">MCP servers</a>
       <a href="#research">Research</a>
-      <a href="#other">Other</a>
+      <a href="#activity">Activity</a>
+      <a href="#background">Background</a>
       <a class="cta" href="https://github.com/asuramaya">GitHub →</a>
     </nav>
   </div>
@@ -288,14 +222,17 @@
   <div class="wrap">
     <p class="kicker">independent AI researcher · houston, tx</p>
     <h1>asuramaya<span class="accent">.</span></h1>
+    <p class="name-line"><strong>Hector Chavez</strong> <span class="sep">·</span> MCP / Skill author <span class="sep">·</span> bilingual EN/ES</p>
     <p class="lede">
       I build <strong>MCP servers</strong> and the <strong>predictive-descendants stack</strong>: a
       backend-neutral kernel of predictive primitives, a runtime that tracks experiments and searches
       the architecture frontier, and a forensics layer that measures what models actually compute.
+      Day job: sole IT lead at a $3B+ construction holding company, force-multiplied by the same
+      AI tooling I publish.
     </p>
     <div class="meta">
       <span><a href="https://github.com/asuramaya">github.com/asuramaya</a></span>
-      <span>architect of illusions</span>
+      <span><a href="https://www.linkedin.com/in/hector-chavez-291765237">linkedin</a></span>
       <span>compression · cognition · security</span>
     </div>
   </div>
@@ -344,7 +281,7 @@
           <span class="card-name">remix-etherscan-mcp</span>
           <span class="card-meta"><span class="stat"><span class="n">119</span> tools</span></span>
         </div>
-        <p>Smart-contract auditing MCP server. Wraps Etherscan v2, a local remixd filesystem daemon, git, contract compilation (Hardhat / Foundry / Slither), and several composite audit workflows. Lets Claude drive a full audit setup, ETH flow tracing, and historical event queries directly.</p>
+        <p>End-to-end smart-contract audit and bug-bounty toolkit. Wraps Etherscan v2, a local remixd filesystem daemon, git, contract compilation (Hardhat / Foundry / Slither), and several composite audit workflows — gas, reverts, fork simulation, post-deploy forensics. One MCP rather than many.</p>
         <div class="card-tags"><span>solidity</span><span>etherscan</span><span>auditing</span><span>foundry</span></div>
       </a>
     </div>
@@ -360,8 +297,8 @@
           <span class="card-name">decepticons</span>
           <span class="card-meta"><span class="stat">on pypi · v0.1.3</span></span>
         </div>
-        <p>A backend-neutral kernel of predictive primitives — substrates, memory, gating, routing, readouts. Reusable across descendant systems without forking the kernel itself. <em>O(n) attention is deception.</em></p>
-        <div class="card-tags"><span>python</span><span>numpy-only</span><span>torch · mlx backends</span><span>causality-verified</span></div>
+        <p>A backend-neutral kernel of memory and substrate primitives. The driving question: can you reach transformer-level performance using only O(n) operations? <em>O(n) attention is deception.</em></p>
+        <div class="card-tags"><span>python</span><span>numpy-only</span><span>torch · mlx</span><span>causality-verified</span></div>
       </a>
 
       <a class="card" href="https://chronohorn.com">
@@ -369,7 +306,7 @@
           <span class="card-name">chronohorn</span>
           <span class="card-meta"><span class="stat">on pypi · v0.1.1</span></span>
         </div>
-        <p>The runtime descendant. Family-agnostic experiment tracker built on decepticons, with manifest-driven fleet dispatch across CPU / Metal / CUDA, plug-in family adapters, and built-in saturation and forecast analysis.</p>
+        <p>Architecture-agnostic training runtime. Built so research cycles compress — less waiting per experiment, more experiments per week. Multi-backend fleet, plug-in family adapters, saturation/forecast analysis.</p>
         <div class="card-tags"><span>python</span><span>sqlite</span><span>mcp · 64 tools</span><span>fleet</span></div>
       </a>
 
@@ -378,7 +315,7 @@
           <span class="card-name">harnesster</span>
           <span class="card-meta"><span class="stat">★ 39</span></span>
         </div>
-        <p>See what is hidden, hide from what sees. Indexes Claude Code's local artifacts — reminder injections, agent transcripts, telemetry leftovers, hook-visible lifecycle events — into a single SQLite database with explicit measured / estimated / inferred labels.</p>
+        <p>A front end for <code>~/.claude</code>. Reveals events and signals obfuscated from the main chat interface — reminder injections, agent transcripts, telemetry leftovers, hook-visible lifecycle events — and compresses them into digestible analytics. <em>See what is hidden, hide from what sees.</em></p>
         <div class="card-tags"><span>python</span><span>claude code</span><span>transcript forensics</span></div>
       </a>
 
@@ -387,22 +324,85 @@
           <span class="card-name">Like-Us</span>
           <span class="card-meta"><span class="stat">★ 3</span></span>
         </div>
-        <p>A literature-grounded behavioral benchmark for human–AI interaction. Sixteen-plus documented sessions, a kill list of ~40 destroyed findings, a blind eval game, and a psychological-drift matrix. Treats the rubric as a benchmark, not a diagnostic taxonomy.</p>
+        <p>A literature-grounded behavioral benchmark for human–AI interaction. Sixteen-plus documented sessions, a kill list of ~40 destroyed findings, a blind eval game, a psychological-drift matrix. Treats the rubric as a benchmark, not a diagnostic taxonomy.</p>
         <div class="card-tags"><span>research</span><span>behavioral</span><span>eval</span><span>benchmark</span></div>
       </a>
     </div>
   </div>
 </section>
 
-<section id="other">
+<section id="activity">
   <div class="wrap">
-    <h2>Other work <span class="count">archive · forks · earlier lines</span></h2>
-    <ul class="other">
-      <li><a href="https://github.com/asuramaya/conker">conker</a><span>Earlier compression-research runtime. Branch history preserved.</span></li>
-      <li><a href="https://github.com/asuramaya/conker-ledger">conker-ledger</a><span>Public backlog-analysis and experiment-memory tool for Conker-style research outputs.</span></li>
-      <li><a href="https://github.com/asuramaya/conker-detect">conker-detect</a><span>Matrix and checkpoint audits — hidden side channels, causal-mask violations, spectral anomalies.</span></li>
-      <li><a href="https://github.com/asuramaya/parameter-golf">parameter-golf</a><span>Fork. Train the smallest LM you can that fits in 16 MB.</span></li>
+    <h2>Activity <span class="count">live · github.com/asuramaya</span></h2>
+    <ul id="activity-list" class="activity-list">
+      <li class="activity-loading">loading recent commits...</li>
     </ul>
+    <p class="activity-foot">→ <a href="https://github.com/asuramaya?tab=overview">all activity on github</a></p>
+  </div>
+</section>
+
+<section id="background">
+  <div class="wrap">
+    <h2>Background <span class="count">six years · enterprise IT · public ops · AI-augmented engineering</span></h2>
+    <div class="bg-grid">
+      <div>
+        <p class="bio">
+          I run the IT and infrastructure function — solo — for <strong>Stewart Holdings Group</strong>,
+          a construction holding company managing $3B+ in active real estate development across seven
+          operating subsidiaries and three offices in Houston. Primary technical liaison to executives
+          on identity, security, and infrastructure. Force-multiplied a one-person function with AI as
+          the primary tool — automated provisioning, license management, ticket triage, monitoring
+          scripts that surface visibility gaps in fleets where complex signals interfere at scale.
+        </p>
+        <p class="bio">
+          Previously: endpoint support across <strong>~90 offices in 20 U.S. states</strong> at David
+          Weekley Homes, and frontline pandemic-ops tech support for COVID-19 vaccination sites
+          operated by <strong>Harris County Public Health</strong> — third-largest county in the
+          United States — kept check-in, registration, and data ingestion running through peak surge.
+        </p>
+        <p class="bio">
+          The independent work is what the day job points at. Same primary tool. Same architecture-as-the-implementer
+          posture. The MCP servers and the predictive-descendants stack are where I push that approach the furthest.
+        </p>
+        <a class="resume-link" href="resume.pdf">resume.pdf</a>
+      </div>
+      <div>
+        <ul class="timeline">
+          <li>
+            <span class="when">2023 – now</span>
+            <span class="what"><strong>Sole IT Lead</strong><span class="role">Stewart Holdings Group · Houston, TX</span></span>
+          </li>
+          <li>
+            <span class="when">2021 – 2023</span>
+            <span class="what"><strong>IT Support</strong><span class="role">David Weekley Homes · Houston, TX</span></span>
+          </li>
+          <li>
+            <span class="when">2020 – 2021</span>
+            <span class="what"><strong>Pandemic Ops Tech</strong><span class="role">Harris County Public Health · Houston, TX</span></span>
+          </li>
+        </ul>
+        <div class="skills">
+          <div class="skills-row">
+            <span class="skills-label">Enterprise</span>
+            <div class="skills-tags">
+              <span>Microsoft Entra</span><span>Intune</span><span>Purview</span><span>Defender</span><span>Active Directory</span><span>Netskope SD-WAN</span><span>Veeam</span><span>Abnormal</span><span>Meraki · DUO</span><span>Mitel</span><span>Citrix · Parallels</span><span>RingCentral</span>
+            </div>
+          </div>
+          <div class="skills-row">
+            <span class="skills-label">AI</span>
+            <div class="skills-tags">
+              <span>Claude</span><span>Codex</span><span>MCP authoring</span><span>TypeScript</span><span>Rust</span><span>Python</span><span>Bash</span><span>PowerShell</span><span>SQL</span>
+            </div>
+          </div>
+          <div class="skills-row">
+            <span class="skills-label">Languages</span>
+            <div class="skills-tags">
+              <span>English (native)</span><span>Spanish (native)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -412,19 +412,142 @@
   <div class="wrap">
     <div class="row">
       <div>
-        <strong style="color: var(--fg);">asuramaya</strong> · houston, tx · 2026
+        <strong style="color: var(--fg);">Hector Chavez</strong> · houston, tx · 2026
       </div>
       <div class="links">
+        <a href="mailto:hector._.chavez@icloud.com">email</a>
+        <a href="https://www.linkedin.com/in/hector-chavez-291765237">linkedin</a>
         <a href="https://github.com/asuramaya">github</a>
         <a href="https://chronohorn.com">chronohorn</a>
         <a href="https://decepticons.win">decepticons</a>
         <a href="https://soundcloud.com/elmonogdl">soundcloud</a>
-        <a href="https://instagram.com/receding_hairln">instagram</a>
       </div>
     </div>
     <p class="copy">decepticons → chronohorn → heinrich · kernel → runtime → forensics</p>
+    <p class="archive">
+      archive: <a href="https://github.com/asuramaya/conker">conker</a> · <a href="https://github.com/asuramaya/conker-ledger">conker-ledger</a> · <a href="https://github.com/asuramaya/conker-detect">conker-detect</a> · <a href="https://github.com/asuramaya/parameter-golf">parameter-golf</a>
+    </p>
   </div>
 </footer>
+
+<script>
+(function() {
+  'use strict';
+  var STORAGE_KEY = 'asuramaya-activity-v1';
+  var CACHE_TTL_MS = 5 * 60 * 1000;
+
+  function relTime(iso) {
+    var d = new Date(iso);
+    var s = Math.floor((Date.now() - d.getTime()) / 1000);
+    if (s < 60)         return s + 's ago';
+    if (s < 3600)       return Math.floor(s / 60) + 'm ago';
+    if (s < 86400)      return Math.floor(s / 3600) + 'h ago';
+    if (s < 86400 * 14) return Math.floor(s / 86400) + 'd ago';
+    return d.toLocaleDateString('en', { month: 'short', day: 'numeric' });
+  }
+
+  function escape(s) {
+    return String(s || '').replace(/[&<>"']/g, function(c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function format(ev) {
+    var repo = ev.repo.name.replace(/^asuramaya\//, '');
+    var time = relTime(ev.created_at);
+    var iconClass, icon, action;
+    if (ev.type === 'PushEvent') {
+      var commits = (ev.payload && ev.payload.commits) || [];
+      var n = commits.length;
+      if (n) {
+        var msg = commits[n - 1].message.split('\n')[0];
+        action = msg + (n > 1 ? ' (+' + (n - 1) + ' more)' : '');
+      } else {
+        action = 'pushed';
+      }
+      iconClass = 'push';
+      icon = '⏵';
+    } else if (ev.type === 'CreateEvent') {
+      iconClass = 'create';
+      icon = '✦';
+      var rt = ev.payload.ref_type || 'thing';
+      action = 'created ' + rt + (ev.payload.ref ? ' ' + ev.payload.ref : '');
+    } else if (ev.type === 'ReleaseEvent') {
+      iconClass = 'release';
+      icon = '★';
+      var rel = (ev.payload && ev.payload.release) || {};
+      action = 'released ' + (rel.tag_name || rel.name || '');
+    } else if (ev.type === 'DeleteEvent') {
+      iconClass = 'fork';
+      icon = '✕';
+      action = 'deleted ' + (ev.payload.ref_type || '') + ' ' + (ev.payload.ref || '');
+    } else if (ev.type === 'PullRequestEvent') {
+      iconClass = 'create';
+      icon = '↳';
+      action = (ev.payload.action || 'updated') + ' PR #' + ((ev.payload.pull_request || {}).number || '');
+    } else if (ev.type === 'IssuesEvent') {
+      iconClass = 'create';
+      icon = '◌';
+      action = (ev.payload.action || 'updated') + ' issue';
+    } else {
+      return '';
+    }
+    return ''
+      + '<li>'
+      +   '<span class="ev-icon ' + iconClass + '">' + icon + '</span>'
+      +   '<a class="ev-repo" href="https://github.com/' + escape(ev.repo.name) + '">' + escape(repo) + '</a>'
+      +   '<span class="ev-action">' + escape(action) + '</span>'
+      +   '<span class="ev-time">' + escape(time) + '</span>'
+      + '</li>';
+  }
+
+  function render(events) {
+    var list = document.getElementById('activity-list');
+    if (!list) return;
+    if (!events || !events.length) {
+      list.innerHTML = '<li class="activity-error">no recent activity in scope · <a href="https://github.com/asuramaya">view on github</a></li>';
+      return;
+    }
+    var html = '';
+    var n = 0;
+    for (var i = 0; i < events.length && n < 8; i++) {
+      var row = format(events[i]);
+      if (row) { html += row; n++; }
+    }
+    list.innerHTML = html || '<li class="activity-error">no recent activity in scope · <a href="https://github.com/asuramaya">view on github</a></li>';
+  }
+
+  function fail() {
+    var list = document.getElementById('activity-list');
+    if (!list) return;
+    list.innerHTML = '<li class="activity-error">activity feed unavailable (rate-limited or offline) · <a href="https://github.com/asuramaya">view on github</a></li>';
+  }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        var cache = JSON.parse(raw);
+        if (cache && (Date.now() - (cache.t || 0)) < CACHE_TTL_MS && cache.events) {
+          render(cache.events);
+          return;
+        }
+      }
+    } catch (e) {}
+
+    fetch('https://api.github.com/users/asuramaya/events/public?per_page=30')
+      .then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(events) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ t: Date.now(), events: events })); } catch (e) {}
+        render(events);
+      })
+      .catch(fail);
+  }
+
+  if (document.readyState !== 'loading') load();
+  else document.addEventListener('DOMContentLoaded', load);
+})();
+</script>
 
 </body>
 </html>
