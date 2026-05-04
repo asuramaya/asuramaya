@@ -501,6 +501,18 @@
       + '</li>';
   }
 
+  // Skip noisy auto-generated commits (data snapshots, scheduled bumps, etc).
+  // The feed is for human-readable work; bot-cadence commits drown it out.
+  function isNoise(ev) {
+    if (ev.type !== 'PushEvent') return false;
+    var commits = (ev.payload && ev.payload.commits) || [];
+    if (!commits.length) return false;
+    return commits.every(function(c) {
+      var m = (c.message || '').toLowerCase();
+      return /^(data:\s*snapshot|chore\(deps\):|bump\s|auto:|\[bot\])/.test(m);
+    });
+  }
+
   function render(events) {
     var list = document.getElementById('activity-list');
     if (!list) return;
@@ -508,10 +520,17 @@
       list.innerHTML = '<li class="activity-error">no recent activity in scope · <a href="https://github.com/asuramaya">view on github</a></li>';
       return;
     }
+    // Cap at 2 events per repo so a high-cadence repo doesn't drown the feed.
+    var perRepo = {};
     var html = '';
     var n = 0;
     for (var i = 0; i < events.length && n < 8; i++) {
-      var row = format(events[i]);
+      var ev = events[i];
+      if (isNoise(ev)) continue;
+      var key = ev.repo.name;
+      perRepo[key] = (perRepo[key] || 0) + 1;
+      if (perRepo[key] > 2) continue;
+      var row = format(ev);
       if (row) { html += row; n++; }
     }
     list.innerHTML = html || '<li class="activity-error">no recent activity in scope · <a href="https://github.com/asuramaya">view on github</a></li>';
