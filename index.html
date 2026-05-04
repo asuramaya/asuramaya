@@ -96,24 +96,6 @@
     }
     section h2 .count { font-family: var(--mono); color: var(--fg-mute); font-size: 0.78rem; letter-spacing: 0.05em; text-transform: lowercase; }
 
-    /* Currently */
-    .stack-art {
-      font-family: var(--mono); font-size: clamp(0.78rem, 2vw, 0.92rem); color: var(--fg-dim);
-      background: var(--bg-3); border: 1px solid var(--line); border-radius: 10px;
-      padding: 22px 24px; white-space: pre; overflow-x: auto; margin-bottom: 24px; line-height: 1.55;
-    }
-    .stack-art .label-1 { color: var(--accent); }
-    .stack-art .label-2 { color: var(--accent-cool); }
-    .stack-art .label-3 { color: var(--green); }
-    .stack-art .arrow { color: var(--fg-mute); }
-    .currently-text { color: var(--fg-dim); max-width: 64ch; }
-    .currently-text strong { color: var(--fg); font-weight: 600; }
-    .stack-bullets { list-style: none; display: grid; gap: 12px; max-width: 70ch; margin-bottom: 18px; }
-    .stack-bullets li { color: var(--fg-dim); padding-left: 22px; position: relative; line-height: 1.6; }
-    .stack-bullets li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--accent); font-family: var(--mono); font-weight: 700; }
-    .stack-bullets li strong { color: var(--fg); font-weight: 600; }
-    .stack-foot { color: var(--fg-mute); font-family: var(--mono); font-size: 0.86rem; margin-top: 10px; line-height: 1.65; }
-
     /* Cards */
     .cards { display: grid; gap: 16px; grid-template-columns: 1fr; }
     @media (min-width: 720px) { .cards { grid-template-columns: 1fr 1fr; } }
@@ -134,12 +116,19 @@
     .card-tags span { padding: 2px 8px; border: 1px solid var(--line-2); border-radius: 99px; letter-spacing: 0.04em; }
 
     /* Live activity */
+    .activity-intro { color: var(--fg-dim); max-width: 62ch; margin-bottom: 18px; }
+    .activity-shell {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 20px 14px;
+    }
     .activity-list { list-style: none; display: grid; gap: 0; font-family: var(--mono); font-size: 0.88rem; }
     .activity-list li {
       display: grid;
       grid-template-columns: 22px 180px 1fr 100px;
       gap: 14px; align-items: center;
-      padding: 12px 0;
+      padding: 14px 0;
       border-bottom: 1px dashed var(--line);
     }
     .activity-list li:last-child { border-bottom: none; }
@@ -161,14 +150,29 @@
       .activity-list .ev-action, .activity-list .ev-time { grid-column: 2; padding-left: 0; }
       .activity-list .ev-time { font-size: 0.74rem; opacity: 0.7; }
     }
-    .activity-foot { margin-top: 18px; font-family: var(--mono); font-size: 0.82rem; color: var(--fg-mute); text-align: right; }
+    .activity-foot { margin-top: 14px; font-family: var(--mono); font-size: 0.82rem; color: var(--fg-mute); text-align: left; }
 
     /* Background section */
-    .bg-grid { display: grid; gap: 32px; grid-template-columns: 1fr; }
-    @media (min-width: 760px) { .bg-grid { grid-template-columns: 1.4fr 1fr; } }
-    .bio { color: var(--fg-dim); max-width: 60ch; line-height: 1.7; }
+    .bg-grid { display: grid; gap: 28px; grid-template-columns: 1fr; }
+    @media (min-width: 760px) { .bg-grid { grid-template-columns: 1.25fr 1fr; align-items: start; } }
+    .bio { color: var(--fg-dim); max-width: 60ch; line-height: 1.72; }
     .bio strong { color: var(--fg); font-weight: 600; }
     .bio + .bio { margin-top: 0.8em; }
+    .bg-card {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+    .mini-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
     .timeline { list-style: none; display: grid; gap: 0; }
     .timeline li { padding: 14px 0; border-bottom: 1px dashed var(--line); display: grid; grid-template-columns: 90px 1fr; gap: 18px; align-items: baseline; }
     .timeline li:last-child { border-bottom: none; }
@@ -176,13 +180,13 @@
     .timeline .what { color: var(--fg); font-size: 0.94rem; }
     .timeline .what strong { color: var(--fg); font-weight: 600; }
     .timeline .what .role { color: var(--fg-dim); display: block; font-size: 0.86rem; margin-top: 2px; }
-    .skills { margin-top: 28px; display: grid; gap: 16px; }
+    .skills { margin-top: 18px; display: grid; gap: 16px; }
     .skills-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
     .skills-label { font-family: var(--mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); white-space: nowrap; }
     .skills-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .skills-tags span { padding: 3px 10px; border: 1px solid var(--line-2); border-radius: 4px; font-family: var(--mono); font-size: 0.74rem; color: var(--fg-dim); letter-spacing: 0.02em; }
     .resume-link {
-      margin-top: 20px;
+      margin-top: 18px;
       display: inline-flex; align-items: center; gap: 10px;
       font-family: var(--mono); font-size: 0.86rem; font-weight: 500;
       color: var(--accent); border: 1px solid var(--accent); padding: 8px 16px; border-radius: 6px;
@@ -211,11 +215,9 @@
   <div class="wrap">
     <a class="brand" href="#top">asuramaya<span class="dot">.</span></a>
     <nav>
-      <a href="#currently">Current focus</a>
-      <a href="#mcp">Tool surfaces</a>
-      <a href="#research">Selected work</a>
-      <a href="#activity">Activity</a>
+      <a href="#work">Work</a>
       <a href="#background">Background</a>
+      <a href="#activity">Activity</a>
       <a class="cta" href="https://github.com/asuramaya">GitHub →</a>
     </nav>
   </div>
@@ -230,9 +232,9 @@
     <p class="name-line"><strong>Hector Chavez</strong> <span class="sep">·</span> toolbuilder <span class="sep">·</span> Python / systems / workflow tooling <span class="sep">·</span> bilingual EN/ES</p>
     <p class="lede">
       I build <strong>tools that reduce friction between humans and machines</strong>:
-      operator surfaces, workflow systems, MCP servers, and research infrastructure that make real work easier to run,
-      inspect, and trust. My projects span AI tooling, security, experiments, and internal visibility, shaped by
-      six years across enterprise IT, public ops, and independent engineering.
+      operator surfaces, workflow systems, MCP servers, and infrastructure that make real work easier to run,
+      inspect, and trust. The domains vary from model inspection to contract auditing to game-server operations,
+      but the through-line stays the same: clearer interfaces, better visibility, less guessing.
     </p>
     <div class="meta">
       <span><a href="https://github.com/asuramaya">github.com/asuramaya</a></span>
@@ -242,22 +244,14 @@
   </div>
 </section>
 
-<section id="currently">
+<section id="work">
   <div class="wrap">
-    <h2>Current focus <span class="count">4 projects · active · may 2026</span></h2>
-    <ul class="stack-bullets">
-      <li><strong>chronohorn</strong> — experiment control and workflow operations for model fleets, scans, and long-running jobs.</li>
-      <li><strong>heinrich</strong> — inspection tooling for model internals, residual-stream geometry, and repeatable forensics.</li>
-      <li><strong>harnesster</strong> — local transcript and workflow forensics for Claude Code and agent-facing development environments.</li>
-      <li><strong>decepticons</strong> — the mechanism layer underneath the stack: substrates, memory, routing, gating, and readouts.</li>
-    </ul>
-    <p class="stack-foot">The common thread is practical tooling: systems you can run, inspect, and operate without guessing what the machine is doing.</p>
-  </div>
-</section>
-
-<section id="mcp">
-  <div class="wrap">
-    <h2>Tool surfaces <span class="count">published surfaces · 250+ tools</span></h2>
+    <h2>Work <span class="count">6 projects · broad domains · one through-line</span></h2>
+    <p class="bio" style="margin-bottom: 1.2em; max-width: 68ch;">
+      The projects are spread across different domains, but they tend to implement the same bias:
+      make complex systems easier to operate, inspect, and steer. Sometimes that means an MCP surface,
+      sometimes a forensic tool, sometimes a control plane for a narrow operational problem.
+    </p>
     <div class="cards">
       <a class="card" href="https://github.com/asuramaya/harnesster">
         <div class="card-head">
@@ -286,6 +280,15 @@
         <div class="card-tags"><span>python</span><span>mri pipeline</span><span>activations</span><span>geometry</span></div>
       </a>
 
+      <a class="card" href="https://github.com/asuramaya/ndrchst">
+        <div class="card-head">
+          <span class="card-name">ndrchst</span>
+          <span class="card-meta"><span class="stat">rust</span></span>
+        </div>
+        <p>A Minecraft server management system built around Rust services, local agents, and a remote control surface. It handles provisioning, orchestration, tunnels, and machine-to-machine coordination without pretending the underlying job is anything other than server operations.</p>
+        <div class="card-tags"><span>rust</span><span>minecraft</span><span>docker</span><span>server orchestration</span></div>
+      </a>
+
       <a class="card" href="https://github.com/asuramaya/remix-etherscan-mcp">
         <div class="card-head">
           <span class="card-name">remix-etherscan-mcp</span>
@@ -293,22 +296,6 @@
         </div>
         <p>A single audit MCP for contract work. It combines Etherscan, local repo access, compilation, git context, gas and revert analysis, fork simulation, and post-deploy inspection so the audit loop lives in one tool surface.</p>
         <div class="card-tags"><span>solidity</span><span>etherscan</span><span>auditing</span><span>foundry</span></div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section id="research">
-  <div class="wrap">
-    <h2>Selected work <span class="count">start here · best entry points</span></h2>
-    <div class="cards">
-      <a class="card" href="https://github.com/asuramaya/harnesster">
-        <div class="card-head">
-          <span class="card-name">harnesster</span>
-          <span class="card-meta"><span class="stat">★ 39</span></span>
-        </div>
-        <p>Agent-environment forensics for Claude Code. It makes hidden workflow state visible: reminder injections, sidechains, telemetry leftovers, transcript structure, and the parts of the tool loop the UI does not show you.</p>
-        <div class="card-tags"><span>python</span><span>claude code</span><span>forensics</span><span>visibility</span></div>
       </a>
 
       <a class="card" href="https://decepticons.win">
@@ -320,55 +307,39 @@
         <div class="card-tags"><span>python</span><span>numpy-only</span><span>torch · mlx</span><span>causality-verified</span></div>
       </a>
 
-      <a class="card" href="https://chronohorn.com">
-        <div class="card-head">
-          <span class="card-name">chronohorn</span>
-          <span class="card-meta"><span class="stat">on pypi · v0.1.1</span></span>
-        </div>
-        <p>The operating system for the experiments. It turns research into searchable state: manifests, curves, saturation, forecasts, fleet health, and adapter-driven scans across model families.</p>
-        <div class="card-tags"><span>python</span><span>sqlite</span><span>mcp · 64 tools</span><span>fleet</span></div>
-      </a>
-
     </div>
-  </div>
-</section>
-
-<section id="activity">
-  <div class="wrap">
-    <h2>Activity <span class="count">live · github.com/asuramaya</span></h2>
-    <ul id="activity-list" class="activity-list">
-      <li class="activity-loading">loading recent commits...</li>
-    </ul>
-    <p class="activity-foot">→ <a href="https://github.com/asuramaya?tab=overview">all activity on github</a></p>
   </div>
 </section>
 
 <section id="background">
   <div class="wrap">
-    <h2>Background <span class="count">prior experience · enterprise IT · public ops</span></h2>
+    <h2>Background <span class="count">enterprise IT · public ops · independent build</span></h2>
     <div class="bg-grid">
       <div>
+        <span class="mini-label">Operator background</span>
         <p class="bio">
-          From 2023 to 2026 I ran the IT and infrastructure function — solo — for <strong>Stewart Holdings Group</strong>,
-          a construction holding company managing $3B+ in active real estate development across seven
-          operating subsidiaries and three offices in Houston. Primary technical liaison to executives
-          on identity, security, and infrastructure. Force-multiplied a one-person function with automation and AI as
-          the primary tool — automated provisioning, license management, ticket triage, monitoring
-          scripts that surface visibility gaps in fleets where complex signals interfere at scale.
+          I come out of enterprise IT and public-sector operations, not a pure research lab path. The
+          through-line has been owning messy real systems where uptime, visibility, and operator clarity
+          matter more than elegant theory.
         </p>
         <p class="bio">
-          Before that: endpoint support across <strong>~90 offices in 20 U.S. states</strong> at David
-          Weekley Homes, and frontline pandemic-ops tech support for COVID-19 vaccination sites
-          operated by <strong>Harris County Public Health</strong> — third-largest county in the
-          United States — kept check-in, registration, and data ingestion running through peak surge.
+          From 2023 to 2026 I ran the IT and infrastructure function — solo — for
+          <strong>Stewart Holdings Group</strong>, supporting identity, security, endpoints, vendors,
+          and internal operations across a construction holding company with multiple subsidiaries and
+          offices in Houston. Before that I worked endpoint support at <strong>David Weekley Homes</strong>
+          across a distributed national office footprint, and frontline pandemic-ops tech support for
+          <strong>Harris County Public Health</strong>, where the work was keeping check-in,
+          registration, and data flows running during surge conditions.
         </p>
         <p class="bio">
-          Now full-time on the independent work: building tool surfaces that are useful on day one,
-          and infrastructure that stays inspectable instead of collapsing into a black box.
+          The independent work is an extension of that same posture. I build tools the way an operator
+          wants them built: useful early, inspectable under pressure, and honest about what they do not
+          show you yet.
         </p>
         <a class="resume-link" href="resume.html">resume</a>
       </div>
-      <div>
+      <div class="bg-card">
+        <span class="mini-label">Selected background</span>
         <ul class="timeline">
           <li>
             <span class="when">2023 – 2026</span>
@@ -404,6 +375,21 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="activity">
+  <div class="wrap">
+    <h2>Activity <span class="count">live · github.com/asuramaya</span></h2>
+    <p class="activity-intro">
+      Recent public work from GitHub. This is meant to show what is actively moving, not every automated event.
+    </p>
+    <div class="activity-shell">
+      <ul id="activity-list" class="activity-list">
+        <li class="activity-loading">loading recent work...</li>
+      </ul>
+      <p class="activity-foot">→ <a href="https://github.com/asuramaya?tab=overview">all activity on github</a></p>
     </div>
   </div>
 </section>
@@ -503,8 +489,11 @@
       + '</li>';
   }
 
+  // Repos to hide entirely from the activity feed (high-cadence data dumps).
   var HIDDEN_REPOS = { 'asuramaya/MadApesAI': 1 };
 
+  // Skip noisy auto-generated commits (data snapshots, scheduled bumps, etc).
+  // The feed is for human-readable work; bot-cadence commits drown it out.
   function isNoise(ev) {
     if (HIDDEN_REPOS[ev.repo && ev.repo.name]) return true;
     if (ev.type !== 'PushEvent') return false;
@@ -523,6 +512,7 @@
       list.innerHTML = '<li class="activity-error">no recent activity in scope · <a href="https://github.com/asuramaya">view on github</a></li>';
       return;
     }
+    // Cap at 2 events per repo so a high-cadence repo doesn't drown the feed.
     var perRepo = {};
     var html = '';
     var n = 0;
