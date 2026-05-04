@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>asuramaya — Hector Chavez · independent AI researcher</title>
-  <meta name="description" content="Hector Chavez (asuramaya). Independent AI researcher in Houston, TX. MCP server author. Building the predictive-descendants stack: decepticons (kernel) → chronohorn (runtime) → heinrich (forensics)." />
-  <meta property="og:title" content="asuramaya — Hector Chavez · independent AI researcher" />
-  <meta property="og:description" content="MCP servers and predictive-descendants research. Houston, TX." />
+  <title>asuramaya — Hector Chavez · tools for humans and machines</title>
+  <meta name="description" content="Hector Chavez (asuramaya) builds tools that reduce friction between humans and machines: operator tooling, MCP servers, workflow systems, and inspectable research infrastructure." />
+  <meta property="og:title" content="asuramaya — Hector Chavez · tools for humans and machines" />
+  <meta property="og:description" content="Tools that reduce friction between humans and machines: operator tooling, MCP servers, workflow systems, and inspectable research infrastructure." />
   <meta property="og:url" content="https://asuramaya.com/" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
@@ -15,14 +15,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0a0a0c;
-      --bg-2: #111114;
-      --bg-3: #16161a;
-      --line: #232328;
-      --line-2: #2e2e35;
-      --fg: #ececef;
-      --fg-dim: #9b9ba2;
-      --fg-mute: #5f5f68;
+      --bg: #0b0b0e;
+      --bg-2: #141419;
+      --bg-3: #1a1a20;
+      --line: #2d2d35;
+      --line-2: #3a3a45;
+      --fg: #f2f2f5;
+      --fg-dim: #c3c3cc;
+      --fg-mute: #8a8a97;
       --accent: #f4a743;
       --accent-2: #ffc375;
       --accent-cool: #66a3ff;
@@ -35,7 +35,7 @@
     html { scroll-behavior: smooth; }
     body {
       background: var(--bg); color: var(--fg);
-      font-family: var(--sans); font-size: 16px; line-height: 1.6;
+      font-family: var(--sans); font-size: 16px; line-height: 1.65;
       -webkit-font-smoothing: antialiased; min-height: 100vh;
     }
     a { color: var(--accent); text-decoration: none; }
@@ -79,7 +79,7 @@
     }
     .hero .name-line strong { color: var(--fg); font-weight: 600; }
     .hero .name-line .sep { color: var(--line-2); margin: 0 10px; }
-    .hero .lede { font-size: clamp(1.05rem, 2vw, 1.2rem); color: var(--fg-dim); max-width: 60ch; margin-bottom: 1.6em; }
+    .hero .lede { font-size: clamp(1.08rem, 2vw, 1.24rem); color: var(--fg-dim); max-width: 60ch; margin-bottom: 1.6em; }
     .hero .lede strong { color: var(--fg); font-weight: 600; }
     .meta { display: flex; flex-wrap: wrap; gap: 22px; font-family: var(--mono); font-size: 0.84rem; color: var(--fg-mute); }
     .meta span::before { content: "·  "; color: var(--line-2); }
@@ -109,10 +109,10 @@
     .currently-text { color: var(--fg-dim); max-width: 64ch; }
     .currently-text strong { color: var(--fg); font-weight: 600; }
     .stack-bullets { list-style: none; display: grid; gap: 12px; max-width: 70ch; margin-bottom: 18px; }
-    .stack-bullets li { color: var(--fg-dim); padding-left: 22px; position: relative; line-height: 1.55; }
+    .stack-bullets li { color: var(--fg-dim); padding-left: 22px; position: relative; line-height: 1.6; }
     .stack-bullets li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--accent); font-family: var(--mono); font-weight: 700; }
     .stack-bullets li strong { color: var(--fg); font-weight: 600; }
-    .stack-foot { color: var(--fg-mute); font-family: var(--mono); font-size: 0.84rem; margin-top: 8px; }
+    .stack-foot { color: var(--fg-mute); font-family: var(--mono); font-size: 0.86rem; margin-top: 10px; line-height: 1.65; }
 
     /* Cards */
     .cards { display: grid; gap: 16px; grid-template-columns: 1fr; }
@@ -129,7 +129,7 @@
     .card-meta { font-family: var(--mono); font-size: 0.74rem; color: var(--fg-mute); white-space: nowrap; letter-spacing: 0.04em; }
     .card-meta .stat { color: var(--fg-dim); }
     .card-meta .stat .n { color: var(--accent); font-weight: 700; }
-    .card p { color: var(--fg-dim); font-size: 0.94rem; line-height: 1.55; margin-bottom: 12px; }
+    .card p { color: var(--fg-dim); font-size: 0.96rem; line-height: 1.6; margin-bottom: 12px; }
     .card-tags { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--mono); font-size: 0.72rem; color: var(--fg-mute); }
     .card-tags span { padding: 2px 8px; border: 1px solid var(--line-2); border-radius: 99px; letter-spacing: 0.04em; }
 
@@ -166,7 +166,7 @@
     /* Background section */
     .bg-grid { display: grid; gap: 32px; grid-template-columns: 1fr; }
     @media (min-width: 760px) { .bg-grid { grid-template-columns: 1.4fr 1fr; } }
-    .bio { color: var(--fg-dim); max-width: 60ch; line-height: 1.65; }
+    .bio { color: var(--fg-dim); max-width: 60ch; line-height: 1.7; }
     .bio strong { color: var(--fg); font-weight: 600; }
     .bio + .bio { margin-top: 0.8em; }
     .timeline { list-style: none; display: grid; gap: 0; }
@@ -211,9 +211,9 @@
   <div class="wrap">
     <a class="brand" href="#top">asuramaya<span class="dot">.</span></a>
     <nav>
-      <a href="#currently">The stack</a>
-      <a href="#mcp">MCP servers</a>
-      <a href="#research">Research</a>
+      <a href="#currently">Current focus</a>
+      <a href="#mcp">Tool surfaces</a>
+      <a href="#research">Selected work</a>
       <a href="#activity">Activity</a>
       <a href="#background">Background</a>
       <a class="cta" href="https://github.com/asuramaya">GitHub →</a>
@@ -225,49 +225,55 @@
 
 <section class="hero" style="border-top: none;">
   <div class="wrap">
-    <p class="kicker">independent AI researcher · houston, tx</p>
+    <p class="kicker">toolbuilder · systems operator · houston, tx</p>
     <h1>asuramaya<span class="accent">.</span></h1>
-    <p class="name-line"><strong>Hector Chavez</strong> <span class="sep">·</span> MCP / Skill author <span class="sep">·</span> bilingual EN/ES</p>
+    <p class="name-line"><strong>Hector Chavez</strong> <span class="sep">·</span> toolbuilder <span class="sep">·</span> Python / systems / workflow tooling <span class="sep">·</span> bilingual EN/ES</p>
     <p class="lede">
-      I build <strong>MCP servers</strong> and the <strong>predictive-descendants stack</strong>: a
-      backend-neutral kernel of predictive primitives, a runtime that tracks experiments and searches
-      the architecture frontier, and a forensics layer that measures what models actually compute.
-      Six years across enterprise IT, public ops, and AI-augmented engineering — now full-time on the
-      independent work.
+      I build <strong>tools that reduce friction between humans and machines</strong>:
+      operator surfaces, workflow systems, MCP servers, and research infrastructure that make real work easier to run,
+      inspect, and trust. My projects span AI tooling, security, experiments, and internal visibility, shaped by
+      six years across enterprise IT, public ops, and independent engineering.
     </p>
     <div class="meta">
       <span><a href="https://github.com/asuramaya">github.com/asuramaya</a></span>
       <span><a href="https://www.linkedin.com/in/hector-chavez-291765237">linkedin</a></span>
-      <span>compression · cognition · security</span>
+      <span>tooling · workflows · mcp · security</span>
     </div>
   </div>
 </section>
 
 <section id="currently">
   <div class="wrap">
-    <h2>The stack <span class="count">may 2026 · alpha · active</span></h2>
-<pre class="stack-art"><span class="label-1">decepticons</span>  <span class="arrow">──→</span>  <span class="label-2">chronohorn</span>  <span class="arrow">──→</span>  <span class="label-3">heinrich</span>
-   kernel              runtime               forensics
-   (numpy)             (sqlite · mcp)        (model geometry)</pre>
+    <h2>Current focus <span class="count">4 projects · active · may 2026</span></h2>
     <ul class="stack-bullets">
-      <li><strong>decepticons</strong> — shared mechanism layer: substrates, memory, gating, routing, readouts.</li>
-      <li><strong>chronohorn</strong> — consumes the kernel and runs the family-agnostic experiment loop. Multi-backend fleet dispatch, 64 MCP tools for AI-agent integration.</li>
-      <li><strong>heinrich</strong> — measures what the resulting models actually compute: residual stream geometry, attention routing, activation traces.</li>
+      <li><strong>chronohorn</strong> — experiment control and workflow operations for model fleets, scans, and long-running jobs.</li>
+      <li><strong>heinrich</strong> — inspection tooling for model internals, residual-stream geometry, and repeatable forensics.</li>
+      <li><strong>harnesster</strong> — local transcript and workflow forensics for Claude Code and agent-facing development environments.</li>
+      <li><strong>decepticons</strong> — the mechanism layer underneath the stack: substrates, memory, routing, gating, and readouts.</li>
     </ul>
-    <p class="stack-foot">Three repos. One direction of dependency. The descendant never imports the kernel back.</p>
+    <p class="stack-foot">The common thread is practical tooling: systems you can run, inspect, and operate without guessing what the machine is doing.</p>
   </div>
 </section>
 
 <section id="mcp">
   <div class="wrap">
-    <h2>MCP servers <span class="count">3 published · 250+ tools</span></h2>
+    <h2>Tool surfaces <span class="count">published surfaces · 250+ tools</span></h2>
     <div class="cards">
+      <a class="card" href="https://github.com/asuramaya/harnesster">
+        <div class="card-head">
+          <span class="card-name">harnesster</span>
+          <span class="card-meta"><span class="stat">forensics</span></span>
+        </div>
+        <p>Local workflow forensics for Claude Code. It surfaces reminder injections, hidden transcripts, telemetry leftovers, sidechains, and hook-visible lifecycle events from <code>~/.claude</code>, then compresses them into analytics you can actually inspect.</p>
+        <div class="card-tags"><span>python</span><span>claude code</span><span>workflow forensics</span><span>local inspection</span></div>
+      </a>
+
       <a class="card" href="https://github.com/asuramaya/chronohorn">
         <div class="card-head">
           <span class="card-name">chronohorn</span>
           <span class="card-meta"><span class="stat"><span class="n">64</span> tools</span></span>
         </div>
-        <p>Family-agnostic experiment tracker and architecture-search runtime. SQLite truth, multi-backend fleet dispatch, saturation and frontier analysis. The full runtime is exposed as a stateful MCP surface — manifests, results, forecasts, fleet control, learning curves, ablation tracking.</p>
+        <p>A research-control MCP for real experiment work. Agents can inspect manifests, launch or drain runs, compare learning curves, rank frontiers, and operate a training fleet without spelunking through shell scripts.</p>
         <div class="card-tags"><span>python</span><span>research</span><span>fleet</span><span>chronohorn.com</span></div>
       </a>
 
@@ -276,7 +282,7 @@
           <span class="card-name">heinrich</span>
           <span class="card-meta"><span class="stat">forensics</span></span>
         </div>
-        <p>Model forensics through geometry. Captures the full residual stream for every token in the vocabulary, decomposes it per-layer with PCA, and surfaces the geometry through an MCP-driven 3D viewer and a stateful tool surface. Each measurement stays in its own lane.</p>
+        <p>An inspection lab for model internals. Capture full internal state, decompose layers with PCA, and explore the results through a 3D viewer plus a stateful MCP surface built for repeatable inspection.</p>
         <div class="card-tags"><span>python</span><span>mri pipeline</span><span>activations</span><span>geometry</span></div>
       </a>
 
@@ -285,7 +291,7 @@
           <span class="card-name">remix-etherscan-mcp</span>
           <span class="card-meta"><span class="stat"><span class="n">119</span> tools</span></span>
         </div>
-        <p>End-to-end smart-contract audit and bug-bounty toolkit. Wraps Etherscan v2, a local remixd filesystem daemon, git, contract compilation (Hardhat / Foundry / Slither), and several composite audit workflows — gas, reverts, fork simulation, post-deploy forensics. One MCP rather than many.</p>
+        <p>A single audit MCP for contract work. It combines Etherscan, local repo access, compilation, git context, gas and revert analysis, fork simulation, and post-deploy inspection so the audit loop lives in one tool surface.</p>
         <div class="card-tags"><span>solidity</span><span>etherscan</span><span>auditing</span><span>foundry</span></div>
       </a>
     </div>
@@ -294,14 +300,23 @@
 
 <section id="research">
   <div class="wrap">
-    <h2>Research <span class="count">predictive descendants · cognition · auditing</span></h2>
+    <h2>Selected work <span class="count">start here · best entry points</span></h2>
     <div class="cards">
+      <a class="card" href="https://github.com/asuramaya/harnesster">
+        <div class="card-head">
+          <span class="card-name">harnesster</span>
+          <span class="card-meta"><span class="stat">★ 39</span></span>
+        </div>
+        <p>Agent-environment forensics for Claude Code. It makes hidden workflow state visible: reminder injections, sidechains, telemetry leftovers, transcript structure, and the parts of the tool loop the UI does not show you.</p>
+        <div class="card-tags"><span>python</span><span>claude code</span><span>forensics</span><span>visibility</span></div>
+      </a>
+
       <a class="card" href="https://decepticons.win">
         <div class="card-head">
           <span class="card-name">decepticons</span>
           <span class="card-meta"><span class="stat">on pypi · v0.1.3</span></span>
         </div>
-        <p>A backend-neutral kernel of memory and substrate primitives. The driving question: can you reach transformer-level performance using only O(n) operations? <em>O(n) attention is deception.</em></p>
+        <p>The mechanism layer behind the stack: memory, routing, substrates, readouts. The question driving it is simple and sharp: how far can you push sequence modeling with cheap O(n) structure before the transformer assumptions become unnecessary?</p>
         <div class="card-tags"><span>python</span><span>numpy-only</span><span>torch · mlx</span><span>causality-verified</span></div>
       </a>
 
@@ -310,27 +325,10 @@
           <span class="card-name">chronohorn</span>
           <span class="card-meta"><span class="stat">on pypi · v0.1.1</span></span>
         </div>
-        <p>Architecture-agnostic training runtime. Built so research cycles compress — less waiting per experiment, more experiments per week. Multi-backend fleet, plug-in family adapters, saturation/forecast analysis.</p>
+        <p>The operating system for the experiments. It turns research into searchable state: manifests, curves, saturation, forecasts, fleet health, and adapter-driven scans across model families.</p>
         <div class="card-tags"><span>python</span><span>sqlite</span><span>mcp · 64 tools</span><span>fleet</span></div>
       </a>
 
-      <a class="card" href="https://github.com/asuramaya/harnesster">
-        <div class="card-head">
-          <span class="card-name">harnesster</span>
-          <span class="card-meta"><span class="stat">★ 39</span></span>
-        </div>
-        <p>A front end for <code>~/.claude</code>. Reveals events and signals obfuscated from the main chat interface — reminder injections, agent transcripts, telemetry leftovers, hook-visible lifecycle events — and compresses them into digestible analytics. <em>See what is hidden, hide from what sees.</em></p>
-        <div class="card-tags"><span>python</span><span>claude code</span><span>transcript forensics</span></div>
-      </a>
-
-      <a class="card" href="https://github.com/asuramaya/Like-Us">
-        <div class="card-head">
-          <span class="card-name">Like-Us</span>
-          <span class="card-meta"><span class="stat">★ 3</span></span>
-        </div>
-        <p>A literature-grounded behavioral benchmark for human–AI interaction. Sixteen-plus documented sessions, a kill list of ~40 destroyed findings, a blind eval game, a psychological-drift matrix. Treats the rubric as a benchmark, not a diagnostic taxonomy.</p>
-        <div class="card-tags"><span>research</span><span>behavioral</span><span>eval</span><span>benchmark</span></div>
-      </a>
     </div>
   </div>
 </section>
@@ -354,7 +352,7 @@
           From 2023 to 2026 I ran the IT and infrastructure function — solo — for <strong>Stewart Holdings Group</strong>,
           a construction holding company managing $3B+ in active real estate development across seven
           operating subsidiaries and three offices in Houston. Primary technical liaison to executives
-          on identity, security, and infrastructure. Force-multiplied a one-person function with AI as
+          on identity, security, and infrastructure. Force-multiplied a one-person function with automation and AI as
           the primary tool — automated provisioning, license management, ticket triage, monitoring
           scripts that surface visibility gaps in fleets where complex signals interfere at scale.
         </p>
@@ -365,10 +363,10 @@
           United States — kept check-in, registration, and data ingestion running through peak surge.
         </p>
         <p class="bio">
-          Now full-time on the independent work. Same primary tool. Same architecture-as-the-implementer
-          posture. The MCP servers and the predictive-descendants stack are where that approach goes furthest.
+          Now full-time on the independent work: building tool surfaces that are useful on day one,
+          and infrastructure that stays inspectable instead of collapsing into a black box.
         </p>
-        <a class="resume-link" href="resume.pdf">resume.pdf</a>
+        <a class="resume-link" href="resume.html">resume</a>
       </div>
       <div>
         <ul class="timeline">
@@ -393,7 +391,7 @@
             </div>
           </div>
           <div class="skills-row">
-            <span class="skills-label">AI</span>
+            <span class="skills-label">Build</span>
             <div class="skills-tags">
               <span>Claude</span><span>Codex</span><span>MCP authoring</span><span>TypeScript</span><span>Rust</span><span>Python</span><span>Bash</span><span>PowerShell</span><span>SQL</span>
             </div>
@@ -427,7 +425,7 @@
         <a href="https://soundcloud.com/elmonogdl">soundcloud</a>
       </div>
     </div>
-    <p class="copy">decepticons → chronohorn → heinrich · kernel → runtime → forensics</p>
+    <p class="copy">Tools for operators, audits, experiments, and machine-facing workflows.</p>
     <p class="archive">
       archive: <a href="https://github.com/asuramaya/conker">conker</a> · <a href="https://github.com/asuramaya/conker-ledger">conker-ledger</a> · <a href="https://github.com/asuramaya/conker-detect">conker-detect</a> · <a href="https://github.com/asuramaya/parameter-golf">parameter-golf</a>
     </p>
@@ -505,11 +503,8 @@
       + '</li>';
   }
 
-  // Repos to hide entirely from the activity feed (high-cadence data dumps).
   var HIDDEN_REPOS = { 'asuramaya/MadApesAI': 1 };
 
-  // Skip noisy auto-generated commits (data snapshots, scheduled bumps, etc).
-  // The feed is for human-readable work; bot-cadence commits drown it out.
   function isNoise(ev) {
     if (HIDDEN_REPOS[ev.repo && ev.repo.name]) return true;
     if (ev.type !== 'PushEvent') return false;
@@ -528,7 +523,6 @@
       list.innerHTML = '<li class="activity-error">no recent activity in scope · <a href="https://github.com/asuramaya">view on github</a></li>';
       return;
     }
-    // Cap at 2 events per repo so a high-cadence repo doesn't drown the feed.
     var perRepo = {};
     var html = '';
     var n = 0;
