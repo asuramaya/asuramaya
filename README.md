@@ -41,9 +41,9 @@ decepticons  ──→  chronohorn  ──→  heinrich
 
 ### Background
 
-Six years across enterprise IT, public ops, and AI-augmented engineering.
+Six years across enterprise IT, public ops, and AI-augmented engineering. Now full-time on the independent work.
 
-- **2023 – now** · Sole IT Lead at [Stewart Holdings Group](https://stewarthg.com) — construction holding company managing $3B+ in active development across 7 subsidiaries and 3 offices. Force-multiplied a one-person function with AI as the primary tool.
+- **2023 – 2026** · Sole IT Lead at [Stewart Holdings Group](https://stewarthg.com) — construction holding company managing $3B+ in active development across 7 subsidiaries and 3 offices. Force-multiplied a one-person function with AI as the primary tool.
 - **2021 – 2023** · IT Support across ~90 offices in 20 U.S. states at David Weekley Homes.
 - **2020 – 2021** · Pandemic-ops tech support at Harris County Public Health (third-largest county in the U.S.) — kept check-in and registration running through peak surge.
 

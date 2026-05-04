@@ -108,6 +108,11 @@
     .stack-art .arrow { color: var(--fg-mute); }
     .currently-text { color: var(--fg-dim); max-width: 64ch; }
     .currently-text strong { color: var(--fg); font-weight: 600; }
+    .stack-bullets { list-style: none; display: grid; gap: 12px; max-width: 70ch; margin-bottom: 18px; }
+    .stack-bullets li { color: var(--fg-dim); padding-left: 22px; position: relative; line-height: 1.55; }
+    .stack-bullets li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--accent); font-family: var(--mono); font-weight: 700; }
+    .stack-bullets li strong { color: var(--fg); font-weight: 600; }
+    .stack-foot { color: var(--fg-mute); font-family: var(--mono); font-size: 0.84rem; margin-top: 8px; }
 
     /* Cards */
     .cards { display: grid; gap: 16px; grid-template-columns: 1fr; }
@@ -206,7 +211,7 @@
   <div class="wrap">
     <a class="brand" href="#top">asuramaya<span class="dot">.</span></a>
     <nav>
-      <a href="#currently">Currently</a>
+      <a href="#currently">The stack</a>
       <a href="#mcp">MCP servers</a>
       <a href="#research">Research</a>
       <a href="#activity">Activity</a>
@@ -227,8 +232,8 @@
       I build <strong>MCP servers</strong> and the <strong>predictive-descendants stack</strong>: a
       backend-neutral kernel of predictive primitives, a runtime that tracks experiments and searches
       the architecture frontier, and a forensics layer that measures what models actually compute.
-      Day job: sole IT lead at a $3B+ construction holding company, force-multiplied by the same
-      AI tooling I publish.
+      Six years across enterprise IT, public ops, and AI-augmented engineering — now full-time on the
+      independent work.
     </p>
     <div class="meta">
       <span><a href="https://github.com/asuramaya">github.com/asuramaya</a></span>
@@ -240,17 +245,16 @@
 
 <section id="currently">
   <div class="wrap">
-    <h2>Currently <span class="count">may 2026</span></h2>
+    <h2>The stack <span class="count">may 2026 · alpha · active</span></h2>
 <pre class="stack-art"><span class="label-1">decepticons</span>  <span class="arrow">──→</span>  <span class="label-2">chronohorn</span>  <span class="arrow">──→</span>  <span class="label-3">heinrich</span>
    kernel              runtime               forensics
    (numpy)             (sqlite · mcp)        (model geometry)</pre>
-    <p class="currently-text">
-      Three repos, one direction of dependency. <strong>decepticons</strong> is the shared mechanism layer —
-      substrates, memory, gating, routing, readouts. <strong>chronohorn</strong> consumes it and runs the
-      family-agnostic experiment loop with multi-backend fleet dispatch and 64 MCP tools for AI-agent
-      integration. <strong>heinrich</strong> measures what the resulting models actually compute — residual
-      stream geometry, attention routing, activation traces. The stack is alpha and active.
-    </p>
+    <ul class="stack-bullets">
+      <li><strong>decepticons</strong> — shared mechanism layer: substrates, memory, gating, routing, readouts.</li>
+      <li><strong>chronohorn</strong> — consumes the kernel and runs the family-agnostic experiment loop. Multi-backend fleet dispatch, 64 MCP tools for AI-agent integration.</li>
+      <li><strong>heinrich</strong> — measures what the resulting models actually compute: residual stream geometry, attention routing, activation traces.</li>
+    </ul>
+    <p class="stack-foot">Three repos. One direction of dependency. The descendant never imports the kernel back.</p>
   </div>
 </section>
 
@@ -343,11 +347,11 @@
 
 <section id="background">
   <div class="wrap">
-    <h2>Background <span class="count">six years · enterprise IT · public ops · AI-augmented engineering</span></h2>
+    <h2>Background <span class="count">prior experience · enterprise IT · public ops</span></h2>
     <div class="bg-grid">
       <div>
         <p class="bio">
-          I run the IT and infrastructure function — solo — for <strong>Stewart Holdings Group</strong>,
+          From 2023 to 2026 I ran the IT and infrastructure function — solo — for <strong>Stewart Holdings Group</strong>,
           a construction holding company managing $3B+ in active real estate development across seven
           operating subsidiaries and three offices in Houston. Primary technical liaison to executives
           on identity, security, and infrastructure. Force-multiplied a one-person function with AI as
@@ -355,21 +359,21 @@
           scripts that surface visibility gaps in fleets where complex signals interfere at scale.
         </p>
         <p class="bio">
-          Previously: endpoint support across <strong>~90 offices in 20 U.S. states</strong> at David
+          Before that: endpoint support across <strong>~90 offices in 20 U.S. states</strong> at David
           Weekley Homes, and frontline pandemic-ops tech support for COVID-19 vaccination sites
           operated by <strong>Harris County Public Health</strong> — third-largest county in the
           United States — kept check-in, registration, and data ingestion running through peak surge.
         </p>
         <p class="bio">
-          The independent work is what the day job points at. Same primary tool. Same architecture-as-the-implementer
-          posture. The MCP servers and the predictive-descendants stack are where I push that approach the furthest.
+          Now full-time on the independent work. Same primary tool. Same architecture-as-the-implementer
+          posture. The MCP servers and the predictive-descendants stack are where that approach goes furthest.
         </p>
         <a class="resume-link" href="resume.pdf">resume.pdf</a>
       </div>
       <div>
         <ul class="timeline">
           <li>
-            <span class="when">2023 – now</span>
+            <span class="when">2023 – 2026</span>
             <span class="what"><strong>Sole IT Lead</strong><span class="role">Stewart Holdings Group · Houston, TX</span></span>
           </li>
           <li>
@@ -501,9 +505,13 @@
       + '</li>';
   }
 
+  // Repos to hide entirely from the activity feed (high-cadence data dumps).
+  var HIDDEN_REPOS = { 'asuramaya/MadApesAI': 1 };
+
   // Skip noisy auto-generated commits (data snapshots, scheduled bumps, etc).
   // The feed is for human-readable work; bot-cadence commits drown it out.
   function isNoise(ev) {
+    if (HIDDEN_REPOS[ev.repo && ev.repo.name]) return true;
     if (ev.type !== 'PushEvent') return false;
     var commits = (ev.payload && ev.payload.commits) || [];
     if (!commits.length) return false;
