@@ -126,9 +126,9 @@
     .activity-list { list-style: none; display: grid; gap: 0; font-family: var(--mono); font-size: 0.88rem; }
     .activity-list li {
       display: grid;
-      grid-template-columns: 22px 180px 1fr 100px;
-      gap: 14px; align-items: center;
-      padding: 14px 0;
+      grid-template-columns: 22px 180px minmax(0, 1fr) 100px;
+      gap: 14px; align-items: start;
+      padding: 16px 0;
       border-bottom: 1px dashed var(--line);
     }
     .activity-list li:last-child { border-bottom: none; }
@@ -137,18 +137,41 @@
     .ev-icon.create { color: var(--accent-cool); }
     .ev-icon.release { color: var(--green); }
     .ev-icon.fork, .ev-icon.watch { color: var(--fg-mute); }
-    .ev-repo { color: var(--fg); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ev-repo { color: var(--fg); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-top: 1px; }
     .ev-repo:hover { color: var(--accent); }
-    .ev-action { color: var(--fg-dim); font-family: var(--sans); font-size: 0.92rem; line-height: 1.4; word-break: break-word; }
-    .ev-time { color: var(--fg-mute); font-size: 0.78rem; text-align: right; white-space: nowrap; }
-    .activity-loading, .activity-error {
-      padding: 20px 0; color: var(--fg-mute); font-family: var(--mono); font-size: 0.88rem; text-align: center;
+    .ev-body { min-width: 0; }
+    .ev-title {
+      color: var(--fg);
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      line-height: 1.45;
+      word-break: break-word;
     }
+    .ev-detail {
+      margin-top: 4px;
+      color: var(--fg-mute);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+    .ev-time { color: var(--fg-mute); font-size: 0.78rem; text-align: right; white-space: nowrap; padding-top: 2px; }
+    .activity-state {
+      display: block;
+      padding: 20px 10px 18px;
+      color: var(--fg-mute);
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      text-align: left;
+    }
+    .activity-state a { color: var(--accent); }
     .activity-loading::before { content: "⏵ "; color: var(--accent); animation: pulse 1.4s ease-in-out infinite; }
     @media (max-width: 720px) {
       .activity-list li { grid-template-columns: 22px 1fr; gap: 10px; }
-      .activity-list .ev-action, .activity-list .ev-time { grid-column: 2; padding-left: 0; }
-      .activity-list .ev-time { font-size: 0.74rem; opacity: 0.7; }
+      .activity-list .ev-body, .activity-list .ev-time { grid-column: 2; padding-left: 0; }
+      .activity-list .ev-repo { grid-column: 2; padding-top: 0; }
+      .activity-list .ev-time { font-size: 0.74rem; opacity: 0.7; text-align: left; }
     }
     .activity-foot { margin-top: 14px; font-family: var(--mono); font-size: 0.82rem; color: var(--fg-mute); text-align: left; }
 
@@ -440,51 +463,81 @@
     });
   }
 
-  function format(ev) {
-    var repo = ev.repo.name.replace(/^asuramaya\//, '');
-    var time = relTime(ev.created_at);
-    var iconClass, icon, action;
+  function shortSha(sha) {
+    return sha ? String(sha).slice(0, 7) : '';
+  }
+
+  function summarize(ev) {
+    var payload = ev.payload || {};
+    var title = '';
+    var detail = '';
+    var iconClass = 'fork';
+    var icon = '•';
+
     if (ev.type === 'PushEvent') {
-      var commits = (ev.payload && ev.payload.commits) || [];
+      var commits = payload.commits || [];
       var n = commits.length;
-      if (n) {
-        var msg = commits[n - 1].message.split('\n')[0];
-        action = msg + (n > 1 ? ' (+' + (n - 1) + ' more)' : '');
-      } else {
-        action = 'pushed';
-      }
+      var last = commits[n - 1] || {};
+      title = n ? last.message.split('\n')[0] : 'Pushed updates';
+      detail = n
+        ? shortSha(last.sha) + (n > 1 ? ' · ' + n + ' commits in push' : ' · 1 commit in push')
+        : 'push event';
       iconClass = 'push';
       icon = '⏵';
     } else if (ev.type === 'CreateEvent') {
+      var rt = payload.ref_type || 'thing';
+      title = 'Created ' + rt + (payload.ref ? ' ' + payload.ref : '');
+      detail = 'new ' + rt + ' published';
       iconClass = 'create';
       icon = '✦';
-      var rt = ev.payload.ref_type || 'thing';
-      action = 'created ' + rt + (ev.payload.ref ? ' ' + ev.payload.ref : '');
     } else if (ev.type === 'ReleaseEvent') {
+      var rel = payload.release || {};
+      title = 'Released ' + (rel.tag_name || rel.name || 'update');
+      detail = rel.name && rel.tag_name && rel.name !== rel.tag_name ? rel.name : 'release event';
       iconClass = 'release';
       icon = '★';
-      var rel = (ev.payload && ev.payload.release) || {};
-      action = 'released ' + (rel.tag_name || rel.name || '');
     } else if (ev.type === 'DeleteEvent') {
+      title = 'Deleted ' + (payload.ref_type || 'ref') + (payload.ref ? ' ' + payload.ref : '');
+      detail = 'cleanup event';
       iconClass = 'fork';
       icon = '✕';
-      action = 'deleted ' + (ev.payload.ref_type || '') + ' ' + (ev.payload.ref || '');
     } else if (ev.type === 'PullRequestEvent') {
+      var pr = payload.pull_request || {};
+      title = (payload.action || 'updated') + ' PR #' + (pr.number || '');
+      detail = pr.title || 'pull request event';
       iconClass = 'create';
       icon = '↳';
-      action = (ev.payload.action || 'updated') + ' PR #' + ((ev.payload.pull_request || {}).number || '');
     } else if (ev.type === 'IssuesEvent') {
+      var issue = payload.issue || {};
+      title = (payload.action || 'updated') + ' issue #' + (issue.number || '');
+      detail = issue.title || 'issue event';
       iconClass = 'create';
       icon = '◌';
-      action = (ev.payload.action || 'updated') + ' issue';
     } else {
-      return '';
+      return null;
     }
+
+    return {
+      title: title,
+      detail: detail,
+      iconClass: iconClass,
+      icon: icon
+    };
+  }
+
+  function format(ev) {
+    var repo = ev.repo.name.replace(/^asuramaya\//, '');
+    var time = relTime(ev.created_at);
+    var summary = summarize(ev);
+    if (!summary) return '';
     return ''
       + '<li>'
-      +   '<span class="ev-icon ' + iconClass + '">' + icon + '</span>'
+      +   '<span class="ev-icon ' + summary.iconClass + '">' + summary.icon + '</span>'
       +   '<a class="ev-repo" href="https://github.com/' + escape(ev.repo.name) + '">' + escape(repo) + '</a>'
-      +   '<span class="ev-action">' + escape(action) + '</span>'
+      +   '<div class="ev-body">'
+      +     '<div class="ev-title">' + escape(summary.title) + '</div>'
+      +     '<div class="ev-detail">' + escape(summary.detail) + '</div>'
+      +   '</div>'
       +   '<span class="ev-time">' + escape(time) + '</span>'
       + '</li>';
   }
@@ -509,29 +562,29 @@
     var list = document.getElementById('activity-list');
     if (!list) return;
     if (!events || !events.length) {
-      list.innerHTML = '<li class="activity-error">no recent activity in scope · <a href="https://github.com/asuramaya">view on github</a></li>';
+      list.innerHTML = '<li class="activity-state activity-error">No recent activity in scope. <a href="https://github.com/asuramaya">View on GitHub</a>.</li>';
       return;
     }
-    // Cap at 2 events per repo so a high-cadence repo doesn't drown the feed.
+    // Cap at 3 events per repo so a high-cadence repo doesn't drown the feed.
     var perRepo = {};
     var html = '';
     var n = 0;
-    for (var i = 0; i < events.length && n < 8; i++) {
+    for (var i = 0; i < events.length && n < 12; i++) {
       var ev = events[i];
       if (isNoise(ev)) continue;
       var key = ev.repo.name;
       perRepo[key] = (perRepo[key] || 0) + 1;
-      if (perRepo[key] > 2) continue;
+      if (perRepo[key] > 3) continue;
       var row = format(ev);
       if (row) { html += row; n++; }
     }
-    list.innerHTML = html || '<li class="activity-error">no recent activity in scope · <a href="https://github.com/asuramaya">view on github</a></li>';
+    list.innerHTML = html || '<li class="activity-state activity-error">No recent activity in scope. <a href="https://github.com/asuramaya">View on GitHub</a>.</li>';
   }
 
   function fail() {
     var list = document.getElementById('activity-list');
     if (!list) return;
-    list.innerHTML = '<li class="activity-error">activity feed unavailable (rate-limited or offline) · <a href="https://github.com/asuramaya">view on github</a></li>';
+    list.innerHTML = '<li class="activity-state activity-error">Activity feed unavailable, likely due to rate limiting or network restrictions. <a href="https://github.com/asuramaya">View on GitHub</a>.</li>';
   }
 
   function load() {
