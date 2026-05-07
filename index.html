@@ -253,6 +253,31 @@
       justify-content: start;
       padding: 18px 20px;
     }
+    .card-media-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 56px;
+      height: 56px;
+      z-index: 2;
+      border-radius: 14px;
+      border: 1px solid rgba(244, 167, 67, 0.28);
+      background: rgba(11, 11, 14, 0.72);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+      overflow: hidden;
+      padding: 5px;
+      backdrop-filter: blur(4px);
+    }
+    .card-media-badge img {
+      position: static;
+      inset: auto;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: none;
+      filter: none;
+    }
     .card-media-label {
       position: relative;
       z-index: 1;
@@ -507,17 +532,17 @@
         <div class="card-stats" data-stats></div>
       </a>
 
-      <a class="card" href="https://chronohorn.com" data-repo="chronohorn">
+      <a class="card" href="https://github.com/asuramaya/chronohorn" data-repo="chronohorn">
         <div class="card-media">
           <img src="https://raw.githubusercontent.com/asuramaya/chronohorn/main/site/assets/chronohorn.jpg" alt="chronohorn project image" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
         </div>
         <div class="card-head">
           <span class="card-name">chronohorn</span>
-          <span class="card-meta"><span class="stat"><span class="n">64</span> MCP tools</span></span>
+          <span class="card-meta"><span class="stat"><span class="n">64</span> tools</span></span>
         </div>
-        <p>A backend-neutral experiment runtime for sequence modeling. Chronohorn consumes the kernel, runs family-agnostic training and evaluation loops, tracks every run in SQLite, and exposes the entire lab as an MCP surface that agents can actually operate.</p>
-        <div class="card-tags"><span>python</span><span>sqlite</span><span>mcp</span><span>experiment runtime</span></div>
-        <blockquote class="card-readme"><em>The experiment loop as an operable surface.</em> Chronohorn tracks configs, schedules, metrics, artifacts, and search history inside one SQLite-backed runtime with 64 MCP tools for agent integration.</blockquote>
+        <p>A family-agnostic experiment tracker and architecture-search runtime for predictive descendants of the <code>decepticons</code> kernel. Agents drive runs, compare learning curves, rank frontiers, and operate a training fleet through a 64-tool MCP — no shell-script spelunking required.</p>
+        <div class="card-tags"><span>python</span><span>experiments</span><span>arch search</span><span>mcp · 64 tools</span></div>
+        <blockquote class="card-readme"><em>Family-agnostic experiment tracker and architecture-search runtime for predictive descendants.</em> Built on the shared <code>decepticons</code> kernel.</blockquote>
         <div class="card-stats" data-stats></div>
       </a>
 
@@ -527,9 +552,9 @@
         </div>
         <div class="card-head">
           <span class="card-name">heinrich</span>
-          <span class="card-meta"><span class="stat">model forensics</span></span>
+          <span class="card-meta"><span class="stat">forensics</span></span>
         </div>
-        <p>A measurement pipeline for what models actually compute. Heinrich keeps language-layer scoring, activation traces, geometry probes, and residual-stream measurements in separate lanes, then recombines them into one evidence surface built for repeatable inspection.</p>
+        <p>An inspection lab for model internals. Capture full internal state, decompose layers with PCA, and explore the results through a 3D viewer plus a stateful MCP surface built for repeatable inspection.</p>
         <div class="card-tags"><span>python</span><span>mri pipeline</span><span>activations</span><span>geometry</span></div>
         <blockquote class="card-readme"><em>Model forensics through geometry.</em> Heinrich measures what language models compute — residual stream projections, attention routing, activation traces — alongside language-level signals from independent scorers. Each measurement stays in its own lane. <em>The signal stack is the finding.</em></blockquote>
         <div class="card-stats" data-stats></div>
@@ -578,8 +603,9 @@
       </a>
 
       <a class="card" href="https://github.com/asuramaya/exciton" data-repo="exciton">
-        <div class="card-media placeholder">
-          <span class="card-media-label">Solana scanner and agent engine</span>
+        <div class="card-media">
+          <img src="assets/exciton-logo.svg" alt="exciton project logo" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
+          <span class="card-media-badge" aria-hidden="true"><img src="assets/madapesai-logo.svg" alt="" loading="lazy" /></span>
         </div>
         <div class="card-head">
           <span class="card-name">exciton</span>
