@@ -199,30 +199,36 @@
         radial-gradient(circle at top right, rgba(102, 163, 255, 0.18), transparent 38%),
         linear-gradient(140deg, rgba(244, 167, 67, 0.16), rgba(11, 11, 14, 0.35) 58%, rgba(100, 210, 126, 0.16));
     }
+    .card-media-swatch {
+      position: absolute;
+      inset: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(11, 11, 14, 0.08), rgba(11, 11, 14, 0.42)),
+        linear-gradient(135deg, rgba(244, 167, 67, 0.06), rgba(102, 163, 255, 0.08));
+    }
     .card-media img {
       position: absolute;
-      inset: 12px;
-      width: calc(100% - 24px);
-      height: calc(100% - 24px);
+      inset: 22px;
+      width: calc(100% - 44px);
+      height: calc(100% - 44px);
       display: block;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
       border-radius: 8px;
-      filter: saturate(1.02) contrast(1.02);
-      box-shadow: inset 0 0 0 1px rgba(244, 167, 67, 0.08);
+      filter: saturate(1.02) contrast(1.02) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.28));
+      z-index: 2;
     }
-    .card-media canvas {
+    .card-media-swatch canvas {
       position: absolute;
-      inset: 12px;
-      width: calc(100% - 24px);
-      height: calc(100% - 24px);
+      inset: 0;
+      width: 100%;
+      height: 100%;
       display: block;
-      border-radius: 8px;
       image-rendering: pixelated;
       image-rendering: crisp-edges;
-    }
-    .card-media.is-pixelated img {
-      opacity: 0;
+      opacity: 0.95;
     }
     .card-media::after {
       content: '';
@@ -246,6 +252,15 @@
           rgba(11, 11, 14, 0.06) 12px
         );
       pointer-events: none;
+    }
+    .card-media::before {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(244, 167, 67, 0.08);
+      pointer-events: none;
+      z-index: 3;
     }
     .card-media.placeholder {
       display: flex;
@@ -515,6 +530,7 @@
     <div class="carousel-track" id="work-track">
       <a class="card" href="https://github.com/asuramaya/neo" data-repo="neo">
         <div class="card-media">
+          <span class="card-media-swatch" aria-hidden="true"></span>
           <img src="https://raw.githubusercontent.com/asuramaya/neo/main/neo.jpg" alt="neo project image" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
         </div>
         <div class="card-head">
@@ -528,6 +544,7 @@
 
       <a class="card" href="https://github.com/asuramaya/chronohorn" data-repo="chronohorn">
         <div class="card-media">
+          <span class="card-media-swatch" aria-hidden="true"></span>
           <img src="https://raw.githubusercontent.com/asuramaya/chronohorn/main/site/assets/chronohorn.jpg" alt="chronohorn project image" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
         </div>
         <div class="card-head">
@@ -541,6 +558,7 @@
 
       <a class="card" href="https://github.com/asuramaya/heinrich" data-repo="heinrich">
         <div class="card-media">
+          <span class="card-media-swatch" aria-hidden="true"></span>
           <img src="https://raw.githubusercontent.com/asuramaya/heinrich/main/docs/heinrich.jpg" alt="heinrich project image" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
         </div>
         <div class="card-head">
@@ -566,8 +584,9 @@
       </a>
 
       <a class="card" href="https://github.com/asuramaya/remix-etherscan-mcp" data-repo="remix-etherscan-mcp">
-        <div class="card-media placeholder">
-          <span class="card-media-label">Contract audit tool surface</span>
+        <div class="card-media">
+          <span class="card-media-swatch" aria-hidden="true"></span>
+          <img src="https://raw.githubusercontent.com/asuramaya/remix-etherscan-mcp/main/docs/remix-etherscan-mcp.png" alt="remix-etherscan-mcp project image" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
         </div>
         <div class="card-head">
           <span class="card-name">remix-etherscan-mcp</span>
@@ -580,6 +599,7 @@
 
       <a class="card" href="https://decepticons.win" data-repo="decepticons">
         <div class="card-media">
+          <span class="card-media-swatch" aria-hidden="true"></span>
           <img src="https://raw.githubusercontent.com/asuramaya/decepticons/main/docs/logo.webp" alt="decepticons project image" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
         </div>
         <div class="card-head">
@@ -593,7 +613,8 @@
 
       <a class="card" href="https://github.com/asuramaya/exciton" data-repo="exciton">
         <div class="card-media">
-          <img src="assets/exciton-logo.svg" alt="exciton project logo" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
+          <span class="card-media-swatch" aria-hidden="true"></span>
+          <img src="https://raw.githubusercontent.com/asuramaya/exciton/main/docs/exciton.png" alt="exciton project logo" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
           <span class="card-media-badge" aria-hidden="true"><img src="assets/madapesai-logo.svg" alt="" loading="lazy" /></span>
         </div>
         <div class="card-head">
@@ -907,6 +928,8 @@
     if (!img || !img.naturalWidth || !img.naturalHeight) return;
     var box = img.parentNode;
     if (!box) return;
+    var swatch = box.querySelector('.card-media-swatch');
+    if (!swatch) return;
 
     var targetW = Math.max(120, (box.clientWidth || 320) - 24);
     var targetH = Math.max(80, (box.clientHeight || 170) - 24);
@@ -927,7 +950,7 @@
       sy = Math.round((img.naturalHeight - sh) / 2);
     }
 
-    var old = box.querySelector('canvas');
+    var old = swatch.querySelector('canvas');
     if (old) old.remove();
 
     try {
@@ -938,10 +961,9 @@
       if (!ctx) return;
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(img, sx, sy, sw, sh, 0, 0, pixelW, pixelH);
-      box.insertBefore(canvas, img);
-      box.classList.add('is-pixelated');
+      swatch.appendChild(canvas);
     } catch (e) {
-      box.classList.remove('is-pixelated');
+      if (old) old.remove();
     }
   }
 
@@ -953,7 +975,10 @@
       else img.addEventListener('load', render, { once: true });
       img.addEventListener('error', function() {
         var box = img.parentNode;
-        if (box) box.classList.remove('is-pixelated');
+        if (!box) return;
+        var swatch = box.querySelector('.card-media-swatch');
+        var old = swatch && swatch.querySelector('canvas');
+        if (old) old.remove();
       }, { once: true });
     });
     window.addEventListener('resize', function() {
