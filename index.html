@@ -191,6 +191,7 @@
       width: 100%;
       height: 170px;
       margin: 0 0 20px;
+      padding: 12px;
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid var(--line-2);
@@ -199,19 +200,24 @@
         linear-gradient(140deg, rgba(244, 167, 67, 0.16), rgba(11, 11, 14, 0.35) 58%, rgba(100, 210, 126, 0.16));
     }
     .card-media img {
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      inset: 12px;
+      width: calc(100% - 24px);
+      height: calc(100% - 24px);
       display: block;
       object-fit: cover;
       object-position: center;
+      border-radius: 8px;
       filter: saturate(1.02) contrast(1.02);
+      box-shadow: inset 0 0 0 1px rgba(244, 167, 67, 0.08);
     }
     .card-media canvas {
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      inset: 12px;
+      width: calc(100% - 24px);
+      height: calc(100% - 24px);
       display: block;
+      border-radius: 8px;
       image-rendering: pixelated;
       image-rendering: crisp-edges;
     }
@@ -221,15 +227,23 @@
     .card-media::after {
       content: '';
       position: absolute;
-      inset: 0;
+      inset: 12px;
+      border-radius: 8px;
       background:
-        linear-gradient(180deg, rgba(11, 11, 14, 0.02), rgba(11, 11, 14, 0.5)),
+        linear-gradient(180deg, rgba(11, 11, 14, 0.03), rgba(11, 11, 14, 0.48)),
+        repeating-linear-gradient(
+          0deg,
+          rgba(244, 167, 67, 0.00) 0,
+          rgba(244, 167, 67, 0.00) 11px,
+          rgba(244, 167, 67, 0.05) 11px,
+          rgba(244, 167, 67, 0.05) 12px
+        ),
         repeating-linear-gradient(
           90deg,
           rgba(11, 11, 14, 0.00) 0,
-          rgba(11, 11, 14, 0.00) 9px,
-          rgba(11, 11, 14, 0.04) 9px,
-          rgba(11, 11, 14, 0.04) 10px
+          rgba(11, 11, 14, 0.00) 11px,
+          rgba(11, 11, 14, 0.06) 11px,
+          rgba(11, 11, 14, 0.06) 12px
         );
       pointer-events: none;
     }
@@ -237,7 +251,7 @@
       display: flex;
       align-items: end;
       justify-content: start;
-      padding: 18px;
+      padding: 18px 20px;
     }
     .card-media-label {
       position: relative;
@@ -493,17 +507,17 @@
         <div class="card-stats" data-stats></div>
       </a>
 
-      <a class="card" href="https://github.com/asuramaya/chronohorn" data-repo="chronohorn">
+      <a class="card" href="https://chronohorn.com" data-repo="chronohorn">
         <div class="card-media">
           <img src="https://raw.githubusercontent.com/asuramaya/chronohorn/main/site/assets/chronohorn.jpg" alt="chronohorn project image" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
         </div>
         <div class="card-head">
           <span class="card-name">chronohorn</span>
-          <span class="card-meta"><span class="stat"><span class="n">64</span> tools</span></span>
+          <span class="card-meta"><span class="stat"><span class="n">64</span> MCP tools</span></span>
         </div>
-        <p>A family-agnostic experiment tracker and architecture-search runtime for predictive descendants of the <code>decepticons</code> kernel. Agents drive runs, compare learning curves, rank frontiers, and operate a training fleet through a 64-tool MCP — no shell-script spelunking required.</p>
-        <div class="card-tags"><span>python</span><span>experiments</span><span>arch search</span><span>mcp · 64 tools</span></div>
-        <blockquote class="card-readme"><em>Family-agnostic experiment tracker and architecture-search runtime for predictive descendants.</em> Built on the shared <code>decepticons</code> kernel.</blockquote>
+        <p>A backend-neutral experiment runtime for sequence modeling. Chronohorn consumes the kernel, runs family-agnostic training and evaluation loops, tracks every run in SQLite, and exposes the entire lab as an MCP surface that agents can actually operate.</p>
+        <div class="card-tags"><span>python</span><span>sqlite</span><span>mcp</span><span>experiment runtime</span></div>
+        <blockquote class="card-readme"><em>The experiment loop as an operable surface.</em> Chronohorn tracks configs, schedules, metrics, artifacts, and search history inside one SQLite-backed runtime with 64 MCP tools for agent integration.</blockquote>
         <div class="card-stats" data-stats></div>
       </a>
 
@@ -513,9 +527,9 @@
         </div>
         <div class="card-head">
           <span class="card-name">heinrich</span>
-          <span class="card-meta"><span class="stat">forensics</span></span>
+          <span class="card-meta"><span class="stat">model forensics</span></span>
         </div>
-        <p>An inspection lab for model internals. Capture full internal state, decompose layers with PCA, and explore the results through a 3D viewer plus a stateful MCP surface built for repeatable inspection.</p>
+        <p>A measurement pipeline for what models actually compute. Heinrich keeps language-layer scoring, activation traces, geometry probes, and residual-stream measurements in separate lanes, then recombines them into one evidence surface built for repeatable inspection.</p>
         <div class="card-tags"><span>python</span><span>mri pipeline</span><span>activations</span><span>geometry</span></div>
         <blockquote class="card-readme"><em>Model forensics through geometry.</em> Heinrich measures what language models compute — residual stream projections, attention routing, activation traces — alongside language-level signals from independent scorers. Each measurement stays in its own lane. <em>The signal stack is the finding.</em></blockquote>
         <div class="card-stats" data-stats></div>
@@ -880,10 +894,10 @@
     var box = img.parentNode;
     if (!box) return;
 
-    var targetW = box.clientWidth || 320;
-    var targetH = box.clientHeight || 170;
-    var pixelW = Math.max(28, Math.round(targetW / 14));
-    var pixelH = Math.max(16, Math.round(targetH / 14));
+    var targetW = Math.max(120, (box.clientWidth || 320) - 24);
+    var targetH = Math.max(80, (box.clientHeight || 170) - 24);
+    var pixelW = Math.max(16, Math.round(targetW / 24));
+    var pixelH = Math.max(10, Math.round(targetH / 24));
     var sourceRatio = img.naturalWidth / img.naturalHeight;
     var targetRatio = pixelW / pixelH;
     var sx = 0;
@@ -927,6 +941,11 @@
         var box = img.parentNode;
         if (box) box.classList.remove('is-pixelated');
       }, { once: true });
+    });
+    window.addEventListener('resize', function() {
+      imgs.forEach(function(img) {
+        if (img.complete) drawCoverPixel(img);
+      });
     });
   }
 
