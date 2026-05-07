@@ -206,11 +206,31 @@
       object-position: center;
       filter: saturate(1.02) contrast(1.02);
     }
+    .card-media canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+    .card-media.is-pixelated img {
+      opacity: 0;
+    }
     .card-media::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(11, 11, 14, 0.04), rgba(11, 11, 14, 0.48));
+      background:
+        linear-gradient(180deg, rgba(11, 11, 14, 0.02), rgba(11, 11, 14, 0.5)),
+        repeating-linear-gradient(
+          90deg,
+          rgba(11, 11, 14, 0.00) 0,
+          rgba(11, 11, 14, 0.00) 9px,
+          rgba(11, 11, 14, 0.04) 9px,
+          rgba(11, 11, 14, 0.04) 10px
+        );
       pointer-events: none;
     }
     .card-media.placeholder {
@@ -461,7 +481,7 @@
     <div class="carousel-track" id="work-track">
       <a class="card" href="https://github.com/asuramaya/neo" data-repo="neo">
         <div class="card-media">
-          <img src="https://raw.githubusercontent.com/asuramaya/neo/main/neo.jpg" alt="neo project image" loading="lazy" />
+          <img src="https://raw.githubusercontent.com/asuramaya/neo/main/neo.jpg" alt="neo project image" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
         </div>
         <div class="card-head">
           <span class="card-name">neo</span>
@@ -475,7 +495,7 @@
 
       <a class="card" href="https://github.com/asuramaya/chronohorn" data-repo="chronohorn">
         <div class="card-media">
-          <img src="https://raw.githubusercontent.com/asuramaya/chronohorn/main/site/assets/chronohorn.jpg" alt="chronohorn project image" loading="lazy" />
+          <img src="https://raw.githubusercontent.com/asuramaya/chronohorn/main/site/assets/chronohorn.jpg" alt="chronohorn project image" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
         </div>
         <div class="card-head">
           <span class="card-name">chronohorn</span>
@@ -489,7 +509,7 @@
 
       <a class="card" href="https://github.com/asuramaya/heinrich" data-repo="heinrich">
         <div class="card-media">
-          <img src="https://raw.githubusercontent.com/asuramaya/heinrich/main/docs/heinrich.jpg" alt="heinrich project image" loading="lazy" />
+          <img src="https://raw.githubusercontent.com/asuramaya/heinrich/main/docs/heinrich.jpg" alt="heinrich project image" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
         </div>
         <div class="card-head">
           <span class="card-name">heinrich</span>
@@ -531,7 +551,7 @@
 
       <a class="card" href="https://decepticons.win" data-repo="decepticons">
         <div class="card-media">
-          <img src="https://raw.githubusercontent.com/asuramaya/decepticons/main/docs/logo.webp" alt="decepticons project image" loading="lazy" />
+          <img src="https://raw.githubusercontent.com/asuramaya/decepticons/main/docs/logo.webp" alt="decepticons project image" loading="lazy" crossorigin="anonymous" data-pixelate="true" />
         </div>
         <div class="card-head">
           <span class="card-name">decepticons</span>
@@ -853,6 +873,63 @@
       .catch(feedFail);
   }
 
+  // ---------- Project media ----------
+
+  function drawCoverPixel(img) {
+    if (!img || !img.naturalWidth || !img.naturalHeight) return;
+    var box = img.parentNode;
+    if (!box) return;
+
+    var targetW = box.clientWidth || 320;
+    var targetH = box.clientHeight || 170;
+    var pixelW = Math.max(28, Math.round(targetW / 14));
+    var pixelH = Math.max(16, Math.round(targetH / 14));
+    var sourceRatio = img.naturalWidth / img.naturalHeight;
+    var targetRatio = pixelW / pixelH;
+    var sx = 0;
+    var sy = 0;
+    var sw = img.naturalWidth;
+    var sh = img.naturalHeight;
+
+    if (sourceRatio > targetRatio) {
+      sw = Math.round(sh * targetRatio);
+      sx = Math.round((img.naturalWidth - sw) / 2);
+    } else {
+      sh = Math.round(sw / targetRatio);
+      sy = Math.round((img.naturalHeight - sh) / 2);
+    }
+
+    var old = box.querySelector('canvas');
+    if (old) old.remove();
+
+    try {
+      var canvas = document.createElement('canvas');
+      canvas.width = pixelW;
+      canvas.height = pixelH;
+      var ctx = canvas.getContext('2d', { alpha: false });
+      if (!ctx) return;
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, pixelW, pixelH);
+      box.insertBefore(canvas, img);
+      box.classList.add('is-pixelated');
+    } catch (e) {
+      box.classList.remove('is-pixelated');
+    }
+  }
+
+  function initProjectMedia() {
+    var imgs = document.querySelectorAll('.card-media img[data-pixelate]');
+    imgs.forEach(function(img) {
+      function render() { drawCoverPixel(img); }
+      if (img.complete) render();
+      else img.addEventListener('load', render, { once: true });
+      img.addEventListener('error', function() {
+        var box = img.parentNode;
+        if (box) box.classList.remove('is-pixelated');
+      }, { once: true });
+    });
+  }
+
   // ---------- Work carousel ----------
 
   function initCarousel() {
@@ -961,7 +1038,7 @@
     startAuto();
   }
 
-  function start() { load(); initCarousel(); }
+  function start() { load(); initProjectMedia(); initCarousel(); }
   if (document.readyState !== 'loading') start();
   else document.addEventListener('DOMContentLoaded', start);
 })();
