@@ -96,24 +96,205 @@
     }
     section h2 .count { font-family: var(--mono); color: var(--fg-mute); font-size: 0.78rem; letter-spacing: 0.05em; text-transform: lowercase; }
 
-    /* Cards */
-    .cards { display: grid; gap: 16px; grid-template-columns: 1fr; }
-    @media (min-width: 720px) { .cards { grid-template-columns: 1fr 1fr; } }
-    .card {
-      display: block; background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px;
-      padding: 22px 24px; color: var(--fg);
-      transition: border-color 0.15s, transform 0.15s, background 0.15s;
+    /* Cards (carousel: one-at-a-time hero) */
+    .carousel { display: grid; gap: 18px; }
+    .carousel-viewport {
+      overflow-x: hidden;
+      overflow-y: visible;
+      border-radius: 16px;
+      padding: 8px 10px 18px;
+      margin: -8px -10px -18px;
     }
-    .card:hover { border-color: var(--accent); transform: translateY(-2px); background: var(--bg-3); text-decoration: none; color: var(--fg); }
-    .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-bottom: 10px; }
-    .card-name { font-family: var(--mono); font-size: 1.1rem; font-weight: 700; color: var(--fg); letter-spacing: -0.01em; }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+      will-change: transform;
+    }
+    .carousel-track > .card { flex: 0 0 100%; min-width: 0; }
+
+    .carousel-controls {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+      font-family: var(--mono); font-size: 0.78rem; color: var(--fg-mute);
+    }
+    .carousel-arrow {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px;
+      background: var(--bg-2); border: 1px solid var(--line); border-radius: 8px;
+      color: var(--fg-dim); font-size: 1rem; line-height: 1; cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      font-family: var(--mono);
+    }
+    .carousel-arrow:hover { border-color: var(--accent); color: var(--accent); background: var(--bg-3); }
+    .carousel-arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .carousel-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    .carousel-dots { display: flex; gap: 8px; align-items: center; }
+    .carousel-dots button {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--line-2); border: 0; padding: 0; cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .carousel-dots button:hover { background: var(--fg-mute); }
+    .carousel-dots button[aria-current="true"] {
+      background: var(--accent);
+      transform: scale(1.25);
+      box-shadow: 0 0 10px rgba(244, 167, 67, 0.6);
+    }
+    .carousel-dots button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .carousel-counter { font-family: var(--mono); font-size: 0.78rem; color: var(--fg-mute); letter-spacing: 0.05em; min-width: 56px; text-align: center; }
+    .carousel-counter .cur { color: var(--accent); font-weight: 600; }
+
+    @media (max-width: 600px) {
+      .carousel-arrow { width: 32px; height: 32px; }
+      .carousel-counter { min-width: 44px; font-size: 0.74rem; }
+    }
+
+    /* Hero card (sized larger inside the carousel) */
+    .card {
+      position: relative; isolation: isolate;
+      display: flex; flex-direction: column;
+      background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px;
+      padding: 32px 36px; color: var(--fg);
+      min-height: 280px;
+      transition: border-color 0.2s, transform 0.2s, background 0.2s, box-shadow 0.25s;
+    }
+    @media (max-width: 600px) {
+      .card { padding: 24px 22px; min-height: 240px; }
+    }
+    .card::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-cool) 50%, var(--green) 100%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity: 0; transition: opacity 0.25s ease;
+      pointer-events: none; z-index: 1;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      background: var(--bg-3);
+      text-decoration: none; color: var(--fg);
+      box-shadow: 0 12px 36px -12px rgba(244, 167, 67, 0.28), 0 0 0 1px rgba(244, 167, 67, 0.05);
+      border-color: transparent;
+    }
+    .card:hover::before { opacity: 1; }
+    .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
+    .card-name { font-family: var(--mono); font-size: 1.4rem; font-weight: 700; color: var(--fg); letter-spacing: -0.01em; transition: color 0.2s; }
     .card:hover .card-name { color: var(--accent); }
-    .card-meta { font-family: var(--mono); font-size: 0.74rem; color: var(--fg-mute); white-space: nowrap; letter-spacing: 0.04em; }
+    .card-meta { font-family: var(--mono); font-size: 0.78rem; color: var(--fg-mute); white-space: nowrap; letter-spacing: 0.04em; }
     .card-meta .stat { color: var(--fg-dim); }
     .card-meta .stat .n { color: var(--accent); font-weight: 700; }
-    .card p { color: var(--fg-dim); font-size: 0.96rem; line-height: 1.6; margin-bottom: 12px; }
-    .card-tags { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--mono); font-size: 0.72rem; color: var(--fg-mute); }
+    .card-media {
+      position: relative;
+      width: 100%;
+      height: 170px;
+      margin: 0 0 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line-2);
+      background:
+        radial-gradient(circle at top right, rgba(102, 163, 255, 0.18), transparent 38%),
+        linear-gradient(140deg, rgba(244, 167, 67, 0.16), rgba(11, 11, 14, 0.35) 58%, rgba(100, 210, 126, 0.16));
+    }
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(1.02) contrast(1.02);
+    }
+    .card-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(11, 11, 14, 0.04), rgba(11, 11, 14, 0.48));
+      pointer-events: none;
+    }
+    .card-media.placeholder {
+      display: flex;
+      align-items: end;
+      justify-content: start;
+      padding: 18px;
+    }
+    .card-media-label {
+      position: relative;
+      z-index: 1;
+      max-width: 18ch;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.45;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg);
+    }
+    .card p { color: var(--fg-dim); font-size: 1.02rem; line-height: 1.65; margin-bottom: 16px; max-width: 70ch; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--mono); font-size: 0.72rem; color: var(--fg-mute); margin-bottom: 16px; }
     .card-tags span { padding: 2px 8px; border: 1px solid var(--line-2); border-radius: 99px; letter-spacing: 0.04em; }
+
+    /* README excerpt block (pulled from the project's actual README) */
+    .card-readme {
+      margin: 0 0 18px;
+      padding: 10px 0 10px 16px;
+      border-left: 2px solid var(--line-2);
+      font-family: var(--mono);
+      font-size: 0.84rem;
+      color: var(--fg-mute);
+      line-height: 1.6;
+      max-width: 78ch;
+      transition: border-left-color 0.2s, color 0.2s;
+      position: relative;
+    }
+    .card-readme::before {
+      content: "readme";
+      position: absolute;
+      top: -8px; left: 14px;
+      padding: 0 6px;
+      background: var(--bg-2);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--fg-mute);
+      opacity: 0.7;
+    }
+    .card:hover .card-readme {
+      border-left-color: var(--accent);
+      color: var(--fg-dim);
+      background: rgba(244, 167, 67, 0.025);
+    }
+    .card:hover .card-readme::before { background: var(--bg-3); color: var(--accent); opacity: 1; }
+    .card-readme em { color: var(--fg-dim); font-style: normal; font-weight: 600; }
+
+    /* Live stats row on each work card */
+    .card-stats {
+      margin-top: auto;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+      padding-top: 12px; border-top: 1px dashed var(--line);
+      font-family: var(--mono); font-size: 0.74rem; color: var(--fg-mute);
+      letter-spacing: 0.02em;
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    .card-stats.is-loaded { opacity: 1; }
+    .card-stats .stat-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--fg-mute); box-shadow: none;
+      display: inline-block; flex: 0 0 7px;
+    }
+    .card-stats .stat-dot.hot {
+      background: var(--green); box-shadow: 0 0 10px var(--green);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    .card-stats .stat-dot.warm { background: var(--accent); box-shadow: 0 0 8px rgba(244, 167, 67, 0.6); }
+    .card-stats .stat-dot.cool { background: var(--accent-cool); }
+    .card-stats .stat-item { display: inline-flex; align-items: center; gap: 6px; }
+    .card-stats .stat-item .icon { color: var(--fg-mute); }
+    .card-stats .stat-stars .num { color: var(--fg-dim); font-weight: 600; }
+    .card:hover .card-stats .stat-stars .num { color: var(--accent); }
+    .card-stats .stat-pushed { color: var(--fg-dim); }
+    .card-stats .stat-lang { color: var(--fg-mute); margin-left: auto; }
+    .card-stats .stat-lang::before { content: "● "; color: var(--accent-cool); margin-right: 2px; }
 
     /* Live activity */
     .activity-intro { color: var(--fg-dim); max-width: 62ch; margin-bottom: 18px; }
@@ -269,67 +450,121 @@
 
 <section id="work">
   <div class="wrap">
-    <h2>Work <span class="count">6 projects · broad domains · one through-line</span></h2>
+    <h2>Work <span class="count">7 projects · broad domains · one through-line</span></h2>
     <p class="bio" style="margin-bottom: 1.2em; max-width: 68ch;">
       The projects are spread across different domains, but they tend to implement the same bias:
       make complex systems easier to operate, inspect, and steer. Sometimes that means an MCP surface,
       sometimes a forensic tool, sometimes a control plane for a narrow operational problem.
     </p>
-    <div class="cards">
-      <a class="card" href="https://github.com/asuramaya/harnesster">
+    <div class="carousel" id="work-carousel" aria-roledescription="carousel" aria-label="Featured projects">
+    <div class="carousel-viewport">
+    <div class="carousel-track" id="work-track">
+      <a class="card" href="https://github.com/asuramaya/neo" data-repo="neo">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/asuramaya/neo/main/neo.jpg" alt="neo project image" loading="lazy" />
+        </div>
         <div class="card-head">
-          <span class="card-name">harnesster</span>
+          <span class="card-name">neo</span>
           <span class="card-meta"><span class="stat">forensics</span></span>
         </div>
-        <p>Local workflow forensics for Claude Code. It surfaces reminder injections, hidden transcripts, telemetry leftovers, sidechains, and hook-visible lifecycle events from <code>~/.claude</code>, then compresses them into analytics you can actually inspect.</p>
+        <p>Local workflow forensics for Claude Code. Surfaces reminder injections, agent transcripts, telemetry leftovers, and hook-visible lifecycle events from <code>~/.claude</code> into a single SQLite database, with explicit <em>measured / estimated / inferred</em> labels so you can tell which numbers are real.</p>
         <div class="card-tags"><span>python</span><span>claude code</span><span>workflow forensics</span><span>local inspection</span></div>
+        <blockquote class="card-readme"><em>See what Claude Code writes locally but does not surface clearly in the UI.</em> Indexes hidden reminder rows, agent transcripts, telemetry leftovers, and hook-visible lifecycle events into a single SQLite database with explicit <em>measured / estimated / inferred</em> labels.</blockquote>
+        <div class="card-stats" data-stats></div>
       </a>
 
-      <a class="card" href="https://github.com/asuramaya/chronohorn">
+      <a class="card" href="https://github.com/asuramaya/chronohorn" data-repo="chronohorn">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/asuramaya/chronohorn/main/site/assets/chronohorn.jpg" alt="chronohorn project image" loading="lazy" />
+        </div>
         <div class="card-head">
           <span class="card-name">chronohorn</span>
           <span class="card-meta"><span class="stat"><span class="n">64</span> tools</span></span>
         </div>
-        <p>A research-control MCP for real experiment work. Agents can inspect manifests, launch or drain runs, compare learning curves, rank frontiers, and operate a training fleet without spelunking through shell scripts.</p>
-        <div class="card-tags"><span>python</span><span>research</span><span>fleet</span><span>chronohorn.com</span></div>
+        <p>A family-agnostic experiment tracker and architecture-search runtime for predictive descendants of the <code>decepticons</code> kernel. Agents drive runs, compare learning curves, rank frontiers, and operate a training fleet through a 64-tool MCP — no shell-script spelunking required.</p>
+        <div class="card-tags"><span>python</span><span>experiments</span><span>arch search</span><span>mcp · 64 tools</span></div>
+        <blockquote class="card-readme"><em>Family-agnostic experiment tracker and architecture-search runtime for predictive descendants.</em> Built on the shared <code>decepticons</code> kernel.</blockquote>
+        <div class="card-stats" data-stats></div>
       </a>
 
-      <a class="card" href="https://github.com/asuramaya/heinrich">
+      <a class="card" href="https://github.com/asuramaya/heinrich" data-repo="heinrich">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/asuramaya/heinrich/main/docs/heinrich.jpg" alt="heinrich project image" loading="lazy" />
+        </div>
         <div class="card-head">
           <span class="card-name">heinrich</span>
           <span class="card-meta"><span class="stat">forensics</span></span>
         </div>
         <p>An inspection lab for model internals. Capture full internal state, decompose layers with PCA, and explore the results through a 3D viewer plus a stateful MCP surface built for repeatable inspection.</p>
         <div class="card-tags"><span>python</span><span>mri pipeline</span><span>activations</span><span>geometry</span></div>
+        <blockquote class="card-readme"><em>Model forensics through geometry.</em> Heinrich measures what language models compute — residual stream projections, attention routing, activation traces — alongside language-level signals from independent scorers. Each measurement stays in its own lane. <em>The signal stack is the finding.</em></blockquote>
+        <div class="card-stats" data-stats></div>
       </a>
 
-      <a class="card" href="https://github.com/asuramaya/ndrchst">
+      <a class="card" href="https://github.com/asuramaya/ndrchst" data-repo="ndrchst">
+        <div class="card-media placeholder">
+          <span class="card-media-label">Minecraft server management</span>
+        </div>
         <div class="card-head">
           <span class="card-name">ndrchst</span>
           <span class="card-meta"><span class="stat">rust</span></span>
         </div>
         <p>A Minecraft server management system built around Rust services, local agents, and a remote control surface. It handles provisioning, orchestration, tunnels, and machine-to-machine coordination without pretending the underlying job is anything other than server operations.</p>
         <div class="card-tags"><span>rust</span><span>minecraft</span><span>docker</span><span>server orchestration</span></div>
+        <blockquote class="card-readme"><em>A blazing-fast, Rust-powered Minecraft server management platform.</em> Self-hosted clients, cloud-coordinated. Lightweight binary runs on Windows, macOS, or Linux; client handles all Docker and server management locally while the cloud does account, license, tunnels, and multi-machine orchestration.</blockquote>
+        <div class="card-stats" data-stats></div>
       </a>
 
-      <a class="card" href="https://github.com/asuramaya/remix-etherscan-mcp">
+      <a class="card" href="https://github.com/asuramaya/remix-etherscan-mcp" data-repo="remix-etherscan-mcp">
+        <div class="card-media placeholder">
+          <span class="card-media-label">Contract audit tool surface</span>
+        </div>
         <div class="card-head">
           <span class="card-name">remix-etherscan-mcp</span>
           <span class="card-meta"><span class="stat"><span class="n">119</span> tools</span></span>
         </div>
         <p>A single audit MCP for contract work. It combines Etherscan, local repo access, compilation, git context, gas and revert analysis, fork simulation, and post-deploy inspection so the audit loop lives in one tool surface.</p>
         <div class="card-tags"><span>solidity</span><span>etherscan</span><span>auditing</span><span>foundry</span></div>
+        <blockquote class="card-readme">An MCP server that exposes Ethereum development and audit tooling as structured tools for Claude. Wraps the Etherscan API v2, a local <code>remixd</code> filesystem daemon, git operations, contract compilation, and several composite audit workflows — <em>119 tools across 20 categories</em> in a single server.</blockquote>
+        <div class="card-stats" data-stats></div>
       </a>
 
-      <a class="card" href="https://decepticons.win">
+      <a class="card" href="https://decepticons.win" data-repo="decepticons">
+        <div class="card-media">
+          <img src="https://raw.githubusercontent.com/asuramaya/decepticons/main/docs/logo.webp" alt="decepticons project image" loading="lazy" />
+        </div>
         <div class="card-head">
           <span class="card-name">decepticons</span>
           <span class="card-meta"><span class="stat">on pypi · v0.1.3</span></span>
         </div>
         <p>The mechanism layer behind the stack: memory, routing, substrates, readouts. The question driving it is simple and sharp: how far can you push sequence modeling with cheap O(n) structure before the transformer assumptions become unnecessary?</p>
         <div class="card-tags"><span>python</span><span>numpy-only</span><span>torch · mlx</span><span>causality-verified</span></div>
+        <blockquote class="card-readme"><em>O(n) attention is deception.</em> A backend-neutral kernel of predictive primitives — substrates, memory, gating, routing, readouts — that downstream systems combine into trained models without forking the kernel itself.</blockquote>
+        <div class="card-stats" data-stats></div>
       </a>
 
+      <a class="card" href="https://github.com/asuramaya/exciton" data-repo="exciton">
+        <div class="card-media placeholder">
+          <span class="card-media-label">Solana scanner and agent engine</span>
+        </div>
+        <div class="card-head">
+          <span class="card-name">exciton</span>
+          <span class="card-meta"><span class="stat">solana · oss</span></span>
+        </div>
+        <p>A single-binary Solana scanner-and-agent engine. Deterministic on-chain signals (no LLM in the pipeline) feed Telegram surfaces, an MCP control plane, and a publisher that ships snapshots through a Cloudflare Worker. <code>madapesai.com</code> is the reference deployment; the product is the engine that lets any operator run their own ape.</p>
+        <div class="card-tags"><span>rust</span><span>solana</span><span>mcp</span><span>autonomous agent</span></div>
+        <blockquote class="card-readme"><em>OSS crypto-influencer engine for Solana.</em> A deterministic on-chain scanner + LLM-driven autonomous-trading agent in a single Rust workspace. <em>One codebase, many instances</em> — every operator runs their own ape with their own wallet, persona, Telegram surface, and published site.</blockquote>
+        <div class="card-stats" data-stats></div>
+      </a>
+
+    </div>
+    </div>
+    <div class="carousel-controls">
+      <button type="button" class="carousel-arrow" id="carousel-prev" aria-label="Previous project">&larr;</button>
+      <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Project slides"></div>
+      <span class="carousel-counter" id="carousel-counter" aria-hidden="true"><span class="cur">1</span> / <span class="tot">7</span></span>
+      <button type="button" class="carousel-arrow" id="carousel-next" aria-label="Next project">&rarr;</button>
+    </div>
     </div>
   </div>
 </section>
@@ -444,8 +679,14 @@
 <script>
 (function() {
   'use strict';
-  var STORAGE_KEY = 'asuramaya-activity-v1';
-  var CACHE_TTL_MS = 5 * 60 * 1000;
+
+  // Curated list — the user-events endpoint is drowned by a high-cadence bot
+  // (asuramaya/MadApesAI pushes ~once/minute), so we fetch each featured
+  // repo's events directly and merge.
+  var FEATURED = ['neo', 'chronohorn', 'heinrich', 'ndrchst', 'remix-etherscan-mcp', 'decepticons', 'exciton'];
+  var OWNER = 'asuramaya';
+  var STORAGE_KEY = 'asuramaya-feed-v4';
+  var CACHE_TTL_MS = 10 * 60 * 1000;
 
   function relTime(iso) {
     var d = new Date(iso);
@@ -455,6 +696,10 @@
     if (s < 86400)      return Math.floor(s / 3600) + 'h ago';
     if (s < 86400 * 14) return Math.floor(s / 86400) + 'd ago';
     return d.toLocaleDateString('en', { month: 'short', day: 'numeric' });
+  }
+
+  function relDays(iso) {
+    return Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
   }
 
   function escape(s) {
@@ -467,124 +712,122 @@
     return sha ? String(sha).slice(0, 7) : '';
   }
 
-  function summarize(ev) {
-    var payload = ev.payload || {};
-    var title = '';
-    var detail = '';
-    var iconClass = 'fork';
-    var icon = '•';
+  // ---------- Activity feed ----------
 
-    if (ev.type === 'PushEvent') {
-      var commits = payload.commits || [];
-      var n = commits.length;
-      var last = commits[n - 1] || {};
-      title = n ? last.message.split('\n')[0] : 'Pushed updates';
-      detail = n
-        ? shortSha(last.sha) + (n > 1 ? ' · ' + n + ' commits in push' : ' · 1 commit in push')
-        : 'push event';
-      iconClass = 'push';
-      icon = '⏵';
-    } else if (ev.type === 'CreateEvent') {
-      var rt = payload.ref_type || 'thing';
-      title = 'Created ' + rt + (payload.ref ? ' ' + payload.ref : '');
-      detail = 'new ' + rt + ' published';
-      iconClass = 'create';
-      icon = '✦';
-    } else if (ev.type === 'ReleaseEvent') {
-      var rel = payload.release || {};
-      title = 'Released ' + (rel.tag_name || rel.name || 'update');
-      detail = rel.name && rel.tag_name && rel.name !== rel.tag_name ? rel.name : 'release event';
-      iconClass = 'release';
-      icon = '★';
-    } else if (ev.type === 'DeleteEvent') {
-      title = 'Deleted ' + (payload.ref_type || 'ref') + (payload.ref ? ' ' + payload.ref : '');
-      detail = 'cleanup event';
-      iconClass = 'fork';
-      icon = '✕';
-    } else if (ev.type === 'PullRequestEvent') {
-      var pr = payload.pull_request || {};
-      title = (payload.action || 'updated') + ' PR #' + (pr.number || '');
-      detail = pr.title || 'pull request event';
-      iconClass = 'create';
-      icon = '↳';
-    } else if (ev.type === 'IssuesEvent') {
-      var issue = payload.issue || {};
-      title = (payload.action || 'updated') + ' issue #' + (issue.number || '');
-      detail = issue.title || 'issue event';
-      iconClass = 'create';
-      icon = '◌';
-    } else {
-      return null;
-    }
-
-    return {
-      title: title,
-      detail: detail,
-      iconClass: iconClass,
-      icon: icon
-    };
+  // Filter auto-generated bot commits from the feed.
+  function isNoise(msg) {
+    var m = (msg || '').toLowerCase();
+    return /^(data:\s*snapshot|chore\(deps\):|bump\s|auto:|\[bot\])/.test(m);
   }
 
-  function format(ev) {
-    var repo = ev.repo.name.replace(/^asuramaya\//, '');
-    var time = relTime(ev.created_at);
-    var summary = summarize(ev);
-    if (!summary) return '';
+  function format(item) {
+    var time = relTime(item.date);
+    var firstLine = (item.message || '').split('\n')[0];
     return ''
       + '<li>'
-      +   '<span class="ev-icon ' + summary.iconClass + '">' + summary.icon + '</span>'
-      +   '<a class="ev-repo" href="https://github.com/' + escape(ev.repo.name) + '">' + escape(repo) + '</a>'
+      +   '<span class="ev-icon push">⏵</span>'
+      +   '<a class="ev-repo" href="https://github.com/' + escape(OWNER + '/' + item.repo) + '">' + escape(item.repo) + '</a>'
       +   '<div class="ev-body">'
-      +     '<div class="ev-title">' + escape(summary.title) + '</div>'
-      +     '<div class="ev-detail">' + escape(summary.detail) + '</div>'
+      +     '<div class="ev-title">' + escape(firstLine) + '</div>'
+      +     '<div class="ev-detail">' + escape(shortSha(item.sha)) + ' · commit on ' + escape(item.branch || 'main') + '</div>'
       +   '</div>'
       +   '<span class="ev-time">' + escape(time) + '</span>'
       + '</li>';
   }
 
-  // Repos to hide entirely from the activity feed (high-cadence data dumps).
-  var HIDDEN_REPOS = { 'asuramaya/MadApesAI': 1 };
+  function renderFeed(items) {
+    var list = document.getElementById('activity-list');
+    if (!list) return;
+    if (!items || !items.length) {
+      list.innerHTML = '<li class="activity-state">No recent activity in scope. <a href="https://github.com/asuramaya">View on GitHub</a>.</li>';
+      return;
+    }
+    var perRepo = {}, html = '', n = 0;
+    for (var i = 0; i < items.length && n < 12; i++) {
+      var it = items[i];
+      if (isNoise(it.message)) continue;
+      perRepo[it.repo] = (perRepo[it.repo] || 0) + 1;
+      if (perRepo[it.repo] > 3) continue;
+      html += format(it); n++;
+    }
+    list.innerHTML = html || '<li class="activity-state">No recent activity in scope. <a href="https://github.com/asuramaya">View on GitHub</a>.</li>';
+  }
 
-  // Skip noisy auto-generated commits (data snapshots, scheduled bumps, etc).
-  // The feed is for human-readable work; bot-cadence commits drown it out.
-  function isNoise(ev) {
-    if (HIDDEN_REPOS[ev.repo && ev.repo.name]) return true;
-    if (ev.type !== 'PushEvent') return false;
-    var commits = (ev.payload && ev.payload.commits) || [];
-    if (!commits.length) return false;
-    return commits.every(function(c) {
-      var m = (c.message || '').toLowerCase();
-      return /^(data:\s*snapshot|chore\(deps\):|bump\s|auto:|\[bot\])/.test(m);
+  function feedFail() {
+    var list = document.getElementById('activity-list');
+    if (!list) return;
+    list.innerHTML = '<li class="activity-state">Activity feed unavailable, likely due to rate limiting. <a href="https://github.com/asuramaya">View on GitHub</a>.</li>';
+  }
+
+  // ---------- Card stats ----------
+
+  function statusFor(daysAgo) {
+    if (daysAgo == null) return { cls: '', label: 'unknown' };
+    if (daysAgo <= 7)  return { cls: 'hot',  label: 'active' };
+    if (daysAgo <= 30) return { cls: 'warm', label: 'recent' };
+    if (daysAgo <= 90) return { cls: 'cool', label: 'idle' };
+    return { cls: '', label: 'archived' };
+  }
+
+  function renderStats(metas) {
+    metas.forEach(function(meta) {
+      if (!meta) return;
+      var card = document.querySelector('.card[data-repo="' + meta.repo + '"]');
+      if (!card) return;
+      var slot = card.querySelector('[data-stats]');
+      if (!slot) return;
+      var days = meta.pushed_at ? relDays(meta.pushed_at) : null;
+      var st = statusFor(days);
+      var pushedLabel = meta.pushed_at ? 'pushed ' + relTime(meta.pushed_at) : '';
+      slot.innerHTML = ''
+        + '<span class="stat-dot ' + st.cls + '" title="' + escape(st.label) + '"></span>'
+        + '<span class="stat-item stat-stars"><span class="icon">★</span><span class="num">' + (meta.stars || 0) + '</span></span>'
+        + (pushedLabel ? '<span class="stat-item stat-pushed">' + escape(pushedLabel) + '</span>' : '')
+        + (meta.language ? '<span class="stat-item stat-lang">' + escape(meta.language) + '</span>' : '');
+      slot.classList.add('is-loaded');
     });
   }
 
-  function render(events) {
-    var list = document.getElementById('activity-list');
-    if (!list) return;
-    if (!events || !events.length) {
-      list.innerHTML = '<li class="activity-state activity-error">No recent activity in scope. <a href="https://github.com/asuramaya">View on GitHub</a>.</li>';
-      return;
-    }
-    // Cap at 3 events per repo so a high-cadence repo doesn't drown the feed.
-    var perRepo = {};
-    var html = '';
-    var n = 0;
-    for (var i = 0; i < events.length && n < 12; i++) {
-      var ev = events[i];
-      if (isNoise(ev)) continue;
-      var key = ev.repo.name;
-      perRepo[key] = (perRepo[key] || 0) + 1;
-      if (perRepo[key] > 3) continue;
-      var row = format(ev);
-      if (row) { html += row; n++; }
-    }
-    list.innerHTML = html || '<li class="activity-state activity-error">No recent activity in scope. <a href="https://github.com/asuramaya">View on GitHub</a>.</li>';
+  // ---------- Fetch + cache ----------
+
+  function fetchJson(url) {
+    return fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } })
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .catch(function() { return null; });
   }
 
-  function fail() {
-    var list = document.getElementById('activity-list');
-    if (!list) return;
-    list.innerHTML = '<li class="activity-state activity-error">Activity feed unavailable, likely due to rate limiting or network restrictions. <a href="https://github.com/asuramaya">View on GitHub</a>.</li>';
+  function fetchAll() {
+    var metaP = Promise.all(FEATURED.map(function(repo) {
+      return fetchJson('https://api.github.com/repos/' + OWNER + '/' + repo).then(function(d) {
+        return d ? {
+          repo: repo,
+          stars: d.stargazers_count,
+          pushed_at: d.pushed_at,
+          language: d.language,
+          default_branch: d.default_branch
+        } : null;
+      });
+    }));
+    var commitsP = Promise.all(FEATURED.map(function(repo) {
+      return fetchJson('https://api.github.com/repos/' + OWNER + '/' + repo + '/commits?per_page=4').then(function(d) {
+        if (!Array.isArray(d)) return [];
+        return d.map(function(c) {
+          return {
+            repo: repo,
+            sha: c.sha,
+            message: (c.commit && c.commit.message) || '',
+            date: (c.commit && c.commit.author && c.commit.author.date) || c.commit && c.commit.committer && c.commit.committer.date,
+            branch: 'main'
+          };
+        });
+      });
+    })).then(function(arrays) {
+      var merged = [];
+      arrays.forEach(function(a) { merged = merged.concat(a); });
+      merged.sort(function(x, y) { return new Date(y.date) - new Date(x.date); });
+      return merged;
+    });
+    return Promise.all([metaP, commitsP]);
   }
 
   function load() {
@@ -592,24 +835,135 @@
       var raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         var cache = JSON.parse(raw);
-        if (cache && (Date.now() - (cache.t || 0)) < CACHE_TTL_MS && cache.events) {
-          render(cache.events);
+        if (cache && (Date.now() - (cache.t || 0)) < CACHE_TTL_MS) {
+          renderStats(cache.metas || []);
+          renderFeed(cache.items || []);
           return;
         }
       }
     } catch (e) {}
 
-    fetch('https://api.github.com/users/asuramaya/events/public?per_page=30')
-      .then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function(events) {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ t: Date.now(), events: events })); } catch (e) {}
-        render(events);
+    fetchAll()
+      .then(function(pair) {
+        var metas = pair[0], items = pair[1];
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ t: Date.now(), metas: metas, items: items })); } catch (e) {}
+        renderStats(metas);
+        renderFeed(items);
       })
-      .catch(fail);
+      .catch(feedFail);
   }
 
-  if (document.readyState !== 'loading') load();
-  else document.addEventListener('DOMContentLoaded', load);
+  // ---------- Work carousel ----------
+
+  function initCarousel() {
+    var track   = document.getElementById('work-track');
+    var prev    = document.getElementById('carousel-prev');
+    var next    = document.getElementById('carousel-next');
+    var dotsBox = document.getElementById('carousel-dots');
+    var counter = document.getElementById('carousel-counter');
+    if (!track || !prev || !next || !dotsBox) return;
+
+    var cards = track.children;
+    var total = cards.length;
+    if (!total) return;
+
+    // Build dot buttons
+    var dotsHtml = '';
+    for (var i = 0; i < total; i++) {
+      var label = (cards[i].getAttribute('data-repo') || ('Slide ' + (i + 1)));
+      dotsHtml += '<button type="button" role="tab" aria-label="Go to ' + escape(label) + '" data-i="' + i + '"></button>';
+    }
+    dotsBox.innerHTML = dotsHtml;
+    var dots = dotsBox.children;
+
+    if (counter) {
+      var totEl = counter.querySelector('.tot');
+      if (totEl) totEl.textContent = total;
+    }
+
+    var idx = 0;
+    var autoTimer = null;
+    var AUTO_MS = 7000;
+
+    function go(i, opts) {
+      idx = ((i % total) + total) % total;
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      for (var k = 0; k < dots.length; k++) {
+        if (k === idx) dots[k].setAttribute('aria-current', 'true');
+        else dots[k].removeAttribute('aria-current');
+      }
+      if (counter) {
+        var curEl = counter.querySelector('.cur');
+        if (curEl) curEl.textContent = idx + 1;
+      }
+      if (!(opts && opts.silent)) restartAuto();
+    }
+
+    function nextSlide() { go(idx + 1); }
+    function prevSlide() { go(idx - 1); }
+
+    function startAuto() {
+      stopAuto();
+      autoTimer = setInterval(function() { go(idx + 1, { silent: true }); }, AUTO_MS);
+    }
+    function stopAuto() {
+      if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    }
+    function restartAuto() {
+      if (autoTimer === null && !document.hidden) return;
+      stopAuto();
+      startAuto();
+    }
+
+    next.addEventListener('click', nextSlide);
+    prev.addEventListener('click', prevSlide);
+    dotsBox.addEventListener('click', function(e) {
+      var t = e.target;
+      if (t && t.tagName === 'BUTTON' && t.dataset.i) go(parseInt(t.dataset.i, 10));
+    });
+
+    // Keyboard navigation when carousel is in view
+    document.addEventListener('keydown', function(e) {
+      if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+      var rect = track.getBoundingClientRect();
+      var inView = rect.bottom > 80 && rect.top < (window.innerHeight - 80);
+      if (!inView) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); nextSlide(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+    });
+
+    // Pause auto-advance on hover / focus
+    var carousel = document.getElementById('work-carousel');
+    if (carousel) {
+      carousel.addEventListener('mouseenter', stopAuto);
+      carousel.addEventListener('mouseleave', startAuto);
+      carousel.addEventListener('focusin', stopAuto);
+      carousel.addEventListener('focusout', startAuto);
+    }
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) stopAuto(); else startAuto();
+    });
+
+    // Touch swipe
+    var touchX = null;
+    track.addEventListener('touchstart', function(e) {
+      touchX = e.touches[0].clientX; stopAuto();
+    }, { passive: true });
+    track.addEventListener('touchend', function(e) {
+      if (touchX == null) return;
+      var dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 40) (dx < 0 ? nextSlide : prevSlide)();
+      touchX = null;
+      startAuto();
+    }, { passive: true });
+
+    go(0, { silent: true });
+    startAuto();
+  }
+
+  function start() { load(); initCarousel(); }
+  if (document.readyState !== 'loading') start();
+  else document.addEventListener('DOMContentLoaded', start);
 })();
 </script>
 
