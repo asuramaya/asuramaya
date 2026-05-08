@@ -535,12 +535,11 @@
   <div class="wrap">
     <p class="kicker">toolbuilder · systems operator · houston, tx</p>
     <h1>asuramaya<span class="accent">.</span></h1>
-    <p class="name-line"><strong>Hector Chavez</strong> <span class="sep">·</span> toolbuilder <span class="sep">·</span> Python / systems / workflow tooling <span class="sep">·</span> bilingual EN/ES</p>
+    <p class="name-line"><strong>Hector Chavez</strong> <span class="sep">·</span> toolbuilder <span class="sep">·</span> AI / systems / workflow tooling <span class="sep">·</span> bilingual EN/ES</p>
     <p class="lede">
       I build <strong>tools that reduce friction between humans and machines</strong>:
       operator surfaces, workflow systems, MCP servers, and infrastructure that make real work easier to run,
-      inspect, and trust. The domains vary from model inspection to contract auditing to game-server operations,
-      but the through-line stays the same: clearer interfaces, better visibility, less guessing.
+      inspect, and trust.
     </p>
     <div class="meta">
       <span><a href="https://github.com/asuramaya">github.com/asuramaya</a></span>
@@ -552,7 +551,7 @@
 
 <section id="work">
   <div class="wrap">
-    <h2>Work <span class="count">7 projects · broad domains · one through-line</span></h2>
+    <h2>Work <span class="count">7 projects · broad domains · latest push first</span></h2>
     <div class="carousel" id="work-carousel" aria-roledescription="carousel" aria-label="Featured projects">
     <div class="carousel-viewport">
     <div class="carousel-track" id="work-track">
@@ -595,19 +594,6 @@
         </div>
         <div class="card-tags"><span>python</span><span>mri pipeline</span><span>activations</span><span>geometry</span></div>
         <blockquote class="card-readme"><em>Model forensics through geometry.</em> Heinrich measures what language models compute — residual stream projections, attention routing, activation traces — alongside language-level signals from independent scorers. Each measurement stays in its own lane. <em>The signal stack is the finding.</em></blockquote>
-        <div class="card-stats" data-stats></div>
-      </a>
-
-      <a class="card" href="https://github.com/asuramaya/ndrchst" data-repo="ndrchst">
-        <div class="card-media placeholder">
-          <span class="card-media-label">Minecraft server management</span>
-        </div>
-        <div class="card-head">
-          <span class="card-name">ndrchst</span>
-          <span class="card-meta"><span class="stat">rust</span></span>
-        </div>
-        <div class="card-tags"><span>rust</span><span>minecraft</span><span>docker</span><span>server orchestration</span></div>
-        <blockquote class="card-readme"><em>A blazing-fast, Rust-powered Minecraft server management platform.</em> Self-hosted clients, cloud-coordinated. Lightweight binary runs on Windows, macOS, or Linux; client handles all Docker and server management locally while the cloud does account, license, tunnels, and multi-machine orchestration.</blockquote>
         <div class="card-stats" data-stats></div>
       </a>
 
@@ -654,6 +640,19 @@
         <div class="card-stats" data-stats></div>
       </a>
 
+      <a class="card" href="https://github.com/asuramaya/ndrchst" data-repo="ndrchst">
+        <div class="card-media placeholder">
+          <span class="card-media-label">Minecraft server management</span>
+        </div>
+        <div class="card-head">
+          <span class="card-name">ndrchst</span>
+          <span class="card-meta"><span class="stat">rust</span></span>
+        </div>
+        <div class="card-tags"><span>rust</span><span>minecraft</span><span>docker</span><span>server orchestration</span></div>
+        <blockquote class="card-readme"><em>A blazing-fast, Rust-powered Minecraft server management platform.</em> Self-hosted clients, cloud-coordinated. Lightweight binary runs on Windows, macOS, or Linux; client handles all Docker and server management locally while the cloud does account, license, tunnels, and multi-machine orchestration.</blockquote>
+        <div class="card-stats" data-stats></div>
+      </a>
+
     </div>
     </div>
     <div class="carousel-controls">
@@ -674,11 +673,11 @@
         <span class="mini-label">Operator background</span>
         <p class="bio">
           I come out of enterprise IT and public-sector operations, not a pure research lab path. The
-          through-line has been owning messy real systems where uptime, visibility, and operator clarity
+          pattern has been owning messy real systems where uptime, visibility, and operator clarity
           matter more than elegant theory.
         </p>
         <p class="bio">
-          From 2023 to 2026 I ran the IT and infrastructure function — solo — for
+          From 2023 to 2026 I ran the IT and infrastructure function, solo, for
           <strong>Stewart Holdings Group</strong>, supporting identity, security, endpoints, vendors,
           and internal operations across a construction holding company with multiple subsidiaries and
           offices in Houston. Before that I worked endpoint support at <strong>David Weekley Homes</strong>
@@ -780,7 +779,7 @@
   // Curated list — the user-events endpoint is drowned by a high-cadence bot
   // (asuramaya/MadApesAI pushes ~once/minute), so we fetch each featured
   // repo's events directly and merge.
-  var FEATURED = ['neo', 'chronohorn', 'heinrich', 'ndrchst', 'remix-etherscan-mcp', 'decepticons', 'exciton'];
+  var FEATURED = ['neo', 'chronohorn', 'heinrich', 'remix-etherscan-mcp', 'decepticons', 'exciton', 'ndrchst'];
   var OWNER = 'asuramaya';
   var STORAGE_KEY = 'asuramaya-feed-v4';
   var CACHE_TTL_MS = 10 * 60 * 1000;
@@ -885,6 +884,28 @@
     });
   }
 
+  function sortCardsByPush(metas) {
+    var track = document.getElementById('work-track');
+    if (!track || !Array.isArray(metas) || !metas.length) return;
+
+    var rank = {};
+    metas.forEach(function(meta, i) {
+      if (!meta || !meta.repo) return;
+      var t = meta.pushed_at ? new Date(meta.pushed_at).getTime() : 0;
+      rank[meta.repo] = { time: isNaN(t) ? 0 : t, i: i };
+    });
+
+    var cards = Array.prototype.slice.call(track.children);
+    cards.sort(function(a, b) {
+      var ar = rank[a.getAttribute('data-repo')] || { time: 0, i: 999 };
+      var br = rank[b.getAttribute('data-repo')] || { time: 0, i: 999 };
+      if (br.time !== ar.time) return br.time - ar.time;
+      return ar.i - br.i;
+    });
+
+    cards.forEach(function(card) { track.appendChild(card); });
+  }
+
   // ---------- Fetch + cache ----------
 
   function fetchJson(url) {
@@ -933,6 +954,7 @@
       if (raw) {
         var cache = JSON.parse(raw);
         if (cache && (Date.now() - (cache.t || 0)) < CACHE_TTL_MS) {
+          sortCardsByPush(cache.metas || []);
           renderStats(cache.metas || []);
           renderFeed(cache.items || []);
           return;
@@ -944,6 +966,7 @@
       .then(function(pair) {
         var metas = pair[0], items = pair[1];
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ t: Date.now(), metas: metas, items: items })); } catch (e) {}
+        sortCardsByPush(metas);
         renderStats(metas);
         renderFeed(items);
       })
