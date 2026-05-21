@@ -22,9 +22,11 @@ So to feature a project on the site, a future agent (or human) does **nothing to
 
 1. **Push the project repo public** under `asuramaya`. It appears automatically, newest-push first.
 2. On that repo, set a good **GitHub description** (becomes the card blurb) and **topics** (become the card tags). Cards also show stars, primary language, and last-push time.
-3. The card image is GitHub's auto-generated **OpenGraph** preview — no image to commit.
+3. **The card preview is the first image in that repo's `README.md`** (PNG/JPEG/GIF/WebP; status badges are skipped). Relative paths resolve against the repo's default branch. A repo whose README has no image shows a **"missing image" placeholder** — fix it by adding an image to that repo's README (e.g. `![demo](docs/demo.png)`).
 
 To **hide** a repo from the carousel: archive it or make it private (both are filtered out). To **show more/fewer**: change `MAX_CARDS` in `index.html`.
+
+> README previews are fetched from `raw.githubusercontent.com` (a CDN), so they do **not** count against the GitHub API rate limit.
 
 > Ordering is **by push recency** (newest first) — intentional, so the freshest work leads. There is deliberately no manual ordering list to keep in sync.
 

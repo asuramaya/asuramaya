@@ -163,34 +163,9 @@
     @media (max-width: 600px) {
       .card { padding: 24px 22px; min-height: 240px; }
     }
-    @media (min-width: 1100px) {
-      .card {
-        display: grid;
-        grid-template-columns: minmax(0, 1.75fr) minmax(280px, 0.95fr);
-        grid-template-rows: auto auto auto 1fr auto;
-        column-gap: 30px;
-        row-gap: 10px;
-        align-items: start;
-      }
-      .card-media {
-        grid-column: 2;
-        grid-row: 1 / span 4;
-        height: 100%;
-        min-height: 320px;
-        margin: 0;
-      }
-      .card-head,
-      .card-tags,
-      .card-readme {
-        grid-column: 1;
-      }
-      .card-head { margin-bottom: 2px; }
-      .card-tags { margin-bottom: 4px; }
-      .card-readme { max-width: none; }
-      .card-stats {
-        grid-column: 1 / -1;
-      }
-    }
+    /* Single-column flow on all widths: name → tags → description → README
+       preview → stats. The preview sits directly under the description. */
+    .card-readme { max-width: none; }
     .card::before {
       content: ''; position: absolute; inset: 0; border-radius: inherit;
       padding: 1px;
@@ -217,8 +192,9 @@
     .card-media {
       position: relative;
       width: 100%;
-      height: 170px;
-      margin: 0 0 20px;
+      max-width: 600px;
+      height: 210px;
+      margin: 2px 0 20px;
       padding: 12px;
       border-radius: 12px;
       overflow: hidden;
@@ -685,7 +661,7 @@
   // See CONTRIBUTING.md.
   var OWNER = 'asuramaya';
   var MAX_CARDS = 10;                       // newest-pushed public repos to show
-  var STORAGE_KEY = 'asuramaya-feed-v5';
+  var STORAGE_KEY = 'asuramaya-feed-v6';
   var CACHE_TTL_MS = 30 * 60 * 1000;
 
   function relTime(iso) {
@@ -778,24 +754,31 @@
       + (m.language ? '<span class="stat-item stat-lang">' + escape(m.language) + '</span>' : '');
   }
 
-  // Each card is built entirely from the GitHub repo object: name, description,
-  // topics (tags), language/stars/push (stats), and GitHub's auto OpenGraph
-  // image. No per-project curation.
+  // Preview pulled from the repo's own README (first PNG/JPEG/GIF/WebP). Repos
+  // whose README has no image get a "missing image" placeholder.
+  function mediaHtml(m) {
+    if (m.image) {
+      return '<div class="card-media">'
+        +    '<span class="card-media-swatch" aria-hidden="true"></span>'
+        +    '<img src="' + escape(m.image) + '" alt="' + escape(m.repo) + ' README preview" loading="lazy" data-pixelate="true" />'
+        +  '</div>';
+    }
+    return '<div class="card-media placeholder"><span class="card-media-label">missing image · add one to the README</span></div>';
+  }
+
+  // Card content is derived entirely from the repo: name, description, topics
+  // (tags), stats, and the README preview image — which sits under the blurb.
   function cardHtml(m) {
-    var og = 'https://opengraph.githubassets.com/' + encodeURIComponent(m.pushed_at || '1') + '/' + OWNER + '/' + m.repo;
     var tags = (m.topics || []).map(function(t) { return '<span>' + escape(t) + '</span>'; }).join('');
     return ''
       + '<a class="card" href="' + escape(m.url) + '" data-repo="' + escape(m.repo) + '">'
-      +   '<div class="card-media">'
-      +     '<span class="card-media-swatch" aria-hidden="true"></span>'
-      +     '<img src="' + escape(og) + '" alt="' + escape(m.repo) + ' preview" loading="lazy" data-pixelate="true" />'
-      +   '</div>'
       +   '<div class="card-head">'
       +     '<span class="card-name">' + escape(m.repo) + '</span>'
       +     '<span class="card-meta"><span class="stat">' + escape(m.language || 'repo') + '</span></span>'
       +   '</div>'
       +   (tags ? '<div class="card-tags">' + tags + '</div>' : '')
       +   '<blockquote class="card-readme">' + escape(m.desc || 'No description provided.') + '</blockquote>'
+      +   mediaHtml(m)
       +   '<div class="card-stats is-loaded" data-stats>' + statHtml(m) + '</div>'
       + '</a>';
   }
@@ -846,9 +829,38 @@
       .catch(function() { return null; });
   }
 
+  // Find the first real image in a README (skips status badges). Relative paths
+  // resolve against the repo's raw default-branch root.
+  var BADGE_RE = /(shields\.io|badgen|\/badge|\/workflows\/|codecov|circleci|travis|forthebadge|visitor)/i;
+  var IMG_EXT_RE = /\.(png|jpe?g|gif|webp)([?#]|$)/i;
+  var README_IMG_RE = /!\[[^\]]*\]\(\s*<?([^)\s>]+)|<img[^>]+\bsrc\s*=\s*["']([^"']+)["']/gi;
+
+  function firstReadmeImage(md, base) {
+    if (!md) return null;
+    README_IMG_RE.lastIndex = 0;
+    var m;
+    while ((m = README_IMG_RE.exec(md))) {
+      var url = (m[1] || m[2] || '').trim();
+      if (!url || BADGE_RE.test(url) || !IMG_EXT_RE.test(url)) continue;
+      if (/^https?:\/\//i.test(url)) return url;
+      return base + url.replace(/^\.?\/+/, '');
+    }
+    return null;
+  }
+
+  // raw.githubusercontent is a CDN, not the API — these fetches don't burn the
+  // GitHub API rate limit.
+  function readmeImage(r) {
+    var base = 'https://raw.githubusercontent.com/' + OWNER + '/' + r.repo + '/' + (r.branch || 'HEAD') + '/';
+    return fetch(base + 'README.md')
+      .then(function(res) { return res.ok ? res.text() : ''; })
+      .then(function(md) { return firstReadmeImage(md, base); })
+      .catch(function() { return null; });
+  }
+
   // Fetch the owner's repos newest-push first, keep the top MAX_CARDS public,
-  // non-fork, non-archived ones, then pull a few recent commits per repo for
-  // the activity feed.
+  // non-fork, non-archived ones, attach each repo's README preview image, and
+  // pull a few recent commits per repo for the activity feed.
   function fetchData() {
     return fetchJson('https://api.github.com/users/' + OWNER + '/repos?sort=pushed&per_page=100')
       .then(function(list) {
@@ -859,11 +871,17 @@
           return {
             repo: r.name, url: r.html_url, desc: r.description || '',
             stars: r.stargazers_count || 0, language: r.language || '',
-            pushed_at: r.pushed_at, topics: (r.topics || []).slice(0, 4)
+            pushed_at: r.pushed_at, branch: r.default_branch || 'HEAD',
+            topics: (r.topics || []).slice(0, 4), image: null
           };
         });
+
+        var imagesP = Promise.all(repos.map(function(r) {
+          return readmeImage(r).then(function(img) { r.image = img; });
+        }));
+
         var feedRepos = repos.slice(0, 8);
-        return Promise.all(feedRepos.map(function(rp) {
+        var feedP = Promise.all(feedRepos.map(function(rp) {
           return fetchJson('https://api.github.com/repos/' + OWNER + '/' + rp.repo + '/commits?per_page=3')
             .then(function(cs) {
               return Array.isArray(cs) ? cs.map(function(c) {
@@ -879,7 +897,11 @@
           var items = [];
           arrays.forEach(function(a) { items = items.concat(a); });
           items.sort(function(x, y) { return new Date(y.date) - new Date(x.date); });
-          return { repos: repos, items: items };
+          return items;
+        });
+
+        return Promise.all([imagesP, feedP]).then(function(res) {
+          return { repos: repos, items: res[1] };
         });
       });
   }
