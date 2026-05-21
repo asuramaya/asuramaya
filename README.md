@@ -12,6 +12,7 @@ Most of the work lives where operators have to deal with complexity directly: wo
 - [`remix-etherscan-mcp`](https://github.com/asuramaya/remix-etherscan-mcp) — a smart-contract audit MCP that combines Etherscan v2, `remixd`, git context, contract compilation, fork simulation, and post-deploy inspection.
 - [`exciton`](https://github.com/asuramaya/exciton) — OSS crypto-influencer engine for Solana: deterministic on-chain scanning plus an LLM-driven trading agent in one Rust workspace. [madapesai.com](https://madapesai.com) is the reference deployment.
 - [`ndrchst`](https://github.com/asuramaya/ndrchst) — Rust-based Minecraft server management for Paper/Velocity fleets, backups, templates, compatibility layers, and remote orchestration.
+- [`hector-vector`](https://github.com/asuramaya/hector-vector) — self-hosted image studio: GPU upscaling, AI/classical background removal, greenscreen keying, and raster↔vector pipelines, including pixel-art → SVG with native pixel-grid recovery and SVG → PNG rendering at any size. Local-only; nothing is uploaded.
 - [`decepticons`](https://github.com/asuramaya/decepticons) — reusable predictive primitives for memory, routing, substrates, and readouts. The kernel under `chronohorn`.
 
 ## What Ties It Together
