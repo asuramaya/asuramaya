@@ -11,15 +11,14 @@ Most of the work lives where operators have to deal with complexity directly: wo
 - [`heinrich`](https://github.com/asuramaya/heinrich) — model forensics through geometry: residual-stream projections, activation traces, attention routing, and inspection surfaces for what models actually compute.
 - [`remix-etherscan-mcp`](https://github.com/asuramaya/remix-etherscan-mcp) — a smart-contract audit MCP that combines Etherscan v2, `remixd`, git context, contract compilation, fork simulation, and post-deploy inspection.
 - [`exciton`](https://github.com/asuramaya/exciton) — OSS crypto-influencer engine for Solana: deterministic on-chain scanning plus an LLM-driven trading agent in one Rust workspace. [madapesai.com](https://madapesai.com) is the reference deployment.
-- [`ndrchst`](https://github.com/asuramaya/ndrchst) — Rust-based Minecraft server management for Paper/Velocity fleets, backups, templates, compatibility layers, and remote orchestration.
-- [`hector-vector`](https://github.com/asuramaya/hector-vector) — self-hosted image studio: GPU upscaling, AI/classical background removal, greenscreen keying, and raster↔vector pipelines, including pixel-art → SVG with native pixel-grid recovery and SVG → PNG rendering at any size. Local-only; nothing is uploaded.
-- [`decepticons`](https://github.com/asuramaya/decepticons) — reusable predictive primitives for memory, routing, substrates, and readouts. The kernel under `chronohorn`.
+- [`ndrchst`](https://github.com/asuramaya/ndrchst) — Python-based Minecraft server management for Paper/Velocity fleets, backups, templates, compatibility layers, and remote orchestration.
+- [`decepticons`](https://github.com/asuramaya/decepticons) — reusable predictive primitives for substrates, memory, gating, routing, and readouts. The kernel under `chronohorn`.
 
 ## What Ties It Together
 
-- The interface changes, but the job stays the same: make systems easier to run, inspect, and trust.
-- I care more about operator clarity than polished abstraction. The better projects keep state, evidence, and failure surfaces visible.
-- A lot of the work is machine-facing, but not narrowly about one model family or one product category. The point is practical control over difficult systems.
+- The interface keeps changing; the work underneath doesn't — make systems easier to run, inspect, and trust.
+- I optimize for operator clarity over polished abstraction. My better projects keep their state and failure surfaces in plain view, evidence included.
+- Most of it is machine-facing. None of it is locked to one model family or one product category. The throughline is practical control over hard systems.
 
 ## Lineage
 
@@ -27,6 +26,6 @@ Most of the work lives where operators have to deal with complexity directly: wo
 
 ## Background
 
-Six years across enterprise IT, public ops, and independent engineering in Houston, TX. The work has mostly been about owning messy systems, improving visibility, and reducing operator guesswork.
+Six years across enterprise IT, public ops, and independent engineering, all out of Houston, TX. Mostly it's been the same work: take ownership of messy systems and cut down the guesswork operators have to do.
 
 Links: [website](https://asuramaya.com/) · [GitHub](https://github.com/asuramaya) · [LinkedIn](https://www.linkedin.com/in/hector-chavez-291765237)

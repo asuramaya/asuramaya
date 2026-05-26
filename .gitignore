@@ -1,0 +1,11 @@
+# OS / editor cruft
+.DS_Store
+
+# Local tooling state (not part of the published site)
+.claude/
+.codex
+.playwright-mcp/
+
+# Local render scratch
+_resume_*.pdf
+_resume_*.png
