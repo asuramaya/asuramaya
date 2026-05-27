@@ -374,6 +374,37 @@
     .card-stats .stat-lang { color: var(--fg-mute); margin-left: auto; }
     .card-stats .stat-lang::before { content: "● "; color: var(--accent-cool); margin-right: 2px; }
 
+    /* Desktop: the README preview becomes a square thumbnail on the left, with
+       name / tags / description / stats stacked in a column to its right. On
+       narrow screens the card stays single-column (preview under the text). */
+    @media (min-width: 720px) {
+      .card {
+        display: grid;
+        grid-template-columns: 264px minmax(0, 1fr);
+        grid-template-rows: auto auto 1fr auto;
+        grid-template-areas:
+          "media head"
+          "media tags"
+          "media readme"
+          "media stats";
+        column-gap: 34px;
+        align-items: start;
+      }
+      .card-head   { grid-area: head; }
+      .card-tags   { grid-area: tags; }
+      .card-readme { grid-area: readme; }
+      .card-stats  { grid-area: stats; }
+      .card-media {
+        grid-area: media;
+        align-self: start;
+        width: 100%;
+        max-width: none;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        margin: 0;
+      }
+    }
+
     /* Live activity */
     .activity-intro { color: var(--fg-dim); max-width: 62ch; margin-bottom: 18px; }
     .activity-shell {
@@ -528,7 +559,7 @@
 
 <section id="work">
   <div class="wrap">
-    <h2>Work <span class="count">7 projects · broad domains · latest push first</span></h2>
+    <h2>Work</h2>
     <div class="carousel" id="work-carousel" aria-roledescription="carousel" aria-label="Featured projects">
     <div class="carousel-viewport">
     <div class="carousel-track" id="work-track">
@@ -547,7 +578,7 @@
 
 <section id="background">
   <div class="wrap">
-    <h2>Background <span class="count">enterprise IT · public ops · independent build</span></h2>
+    <h2>Background</h2>
     <div class="bg-grid">
       <div>
         <span class="mini-label">Operator background</span>
