@@ -498,6 +498,20 @@
     .skills-label { font-family: var(--mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); white-space: nowrap; }
     .skills-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .skills-tags span { padding: 3px 10px; border: 1px solid var(--line-2); border-radius: 4px; font-family: var(--mono); font-size: 0.74rem; color: var(--fg-dim); letter-spacing: 0.02em; }
+
+    /* Experience list (Background) — rendered from resume.html */
+    .xp-list { display: grid; gap: 22px; }
+    .xp-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .xp-co { font-family: var(--mono); font-size: 0.98rem; font-weight: 700; color: var(--fg); letter-spacing: -0.01em; }
+    .xp-co .xp-role { color: var(--fg-dim); font-weight: 500; }
+    .xp-when { font-family: var(--mono); font-size: 0.76rem; color: var(--fg-mute); white-space: nowrap; letter-spacing: 0.03em; }
+    .xp-scope { color: var(--fg-dim); font-size: 0.92rem; line-height: 1.6; margin: 7px 0 9px; }
+    .xp-scope strong { color: var(--fg); font-weight: 600; }
+    .xp-bullets { list-style: none; display: grid; gap: 6px; }
+    .xp-bullets li { position: relative; padding-left: 16px; font-size: 0.9rem; color: var(--fg-dim); line-height: 1.55; }
+    .xp-bullets li::before { content: "▪"; position: absolute; left: 0; top: 3px; color: var(--accent); font-size: 0.7rem; }
+    .xp-bullets li strong { color: var(--fg); font-weight: 600; }
+    .edu-lang { margin-top: 16px; display: grid; gap: 16px; }
     .resume-link {
       margin-top: 18px;
       display: inline-flex; align-items: center; gap: 10px;
@@ -544,9 +558,20 @@
     <h1>asuramaya<span class="accent">.</span></h1>
     <p class="name-line"><strong>Hector Chavez</strong> <span class="sep">·</span> IT &amp; infrastructure lead <span class="sep">·</span> automation-first <span class="sep">·</span> bilingual EN/ES</p>
     <p class="lede">
-      I manage enterprise IT <strong>by engineering it</strong>. The routine runs on automation and scripts
-      I write, not on manual effort. That's how I cover identity, security, endpoints, and the full
-      infrastructure for a $3B construction group, solo.
+      I ran IT for a construction holding group managing over <strong>$3 billion in active real estate
+      development</strong>. Seven operating companies, three offices, me. Identity, security, endpoints,
+      networking, vendors, and the executives who need their laptop working before a 6am bid review.
+    </p>
+    <p class="lede">
+      Before this I handled endpoints for a national homebuilder across about 90 offices. Before that I
+      kept registration and check-in systems alive at Harris County's COVID vaccination sites through the
+      worst of the surge. Public work under that kind of pressure teaches you what actually matters.
+    </p>
+    <p class="lede">
+      Off the clock I build software like automation agents and developer tools in Python, TypeScript, and Rust.
+    </p>
+    <p class="lede">
+      I like world cuisine, the ocean, and complicated espresso drinks.
     </p>
     <div class="meta">
       <span><a href="https://github.com/asuramaya">github.com/asuramaya</a></span>
@@ -578,64 +603,53 @@
 
 <section id="background">
   <div class="wrap">
-    <h2>Background</h2>
+    <h2>Background <span class="count">synced from resume.html</span></h2>
     <div class="bg-grid">
       <div>
-        <span class="mini-label">Operator background</span>
-        <p class="bio">
-          My background is enterprise IT and public-sector operations, not a research lab. The constant
-          has been owning messy production systems where operator clarity is the whole job.
-        </p>
-        <p class="bio">
-          From 2023 to 2026 I ran the IT and infrastructure function solo for
-          <strong>Stewart Holdings Group</strong>, a Houston construction holding company with multiple
-          subsidiaries and offices. Identity, security, endpoints, vendors, internal operations: all of
-          it, one person. Before that: endpoint support at <strong>David Weekley Homes</strong> across a
-          distributed national office footprint, then frontline pandemic-ops support at
-          <strong>Harris County Public Health</strong>, keeping check-in, registration, and data flows
-          running through surge conditions.
-        </p>
-        <p class="bio">
-          The independent work runs on the same instinct. I build tools the way an operator wants them:
-          useful early, inspectable under pressure, honest about what they don't show you yet.
-        </p>
-        <a class="resume-link" href="resume.html">resume</a>
+        <span class="mini-label">Experience</span>
+        <!-- Rendered live from resume.html; the markup below is the no-JS fallback. -->
+        <div id="xp-list" class="xp-list">
+          <div class="xp">
+            <div class="xp-head">
+              <span class="xp-co">Stewart Holdings Group <span class="xp-role">— Sole IT Lead</span></span>
+              <span class="xp-when">Houston, TX · 2023 – 2026</span>
+            </div>
+            <p class="xp-scope">Sole IT and infrastructure function for a construction holding company managing <strong>$3B+ in active real estate development</strong> across 7 operating subsidiaries and 3 offices.</p>
+            <ul class="xp-bullets">
+              <li>Owned <strong>identity, security, endpoint management, networking, and vendor relationships</strong> for all seven companies; primary technical liaison to executives.</li>
+              <li>Migrated legacy infrastructure to modern cloud identity and security on <strong>Microsoft Entra, Intune, and Defender</strong>.</li>
+              <li>Built PowerShell and Python automation for user provisioning, license management, and ticket triage.</li>
+            </ul>
+          </div>
+          <div class="xp">
+            <div class="xp-head">
+              <span class="xp-co">David Weekley Homes <span class="xp-role">— IT Support</span></span>
+              <span class="xp-when">Houston, TX · 2021 – 2023</span>
+            </div>
+            <p class="xp-scope">Endpoint support and device configuration for a national homebuilder operating ~90 offices across roughly 20 U.S. states.</p>
+          </div>
+          <div class="xp">
+            <div class="xp-head">
+              <span class="xp-co">Harris County Public Health <span class="xp-role">— Pandemic Operations Tech Support</span></span>
+              <span class="xp-when">Houston, TX · 2020 – 2021</span>
+            </div>
+            <p class="xp-scope">Frontline technology support for COVID-19 vaccination sites operated by Harris County, the third-largest county in the U.S.</p>
+          </div>
+        </div>
+        <a class="resume-link" href="resume.html">full resume</a>
       </div>
       <div class="bg-card">
-        <span class="mini-label">Selected background</span>
-        <ul class="timeline">
-          <li>
-            <span class="when">2023 – 2026</span>
-            <span class="what"><strong>Sole IT Lead</strong><span class="role">Stewart Holdings Group · Houston, TX</span></span>
-          </li>
-          <li>
-            <span class="when">2021 – 2023</span>
-            <span class="what"><strong>IT Support</strong><span class="role">David Weekley Homes · Houston, TX</span></span>
-          </li>
-          <li>
-            <span class="when">2020 – 2021</span>
-            <span class="what"><strong>Pandemic Ops Tech</strong><span class="role">Harris County Public Health · Houston, TX</span></span>
-          </li>
-        </ul>
-        <div class="skills">
-          <div class="skills-row">
-            <span class="skills-label">Enterprise</span>
-            <div class="skills-tags">
-              <span>Microsoft Entra</span><span>Intune</span><span>Purview</span><span>Defender</span><span>Active Directory</span><span>Netskope SD-WAN</span><span>Veeam</span><span>Abnormal</span><span>Meraki · DUO</span><span>Mitel</span><span>Citrix · Parallels</span><span>RingCentral</span>
-            </div>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">Build</span>
-            <div class="skills-tags">
-              <span>Claude</span><span>Codex</span><span>MCP authoring</span><span>TypeScript</span><span>Rust</span><span>Python</span><span>Bash</span><span>PowerShell</span><span>SQL</span>
-            </div>
-          </div>
-          <div class="skills-row">
-            <span class="skills-label">Languages</span>
-            <div class="skills-tags">
-              <span>English (native)</span><span>Spanish (native)</span>
-            </div>
-          </div>
+        <span class="mini-label">Skills</span>
+        <!-- Rendered live from resume.html; the markup below is the no-JS fallback. -->
+        <div id="skills-list" class="skills">
+          <div class="skills-row"><span class="skills-label">Identity &amp; Security</span><div class="skills-tags"><span>Microsoft Entra ID</span><span>Active Directory</span><span>Intune (MDM)</span><span>Microsoft Purview</span><span>Microsoft Defender</span><span>Cisco DUO</span><span>Abnormal Security</span><span>Netskope SD-WAN</span></div></div>
+          <div class="skills-row"><span class="skills-label">Infrastructure &amp; Endpoints</span><div class="skills-tags"><span>Windows</span><span>macOS</span><span>Linux</span><span>Microsoft 365</span><span>Cisco Meraki</span><span>Veeam</span><span>Citrix</span><span>Parallels</span></div></div>
+          <div class="skills-row"><span class="skills-label">Automation &amp; Scripting</span><div class="skills-tags"><span>PowerShell</span><span>Bash</span><span>Python</span><span>SQL</span></div></div>
+          <div class="skills-row"><span class="skills-label">Software &amp; AI Tooling</span><div class="skills-tags"><span>TypeScript</span><span>Rust</span><span>MCP server development</span><span>Claude</span><span>Codex</span></div></div>
+        </div>
+        <div id="edu-lang" class="edu-lang">
+          <div class="skills-row"><span class="skills-label">Languages</span><div class="skills-tags"><span>English (native)</span><span>Spanish (native)</span></div></div>
+          <div class="skills-row"><span class="skills-label">Education</span><div class="skills-tags"><span>High school graduate, 2020</span></div></div>
         </div>
       </div>
     </div>
@@ -1122,7 +1136,104 @@
     startAuto();
   }
 
-  function start() { load(); }   // load() builds cards, then inits media + carousel
+  // ---------- Background: synced from resume.html ----------
+  // The Background section is rendered from resume.html so there is one source
+  // of truth — edit the resume and the homepage Background follows. The markup
+  // already in #xp-list / #skills-list / #edu-lang is the no-JS fallback.
+
+  function rtext(el) { return el ? el.textContent.replace(/\s+/g, ' ').trim() : ''; }
+
+  function renderResumeXp(doc) {
+    var host = document.getElementById('xp-list');
+    var jobs = doc.querySelectorAll('.job');
+    if (!host || !jobs.length) return;
+    var html = '';
+    Array.prototype.forEach.call(jobs, function(job) {
+      var coEl = job.querySelector('.job-co');
+      var roleEl = job.querySelector('.job-role');
+      var role = rtext(roleEl);
+      var co = '';
+      if (coEl) {
+        var clone = coEl.cloneNode(true);
+        var r = clone.querySelector('.job-role');
+        if (r) r.remove();
+        co = rtext(clone);
+      }
+      var when = rtext(job.querySelector('.job-when'));
+      var scope = job.querySelector('.job-scope');
+      var bullets = job.querySelectorAll('ul.bullets li');
+      html += '<div class="xp">'
+        +   '<div class="xp-head">'
+        +     '<span class="xp-co">' + escape(co) + (role ? ' <span class="xp-role">' + escape(role) + '</span>' : '') + '</span>'
+        +     (when ? '<span class="xp-when">' + escape(when) + '</span>' : '')
+        +   '</div>'
+        +   (scope ? '<p class="xp-scope">' + scope.innerHTML + '</p>' : '')
+        +   (bullets.length ? '<ul class="xp-bullets">' + Array.prototype.map.call(bullets, function(li) { return '<li>' + li.innerHTML + '</li>'; }).join('') + '</ul>' : '')
+        + '</div>';
+    });
+    host.innerHTML = html;
+  }
+
+  function renderResumeSkills(doc) {
+    var host = document.getElementById('skills-list');
+    var rows = doc.querySelectorAll('.skill-row');
+    if (!host || !rows.length) return;
+    var html = '';
+    Array.prototype.forEach.call(rows, function(row) {
+      var label = rtext(row.querySelector('.k')).replace(/:\s*$/, '');
+      var tags = rtext(row.querySelector('.v')).split(',')
+        .map(function(s) { return s.trim(); })
+        .filter(Boolean)
+        .map(function(t) { return '<span>' + escape(t) + '</span>'; })
+        .join('');
+      html += '<div class="skills-row"><span class="skills-label">' + escape(label) + '</span>'
+        +   '<div class="skills-tags">' + tags + '</div></div>';
+    });
+    host.innerHTML = html;
+  }
+
+  function resumeLine(doc, title) {
+    var hs = doc.querySelectorAll('h2');
+    for (var i = 0; i < hs.length; i++) {
+      if (rtext(hs[i]).toLowerCase() === title.toLowerCase()) {
+        var line = hs[i].parentNode && hs[i].parentNode.querySelector('.eduline');
+        if (line) return rtext(line);
+      }
+    }
+    return '';
+  }
+
+  function renderResumeEduLang(doc) {
+    var host = document.getElementById('edu-lang');
+    if (!host) return;
+    var lang = resumeLine(doc, 'Languages');
+    var edu = resumeLine(doc, 'Education');
+    var html = '';
+    if (lang) {
+      var langs = lang.split('·').map(function(s) { return s.trim(); }).filter(Boolean)
+        .map(function(t) { return '<span>' + escape(t) + '</span>'; }).join('');
+      html += '<div class="skills-row"><span class="skills-label">Languages</span><div class="skills-tags">' + langs + '</div></div>';
+    }
+    if (edu) {
+      html += '<div class="skills-row"><span class="skills-label">Education</span><div class="skills-tags"><span>' + escape(edu.replace(/\.\s*$/, '')) + '</span></div></div>';
+    }
+    if (html) host.innerHTML = html;
+  }
+
+  function syncResume() {
+    fetch('resume.html')
+      .then(function(r) { return r.ok ? r.text() : null; })
+      .then(function(html) {
+        if (!html) return;
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        renderResumeXp(doc);
+        renderResumeSkills(doc);
+        renderResumeEduLang(doc);
+      })
+      .catch(function() {});   // keep the static fallback on any failure
+  }
+
+  function start() { load(); syncResume(); }   // load() builds cards; syncResume() fills Background
   if (document.readyState !== 'loading') start();
   else document.addEventListener('DOMContentLoaded', start);
 })();
