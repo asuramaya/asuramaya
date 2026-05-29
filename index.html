@@ -37,6 +37,7 @@
       background: var(--bg); color: var(--fg);
       font-family: var(--sans); font-size: 16px; line-height: 1.65;
       -webkit-font-smoothing: antialiased; min-height: 100vh;
+      padding-bottom: 52px;   /* clear the fixed footer chin */
     }
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-2); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
@@ -49,8 +50,11 @@
     /* Topbar */
     .topbar { position: sticky; top: 0; z-index: 10; background: rgba(10,10,12,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
     .topbar .wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; padding-bottom: 14px; }
+    .brand-group { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
     .brand { font-family: var(--mono); font-size: 1rem; font-weight: 700; color: var(--fg); letter-spacing: 0.02em; }
     .brand .dot { color: var(--accent); }
+    .brand-tag { font-family: var(--mono); font-size: 0.78rem; color: var(--fg-mute); letter-spacing: 0.02em; white-space: nowrap; }
+    @media (max-width: 560px) { .brand-tag { display: none; } }
     .topbar nav { display: flex; gap: 26px; align-items: center; }
     .topbar nav a { color: var(--fg-dim); font-size: 0.86rem; }
     .topbar nav a:hover { color: var(--accent); text-decoration: none; }
@@ -523,7 +527,13 @@
     .resume-link::before { content: "↓"; font-weight: 700; }
 
     /* Footer */
-    footer { padding: 56px 0 80px; border-top: 1px solid var(--line); color: var(--fg-mute); font-size: 0.86rem; font-family: var(--mono); }
+    footer {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 10;
+      height: 52px; display: flex; align-items: center;
+      background: rgba(10,10,12,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--line); color: var(--fg-mute); font-size: 0.86rem; font-family: var(--mono);
+    }
+    footer .wrap { width: 100%; }
     footer .row { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: baseline; }
     footer .links { display: flex; gap: 18px; flex-wrap: wrap; }
     footer .links a { color: var(--fg-dim); }
@@ -540,7 +550,10 @@
 
 <header class="topbar">
   <div class="wrap">
-    <a class="brand" href="#top">asuramaya<span class="dot">.</span></a>
+    <div class="brand-group">
+      <a class="brand" href="#top">asuramaya<span class="dot">.</span></a>
+      <span class="brand-tag">architect of illusions</span>
+    </div>
     <nav>
       <a href="#work">Work</a>
       <a href="#background">Background</a>
@@ -556,7 +569,7 @@
   <div class="wrap">
     <p class="kicker">enterprise IT · infrastructure · automation · houston, tx</p>
     <h1>asuramaya<span class="accent">.</span></h1>
-    <p class="name-line"><strong>Hector Chavez</strong> <span class="sep">·</span> IT &amp; infrastructure lead <span class="sep">·</span> automation-first <span class="sep">·</span> bilingual EN/ES</p>
+    <p class="name-line"><strong>Hector Chavez</strong> <span class="sep">·</span> IT &amp; infrastructure lead <span class="sep">·</span> bilingual EN/ES</p>
     <p class="lede">
       I ran IT for a construction holding group managing over <strong>$3 billion in active real estate
       development</strong>. Seven operating companies, three offices, me. Identity, security, endpoints,
@@ -573,12 +586,6 @@
     <p class="lede">
       I like world cuisine, the ocean, and complicated espresso drinks.
     </p>
-    <div class="meta">
-      <span><a href="https://github.com/asuramaya">github.com/asuramaya</a></span>
-      <span><a href="https://www.linkedin.com/in/hector-chavez-291765237">linkedin</a></span>
-      <span><a href="resume.html">resume</a></span>
-      <span>identity · endpoints · cloud · automation · security</span>
-    </div>
   </div>
 </section>
 
@@ -677,21 +684,14 @@
   <div class="wrap">
     <div class="row">
       <div>
-        <strong style="color: var(--fg);">Hector Chavez</strong> · houston, tx · 2026
+        <strong style="color: var(--fg);">Hector Chavez</strong> · dream engineer
       </div>
       <div class="links">
         <a href="mailto:hector@asuramaya.com">email</a>
         <a href="https://www.linkedin.com/in/hector-chavez-291765237">linkedin</a>
-        <a href="https://github.com/asuramaya">github</a>
-        <a href="https://chronohorn.com">chronohorn</a>
-        <a href="https://decepticons.win">decepticons</a>
-        <a href="https://soundcloud.com/elmonogdl">soundcloud</a>
+        <a href="resume.html">resume</a>
       </div>
     </div>
-    <p class="copy">Tools for operators, audits, experiments, and machine-facing workflows.</p>
-    <p class="archive">
-      archive: <a href="https://github.com/asuramaya/conker">conker</a> · <a href="https://github.com/asuramaya/conker-ledger">conker-ledger</a> · <a href="https://github.com/asuramaya/conker-detect">conker-detect</a> · <a href="https://github.com/asuramaya/parameter-golf">parameter-golf</a>
-    </p>
   </div>
 </footer>
 
