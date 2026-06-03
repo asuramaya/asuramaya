@@ -2,7 +2,7 @@
 
 I build tools that reduce friction between humans and machines.
 
-Most of the work lives where operators have to deal with complexity directly: workflow systems, MCP servers, inspection tools, audit surfaces, autonomous agents, and infrastructure that makes hidden state easier to see.
+Most of the work lives where people have to deal with complexity directly, and the infrastructure that makes it easier to see.
 
 ## Selected Work
 
@@ -16,13 +16,7 @@ Most of the work lives where operators have to deal with complexity directly: wo
 
 ## What Ties It Together
 
-- The interface keeps changing; the work underneath doesn't — make systems easier to run, inspect, and trust.
-- I optimize for operator clarity over polished abstraction. My better projects keep their state and failure surfaces in plain view, evidence included.
-- Most of it is machine-facing. None of it is locked to one model family or one product category. The throughline is practical control over hard systems.
-
-## Lineage
-
-- [`Like-Us`](https://github.com/asuramaya/Like-Us) is the oldest and messiest repo in the set. It still matters as an origin point: the mechanistic branch fed into `decepticons`, `chronohorn`, and `heinrich`, while the safety branch eventually looped back into later jailbreak and forensics work.
+- A never-ending quest for the ghost in the machine.
 
 ## Background
 
