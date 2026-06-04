@@ -6,13 +6,16 @@ Most of the work lives where people have to deal with complexity directly, and t
 
 ## Selected Work
 
-- [`neo`](https://github.com/asuramaya/neo) — local workflow forensics for Claude Code: agent transcripts, reminder injections, telemetry leftovers, and hook-visible lifecycle events surfaced into a single SQLite database with explicit measured / estimated / inferred labels.
-- [`chronohorn`](https://github.com/asuramaya/chronohorn) — family-agnostic experiment tracking and architecture search, with a 64-tool MCP surface for driving runs, comparing curves, and ranking frontiers.
-- [`heinrich`](https://github.com/asuramaya/heinrich) — model forensics through geometry: residual-stream projections, activation traces, attention routing, and inspection surfaces for what models actually compute.
-- [`remix-etherscan-mcp`](https://github.com/asuramaya/remix-etherscan-mcp) — a smart-contract audit MCP that combines Etherscan v2, `remixd`, git context, contract compilation, fork simulation, and post-deploy inspection.
-- [`exciton`](https://github.com/asuramaya/exciton) — OSS crypto-influencer engine for Solana: deterministic on-chain scanning plus an LLM-driven trading agent in one Rust workspace. [madapesai.com](https://madapesai.com) is the reference deployment.
-- [`ndrchst`](https://github.com/asuramaya/ndrchst) — Python-based Minecraft server management for Paper/Velocity fleets, backups, templates, compatibility layers, and remote orchestration.
+- [`neo`](https://github.com/asuramaya/neo) — Local workflow forensics for Claude Code: agent transcripts, reminder injections, telemetry leftovers, and hook-visible lifecycle events saved into a SQLite database. MCP for models, front end for humans.
+
+- [`kast`](https://github.com/asuramaya/kast) — Boring glue layer for casting packages in Linux: unites AirPlay, MiraCast, and ChromeCast behind one cli and gnome quick settings tile. 
+
 - [`decepticons`](https://github.com/asuramaya/decepticons) — reusable predictive primitives for substrates, memory, gating, routing, and readouts. The kernel under `chronohorn`.
+- [`chronohorn`](https://github.com/asuramaya/chronohorn) — family-agnostic experiment tracking and architecture search, with a 64-tool MCP surface for driving runs, comparing curves, and ranking frontiers.
+- [`heinrich`](https://github.com/asuramaya/heinrich) — model forensics through geometry: residual-stream projections, activation traces, attention routing, and inspection surfaces for what models actually
+
+- [`remix-etherscan-mcp`](https://github.com/asuramaya/remix-etherscan-mcp) — a smart-contract audit MCP that combines Etherscan v2, `remixd`, git context, contract compilation, fork simulation, and post-deploy inspection.
+
 
 ## What Ties It Together
 
