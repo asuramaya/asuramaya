@@ -2,7 +2,7 @@
 
 I build tools that reduce friction between humans and machines.
 
-Most of the work lives where people have to deal with complexity directly, and the infrastructure that makes it easier to see.
+Helping people to deal with complexity directly, and building the infrastructure that makes it easier to see.
 
 ## Selected Work
 
