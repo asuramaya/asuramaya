@@ -8,6 +8,8 @@ Most of the work lives where people have to deal with complexity directly, and t
 
 - [`neo`](https://github.com/asuramaya/neo) — Local workflow forensics for Claude Code: agent transcripts, reminder injections, telemetry leftovers, and hook-visible lifecycle events saved into a SQLite database. MCP for models, front end for humans.
 - [`kast`](https://github.com/asuramaya/kast) — Boring glue layer for casting packages in Linux: unites AirPlay, MiraCast, and ChromeCast behind one cli and gnome quick settings tile. 
+- [`handlingtheloop`](https://github.com/asuramaya/handlingtheloop) — Serverless browser DJ app that mixes public YouTube tracks, rekordbox/DDJ-FLX style. One Cloudflare Worker + the browser.
+- [`kast`](https://github.com/asuramaya/hector-vector) — Self hosted raster to vector processor and editor.
 
 - [`decepticons`](https://github.com/asuramaya/decepticons) — reusable predictive primitives for substrates, memory, gating, routing, and readouts. The kernel under `chronohorn`.
 - [`chronohorn`](https://github.com/asuramaya/chronohorn) — family-agnostic experiment tracking and architecture search, with a 64-tool MCP surface for driving runs, comparing curves, and ranking frontiers.
