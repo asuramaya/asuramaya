@@ -66,15 +66,6 @@
 
     /* Hero */
     .hero { padding: 84px 0 60px; }
-    .hero .kicker {
-      font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.18em;
-      color: var(--accent); font-size: 0.74rem; font-weight: 500; margin-bottom: 22px;
-      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-    }
-    .hero .kicker::before {
-      content: ""; width: 8px; height: 8px; background: var(--green); border-radius: 50%;
-      box-shadow: 0 0 12px var(--green); animation: pulse 2.4s ease-in-out infinite;
-    }
     @keyframes pulse { 50% { opacity: 0.4; } }
     .hero h1 { font-size: clamp(2.4rem, 6.5vw, 4.6rem); line-height: 1.05; margin-bottom: 0.3em; color: var(--fg); }
     .hero h1 .accent { color: var(--accent); }
@@ -83,7 +74,13 @@
       color: var(--fg-dim); margin-bottom: 1.4em; letter-spacing: 0.02em;
     }
     .hero .name-line strong { color: var(--fg); font-weight: 600; }
+    .hero .name-line strong, .hero .name-line .role { white-space: nowrap; }
     .hero .name-line .sep { color: var(--line-2); margin: 0 10px; }
+    /* On phones, stack the credential line so the · separators don't dangle mid-wrap */
+    @media (max-width: 600px) {
+      .hero .name-line { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+      .hero .name-line .sep { display: none; }
+    }
     .hero .lede { font-size: clamp(1.08rem, 2vw, 1.24rem); color: var(--fg-dim); max-width: 60ch; margin-bottom: 1.6em; }
     .hero .lede strong { color: var(--fg); font-weight: 600; }
     .meta { display: flex; flex-wrap: wrap; gap: 22px; font-family: var(--mono); font-size: 0.84rem; color: var(--fg-mute); }
@@ -589,9 +586,8 @@
 
 <section class="hero" style="border-top: none;">
   <div class="wrap">
-    <p class="kicker">enterprise IT · infrastructure · automation · houston, tx</p>
     <h1>asuramaya<span class="accent">.</span></h1>
-    <p class="name-line"><strong>Hector Chavez</strong> <span class="sep">·</span> IT &amp; infrastructure lead <span class="sep">·</span> bilingual EN/ES</p>
+    <p class="name-line"><strong>Hector Chavez</strong><span class="sep">·</span><span class="role">IT &amp; infrastructure lead</span><span class="sep">·</span><span class="role">bilingual EN/ES</span></p>
     <p class="lede">
       I ran IT for a construction holding group managing over <strong>$3 billion in active real estate
       development</strong>. Seven operating companies, three offices, me. Identity, security, endpoints,
