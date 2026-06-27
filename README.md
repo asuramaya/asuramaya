@@ -6,16 +6,14 @@ Helping people to deal with complexity directly, and building the infrastructure
 
 ## Selected Work
 
+- [`handlingtheloop`](https://github.com/asuramaya/handlingtheloop) — Serverless browser DJ app that mixes public YouTube tracks, rekordbox/DDJ-FLX style. One Cloudflare Worker + the browser.
+- [`hector-vector`](https://github.com/asuramaya/hector-vector) — Self hosted raster to vector processor and editor.
 - [`neo`](https://github.com/asuramaya/neo) — Local workflow forensics for Claude Code: agent transcripts, reminder injections, telemetry leftovers, and hook-visible lifecycle events saved into a SQLite database. MCP for models, front end for humans.
 - [`kast`](https://github.com/asuramaya/kast) — Boring glue layer for casting packages in Linux: unites AirPlay, MiraCast, and ChromeCast behind one cli and gnome quick settings tile.
 - [`phanspeed`](https://github.com/asuramaya/phanspeed) — Boring temperature, power, and performance optimizer for Dell Laptops.
-- [`handlingtheloop`](https://github.com/asuramaya/handlingtheloop) — Serverless browser DJ app that mixes public YouTube tracks, rekordbox/DDJ-FLX style. One Cloudflare Worker + the browser.
-- [`hector-vector`](https://github.com/asuramaya/hector-vector) — Self hosted raster to vector processor and editor.
-
 - [`decepticons`](https://github.com/asuramaya/decepticons) — reusable predictive primitives for substrates, memory, gating, routing, and readouts. The kernel under `chronohorn`.
 - [`chronohorn`](https://github.com/asuramaya/chronohorn) — family-agnostic experiment tracking and architecture search, with a 64-tool MCP surface for driving runs, comparing curves, and ranking frontiers.
 - [`heinrich`](https://github.com/asuramaya/heinrich) — model forensics through geometry: residual-stream projections, activation traces, attention routing, and inspection surfaces for what models actually
-
 - [`remix-etherscan-mcp`](https://github.com/asuramaya/remix-etherscan-mcp) — a smart-contract audit MCP that combines Etherscan v2, `remixd`, git context, contract compilation, fork simulation, and post-deploy inspection.
 - [`exciton`](https://github.com/asuramaya/exciton) — MCP-first Solana intelligence engine. Deterministic on-chain scanning, signal scoring, Telegram surfaces, and a public publishing loop in one Rust workspace.
 - [`ndrchst`](https://github.com/asuramaya/ndrchst) — Python-based Minecraft server management for Paper/Velocity fleets: backups, templates, and remote orchestration. 
