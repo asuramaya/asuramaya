@@ -37,8 +37,9 @@
       background: var(--bg); color: var(--fg);
       font-family: var(--sans); font-size: 16px; line-height: 1.65;
       -webkit-font-smoothing: antialiased; min-height: 100vh;
-      padding-bottom: 52px;   /* clear the fixed footer chin */
+      padding-bottom: 56px;   /* clear the fixed footer chin */
     }
+    @media (max-width: 600px) { body { padding-bottom: 60px; } }
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-2); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
     code, pre { font-family: var(--mono); }
@@ -103,14 +104,16 @@
     /* Cards (carousel: one-at-a-time hero) */
     .carousel { display: grid; gap: 18px; }
     .carousel-viewport {
-      overflow-x: hidden;
-      overflow-y: visible;
+      overflow: hidden;
       border-radius: 16px;
-      padding: 8px 10px 18px;
-      margin: -8px -10px -18px;
+      padding: 8px 10px 24px;
+      margin: -8px -10px -24px;
+      transition: height 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
     }
+    @media (prefers-reduced-motion: reduce) { .carousel-viewport { transition: none; } }
     .carousel-track {
       display: flex;
+      align-items: flex-start;   /* let each slide size to its own content; no shared-height void */
       transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
       will-change: transform;
     }
@@ -133,7 +136,7 @@
     .carousel-arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .carousel-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
 
-    .carousel-dots { display: flex; gap: 8px; align-items: center; }
+    .carousel-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; align-items: center; }
     .carousel-dots button {
       width: 8px; height: 8px; border-radius: 50%;
       background: var(--line-2); border: 0; padding: 0; cursor: pointer;
@@ -153,6 +156,8 @@
     @media (max-width: 600px) {
       .carousel-arrow { width: 32px; height: 32px; }
       .carousel-counter { min-width: 44px; font-size: 0.74rem; }
+      .carousel-controls { gap: 10px; }
+      .carousel-viewport { margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }
     }
 
     /* Hero card (sized larger inside the carousel) */
@@ -165,7 +170,10 @@
       transition: border-color 0.2s, transform 0.2s, background 0.2s, box-shadow 0.25s;
     }
     @media (max-width: 600px) {
-      .card { padding: 24px 22px; min-height: 240px; }
+      .card { padding: 24px 22px; min-height: 0; }
+      .hero { padding: 44px 0 48px; }
+      .card-media { height: 170px; }
+      .card-media.placeholder { height: auto; min-height: 60px; padding: 14px 16px; align-items: center; }
     }
     /* Single-column flow on all widths: name → tags → description → README
        preview → stats. The preview sits directly under the description. */
@@ -450,6 +458,13 @@
       word-break: break-word;
     }
     .ev-time { color: var(--fg-mute); font-size: 0.78rem; text-align: right; white-space: nowrap; padding-top: 2px; }
+    /* State rows (loading / empty / error) span the full width instead of
+       falling into the event grid's 22px first column. */
+    .activity-list li.activity-state,
+    .activity-list li.activity-loading {
+      display: block;
+      grid-template-columns: none;
+    }
     .activity-state {
       display: block;
       padding: 20px 10px 18px;
@@ -471,6 +486,7 @@
 
     /* Background section */
     .bg-grid { display: grid; gap: 28px; grid-template-columns: 1fr; }
+    .bg-grid > * { min-width: 0; }   /* let columns shrink to the container instead of min-content (prevents mobile h-overflow) */
     @media (min-width: 760px) { .bg-grid { grid-template-columns: 1.25fr 1fr; align-items: start; } }
     .bio { color: var(--fg-dim); max-width: 60ch; line-height: 1.72; }
     .bio strong { color: var(--fg); font-weight: 600; }
@@ -529,7 +545,7 @@
     /* Footer */
     footer {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 10;
-      height: 52px; display: flex; align-items: center;
+      min-height: 52px; padding: 8px 0; display: flex; align-items: center;
       background: rgba(10,10,12,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-top: 1px solid var(--line); color: var(--fg-mute); font-size: 0.86rem; font-family: var(--mono);
     }
@@ -542,6 +558,11 @@
     footer .archive { margin-top: 8px; font-size: 0.78rem; color: var(--fg-mute); }
     footer .archive a { color: var(--fg-mute); }
     footer .archive a:hover { color: var(--accent); }
+    @media (max-width: 600px) {
+      footer { font-size: 0.76rem; }
+      footer .row { gap: 12px; }
+      footer .links { gap: 12px; }
+    }
 
     ::selection { background: var(--accent); color: var(--bg); }
   </style>
@@ -559,7 +580,6 @@
       <a href="#background">Background</a>
       <a href="#activity">Activity</a>
       <a href="resume.html">Resume</a>
-      <a href="resume.pdf" download="hector-chavez-resume.pdf" aria-label="Download resume PDF">PDF&nbsp;↓</a>
       <a class="cta" href="https://github.com/asuramaya">GitHub →</a>
     </nav>
   </div>
@@ -1033,16 +1053,27 @@
   // ---------- Work carousel ----------
 
   function initCarousel() {
-    var track   = document.getElementById('work-track');
-    var prev    = document.getElementById('carousel-prev');
-    var next    = document.getElementById('carousel-next');
-    var dotsBox = document.getElementById('carousel-dots');
-    var counter = document.getElementById('carousel-counter');
+    var track    = document.getElementById('work-track');
+    var viewport = track && track.parentNode;
+    var prev     = document.getElementById('carousel-prev');
+    var next     = document.getElementById('carousel-next');
+    var dotsBox  = document.getElementById('carousel-dots');
+    var counter  = document.getElementById('carousel-counter');
     if (!track || !prev || !next || !dotsBox) return;
 
     var cards = track.children;
     var total = cards.length;
     if (!total) return;
+
+    // The carousel viewport hugs the active slide's height so sparse cards
+    // don't leave a void and tall ones aren't clipped. Recomputed on slide
+    // change, resize, and once fonts/images settle.
+    function fitHeight() {
+      if (!viewport || !cards[idx]) return;
+      var cs = window.getComputedStyle(viewport);
+      var pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+      viewport.style.height = (cards[idx].offsetHeight + pad) + 'px';
+    }
 
     // Build dot buttons
     var dotsHtml = '';
@@ -1065,6 +1096,7 @@
     function go(i, opts) {
       idx = ((i % total) + total) % total;
       track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      fitHeight();
       for (var k = 0; k < dots.length; k++) {
         if (k === idx) dots[k].setAttribute('aria-current', 'true');
         else dots[k].removeAttribute('aria-current');
@@ -1134,7 +1166,17 @@
       startAuto();
     }, { passive: true });
 
+    // Keep the viewport height in sync as layout settles (fonts, images, rotate).
+    var rT = null;
+    window.addEventListener('resize', function() {
+      if (rT) clearTimeout(rT);
+      rT = setTimeout(fitHeight, 120);
+    });
+    window.addEventListener('load', fitHeight);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeight);
+
     go(0, { silent: true });
+    fitHeight();
     startAuto();
   }
 
