@@ -7,7 +7,8 @@ Helping people to deal with complexity directly, and building the infrastructure
 ## Selected Work
 
 - [`neo`](https://github.com/asuramaya/neo) — Local workflow forensics for Claude Code: agent transcripts, reminder injections, telemetry leftovers, and hook-visible lifecycle events saved into a SQLite database. MCP for models, front end for humans.
-- [`kast`](https://github.com/asuramaya/kast) — Boring glue layer for casting packages in Linux: unites AirPlay, MiraCast, and ChromeCast behind one cli and gnome quick settings tile. 
+- [`kast`](https://github.com/asuramaya/kast) — Boring glue layer for casting packages in Linux: unites AirPlay, MiraCast, and ChromeCast behind one cli and gnome quick settings tile.
+- [`phanspeed`](https://github.com/asuramaya/phanspeed) — Boring temperature, power, and performance optimizer for Dell Laptops.
 - [`handlingtheloop`](https://github.com/asuramaya/handlingtheloop) — Serverless browser DJ app that mixes public YouTube tracks, rekordbox/DDJ-FLX style. One Cloudflare Worker + the browser.
 - [`hector-vector`](https://github.com/asuramaya/hector-vector) — Self hosted raster to vector processor and editor.
 
