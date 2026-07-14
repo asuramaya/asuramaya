@@ -91,7 +91,7 @@
     .job:last-child { margin-bottom: 0; }
     .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
     .job-co { font-size: 1.02rem; font-weight: 700; color: var(--ink); }
-    .job-role { font-weight: 500; color: var(--ink-soft); }
+    .job-role { display: block; margin-top: 2px; font-weight: 500; color: var(--ink-soft); }
     .job-when { font-size: 0.82rem; color: var(--ink-mute); white-space: nowrap; font-weight: 500; }
     .job-scope { font-size: 0.9rem; color: var(--ink-soft); margin: 4px 0 8px; }
     ul.bullets { list-style: none; display: grid; gap: 5px; }
@@ -183,9 +183,10 @@
 
       <div class="job">
         <div class="job-head">
-          <div class="job-co">Stewart Holdings Group <span class="job-role">— Sole IT Lead</span></div>
+          <div class="job-co">Stewart Holdings Group</div>
           <div class="job-when">Houston, TX · 2023 – 2026</div>
         </div>
+        <div class="job-role">Sole IT Lead</div>
         <p class="job-scope">
           Sole IT and infrastructure function for a construction holding company managing <strong>$3B+ in
           active real estate development</strong> across 7 operating subsidiaries (Stewart Builders, Keystone
@@ -205,9 +206,10 @@
 
       <div class="job">
         <div class="job-head">
-          <div class="job-co">David Weekley Homes <span class="job-role">— IT Support</span></div>
+          <div class="job-co">David Weekley Homes</div>
           <div class="job-when">Houston, TX · 2021 – 2023</div>
         </div>
+        <div class="job-role">IT Support</div>
         <p class="job-scope">
           Endpoint support and configuration for a national homebuilder operating ~90 offices across roughly
           20 U.S. states.
@@ -221,9 +223,10 @@
 
       <div class="job">
         <div class="job-head">
-          <div class="job-co">Harris County Public Health <span class="job-role">— Pandemic Operations Tech Support</span></div>
+          <div class="job-co">Harris County Public Health</div>
           <div class="job-when">Houston, TX · 2020 – 2021</div>
         </div>
+        <div class="job-role">Pandemic Operations Tech Support</div>
         <p class="job-scope">
           Frontline technology support for COVID-19 vaccination sites operated by Harris County, the
           third-largest county in the United States.
@@ -241,9 +244,11 @@
         <a href="https://github.com/asuramaya">github.com/asuramaya</a>.</p>
       <div class="skills" style="margin-bottom:12px;">
         <div class="skill-row"><span class="k">Languages &amp; Frameworks:</span>
-          <span class="v">Rust, TypeScript, React, async services (Tokio / Axum)</span></div>
-        <div class="skill-row"><span class="k">AI &amp; Tooling:</span>
-          <span class="v">MCP server development (Rust / TS / Python), LLM tool integration (Claude, Codex), Cloudflare Workers, PyTorch</span></div>
+          <span class="v">Rust, TypeScript, React, async services (Tokio / Axum), SVG</span></div>
+        <div class="skill-row"><span class="k">Systems &amp; Infra:</span>
+          <span class="v">Linux, systemd, eBPF, Docker, Cloudflare Workers, Cloudflare R2</span></div>
+        <div class="skill-row"><span class="k">AI &amp; ML:</span>
+          <span class="v">PyTorch, MLX, Hugging Face Transformers, MCP server development (Rust / TS / Python), LLM tool integration (Claude / Codex)</span></div>
       </div>
       <ul class="bullets">
         <li><strong>neo</strong>: local workflow forensics for Claude Code, surfacing hidden transcripts,

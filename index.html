@@ -414,9 +414,31 @@
       }
     }
 
+    /* Live app embed (Work) */
+    .live-app { display: grid; gap: 14px; }
+    .live-app-tabs[hidden] { display: none; }
+    .live-app-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .live-app-tab {
+      font-family: var(--mono); font-size: 0.8rem; padding: 8px 16px;
+      border: 1px solid var(--line-2); border-radius: 999px; background: var(--bg-2);
+      color: var(--fg-dim); cursor: pointer; transition: border-color 0.15s, color 0.15s;
+    }
+    .live-app-tab:hover { border-color: var(--accent); color: var(--fg); }
+    .live-app-tab[aria-selected="true"] { border-color: var(--accent); color: var(--accent); }
+    .live-app-frame-wrap {
+      border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+      background: var(--bg-2); height: min(78vh, 720px);
+    }
+    .live-app-iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .live-app-foot { font-size: 0.84rem; color: var(--fg-mute); }
+    .live-app-foot a { color: var(--fg-dim); }
+    @media (max-width: 700px) {
+      .live-app-frame-wrap { height: 70vh; }
+    }
+
     /* Live activity */
-    .activity-intro { color: var(--fg-dim); max-width: 62ch; margin-bottom: 18px; }
     .activity-shell {
+      margin-top: 28px;
       background: var(--bg-2);
       border: 1px solid var(--line);
       border-radius: 10px;
@@ -510,7 +532,10 @@
     .timeline .what { color: var(--fg); font-size: 0.94rem; }
     .timeline .what strong { color: var(--fg); font-weight: 600; }
     .timeline .what .role { color: var(--fg-dim); display: block; font-size: 0.86rem; margin-top: 2px; }
-    .skills { margin-top: 18px; display: grid; gap: 16px; }
+    .skills { margin-top: 18px; display: grid; gap: 22px; }
+    .skills-group { display: grid; gap: 16px; }
+    .skills-group + .skills-group { padding-top: 20px; border-top: 1px dashed var(--line); }
+    .skills-group-label { font-family: var(--sans); font-size: 0.8rem; font-weight: 600; color: var(--fg-dim); }
     .skills-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
     .skills-label { font-family: var(--mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); white-space: nowrap; }
     .skills-tags { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -520,7 +545,7 @@
     .xp-list { display: grid; gap: 22px; }
     .xp-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .xp-co { font-family: var(--mono); font-size: 0.98rem; font-weight: 700; color: var(--fg); letter-spacing: -0.01em; }
-    .xp-co .xp-role { color: var(--fg-dim); font-weight: 500; }
+    .xp-role { display: block; margin-top: 2px; color: var(--fg-dim); font-weight: 500; }
     .xp-when { font-family: var(--mono); font-size: 0.76rem; color: var(--fg-mute); white-space: nowrap; letter-spacing: 0.03em; }
     .xp-scope { color: var(--fg-dim); font-size: 0.92rem; line-height: 1.6; margin: 7px 0 9px; }
     .xp-scope strong { color: var(--fg); font-weight: 600; }
@@ -574,7 +599,7 @@
     </div>
     <nav>
       <a href="#work">Work</a>
-      <a href="#background">Background</a>
+      <a href="#experience">Experience</a>
       <a href="#activity">Activity</a>
       <a href="resume.html">Resume</a>
       <a class="cta" href="https://github.com/asuramaya">GitHub →</a>
@@ -610,25 +635,18 @@
 <section id="work">
   <div class="wrap">
     <h2>Work</h2>
-    <div class="carousel" id="work-carousel" aria-roledescription="carousel" aria-label="Featured projects">
-    <div class="carousel-viewport">
-    <div class="carousel-track" id="work-track">
-      <a class="card" data-loading="1"><div class="card-head"><span class="card-name">Loading projects…</span></div><blockquote class="card-readme">Fetching the latest repositories from GitHub.</blockquote></a>
-    </div>
-    </div>
-    <div class="carousel-controls">
-      <button type="button" class="carousel-arrow" id="carousel-prev" aria-label="Previous project">&larr;</button>
-      <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Project slides"></div>
-      <span class="carousel-counter" id="carousel-counter" aria-hidden="true"><span class="cur">1</span> / <span class="tot">7</span></span>
-      <button type="button" class="carousel-arrow" id="carousel-next" aria-label="Next project">&rarr;</button>
-    </div>
+    <div class="live-app" id="live-app">
+      <div class="live-app-tabs" id="live-app-tabs" role="tablist" hidden></div>
+      <div class="live-app-frame-wrap">
+        <iframe id="live-app-frame" class="live-app-iframe" title="hector-vector — live" loading="lazy" src="https://hector-vector.com"></iframe>
+      </div>
+      <p class="live-app-foot">→ <a id="live-app-link" href="https://hector-vector.com" target="_blank" rel="noopener">open hector-vector.com directly</a></p>
     </div>
   </div>
 </section>
 
-<section id="background">
+<section id="experience">
   <div class="wrap">
-    <h2>Background <span class="count">synced from resume.html</span></h2>
     <div class="bg-grid">
       <div>
         <span class="mini-label">Experience</span>
@@ -636,9 +654,10 @@
         <div id="xp-list" class="xp-list">
           <div class="xp">
             <div class="xp-head">
-              <span class="xp-co">Stewart Holdings Group <span class="xp-role">— Sole IT Lead</span></span>
+              <span class="xp-co">Stewart Holdings Group</span>
               <span class="xp-when">Houston, TX · 2023 – 2026</span>
             </div>
+            <div class="xp-role">Sole IT Lead</div>
             <p class="xp-scope">Sole IT and infrastructure function for a construction holding company managing <strong>$3B+ in active real estate development</strong> across 7 operating subsidiaries and 3 offices.</p>
             <ul class="xp-bullets">
               <li>Owned <strong>identity, security, endpoint management, networking, and vendor relationships</strong> for all seven companies; primary technical liaison to executives.</li>
@@ -648,16 +667,18 @@
           </div>
           <div class="xp">
             <div class="xp-head">
-              <span class="xp-co">David Weekley Homes <span class="xp-role">— IT Support</span></span>
+              <span class="xp-co">David Weekley Homes</span>
               <span class="xp-when">Houston, TX · 2021 – 2023</span>
             </div>
+            <div class="xp-role">IT Support</div>
             <p class="xp-scope">Endpoint support and device configuration for a national homebuilder operating ~90 offices across roughly 20 U.S. states.</p>
           </div>
           <div class="xp">
             <div class="xp-head">
-              <span class="xp-co">Harris County Public Health <span class="xp-role">— Pandemic Operations Tech Support</span></span>
+              <span class="xp-co">Harris County Public Health</span>
               <span class="xp-when">Houston, TX · 2020 – 2021</span>
             </div>
+            <div class="xp-role">Pandemic Operations Tech Support</div>
             <p class="xp-scope">Frontline technology support for COVID-19 vaccination sites operated by Harris County, the third-largest county in the U.S.</p>
           </div>
         </div>
@@ -667,11 +688,19 @@
         <span class="mini-label">Skills</span>
         <!-- Rendered live from resume.html; the markup below is the no-JS fallback. -->
         <div id="skills-list" class="skills">
-          <div class="skills-row"><span class="skills-label">Identity &amp; Security</span><div class="skills-tags"><span>Microsoft Entra ID</span><span>Active Directory</span><span>Intune (MDM)</span><span>Microsoft Purview</span><span>Microsoft Defender</span><span>Cisco DUO</span><span>Abnormal Security</span><span>Netskope SD-WAN</span></div></div>
-          <div class="skills-row"><span class="skills-label">Infrastructure &amp; Endpoints</span><div class="skills-tags"><span>Windows</span><span>macOS</span><span>Linux</span><span>Microsoft 365</span><span>Cisco Meraki</span><span>Veeam</span><span>Citrix</span><span>Parallels</span></div></div>
-          <div class="skills-row"><span class="skills-label">Automation &amp; DevOps</span><div class="skills-tags"><span>PowerShell</span><span>Python</span><span>Bash</span><span>PostgreSQL</span><span>Docker</span><span>GitHub Actions (CI/CD)</span></div></div>
-          <div class="skills-row"><span class="skills-label">Languages &amp; Frameworks</span><div class="skills-tags"><span>Rust</span><span>TypeScript</span><span>React</span><span>async services (Tokio / Axum)</span></div></div>
-          <div class="skills-row"><span class="skills-label">AI &amp; Tooling</span><div class="skills-tags"><span>MCP server development (Rust / TS / Python)</span><span>LLM tool integration (Claude, Codex)</span><span>Cloudflare Workers</span><span>PyTorch</span></div></div>
+          <div class="skills-group">
+            <span class="skills-group-label">Enterprise IT</span>
+            <div class="skills-row"><span class="skills-label">Identity &amp; Security</span><div class="skills-tags"><span>Microsoft Entra ID</span><span>Active Directory</span><span>Intune (MDM)</span><span>Microsoft Purview</span><span>Microsoft Defender</span><span>Cisco DUO</span><span>Abnormal Security</span><span>Netskope SD-WAN</span></div></div>
+            <div class="skills-row"><span class="skills-label">Infrastructure &amp; Endpoints</span><div class="skills-tags"><span>Windows</span><span>macOS</span><span>Linux</span><span>Microsoft 365</span><span>Cisco Meraki</span><span>Veeam</span><span>Citrix</span><span>Parallels</span></div></div>
+            <div class="skills-row"><span class="skills-label">Automation &amp; DevOps</span><div class="skills-tags"><span>PowerShell</span><span>Python</span><span>Bash</span><span>PostgreSQL</span><span>Docker</span><span>GitHub Actions (CI/CD)</span></div></div>
+            <div class="skills-row"><span class="skills-label">Collaboration &amp; Service Desk</span><div class="skills-tags"><span>Mitel</span><span>RingCentral</span><span>Zendesk</span></div></div>
+          </div>
+          <div class="skills-group">
+            <span class="skills-group-label">Software &amp; AI</span>
+            <div class="skills-row"><span class="skills-label">Languages &amp; Frameworks</span><div class="skills-tags"><span>Rust</span><span>TypeScript</span><span>React</span><span>async services (Tokio / Axum)</span><span>SVG</span></div></div>
+            <div class="skills-row"><span class="skills-label">Systems &amp; Infra</span><div class="skills-tags"><span>Linux</span><span>systemd</span><span>eBPF</span><span>Docker</span><span>Cloudflare Workers</span><span>Cloudflare R2</span></div></div>
+            <div class="skills-row"><span class="skills-label">AI &amp; ML</span><div class="skills-tags"><span>PyTorch</span><span>MLX</span><span>Hugging Face Transformers</span><span>MCP server development (Rust / TS / Python)</span><span>LLM tool integration (Claude / Codex)</span></div></div>
+          </div>
         </div>
         <div id="edu-lang" class="edu-lang">
           <div class="skills-row"><span class="skills-label">Languages</span><div class="skills-tags"><span>English (native)</span><span>Spanish (native)</span></div></div>
@@ -685,9 +714,19 @@
 <section id="activity">
   <div class="wrap">
     <h2>Activity <span class="count">live · github.com/asuramaya</span></h2>
-    <p class="activity-intro">
-      Recent public work from GitHub. This is meant to show what is actively moving, not every automated event.
-    </p>
+    <div class="carousel" id="work-carousel" aria-roledescription="carousel" aria-label="All projects">
+    <div class="carousel-viewport">
+    <div class="carousel-track" id="work-track">
+      <a class="card" data-loading="1"><div class="card-head"><span class="card-name">Loading projects…</span></div><blockquote class="card-readme">Fetching the latest repositories from GitHub.</blockquote></a>
+    </div>
+    </div>
+    <div class="carousel-controls">
+      <button type="button" class="carousel-arrow" id="carousel-prev" aria-label="Previous project">&larr;</button>
+      <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Project slides"></div>
+      <span class="carousel-counter" id="carousel-counter" aria-hidden="true"><span class="cur">1</span> / <span class="tot">16</span></span>
+      <button type="button" class="carousel-arrow" id="carousel-next" aria-label="Next project">&rarr;</button>
+    </div>
+    </div>
     <div class="activity-shell">
       <ul id="activity-list" class="activity-list">
         <li class="activity-loading">loading recent work...</li>
@@ -718,13 +757,13 @@
 (function() {
   'use strict';
 
-  // The work carousel is fully dynamic: it shows the owner's most-recently
-  // pushed public repositories, fetched live from the GitHub API. There is no
-  // hardcoded project list — push a new repo and it appears automatically.
-  // See CONTRIBUTING.md.
+  // Activity is the "whatever I'm doing right now" surface: fully automatic
+  // and uncapped — every public, non-fork, non-archived repo gets a full
+  // card (image/desc/stats) in the carousel AND a line in the commit ticker
+  // below it, both sorted by recency. Work (above) is a separate, currently
+  // blank section reserved for a future hand-picked showcase. See CONTRIBUTING.md.
   var OWNER = 'asuramaya';
-  var MAX_CARDS = 10;                       // newest-pushed public repos to show
-  var STORAGE_KEY = 'asuramaya-feed-v6';
+  var STORAGE_KEY = 'asuramaya-feed-v8';
   var CACHE_TTL_MS = 30 * 60 * 1000;
 
   function relTime(iso) {
@@ -774,6 +813,8 @@
       + '</li>';
   }
 
+  // One line per repo (the latest commit), uncapped — every public repo gets
+  // a line, ordered by recency, so this is the whole portfolio's pulse.
   function renderFeed(items) {
     var list = document.getElementById('activity-list');
     if (!list) return;
@@ -781,13 +822,10 @@
       list.innerHTML = '<li class="activity-state">No recent activity in scope. <a href="https://github.com/asuramaya">View on GitHub</a>.</li>';
       return;
     }
-    var perRepo = {}, html = '', n = 0;
-    for (var i = 0; i < items.length && n < 12; i++) {
-      var it = items[i];
-      if (isNoise(it.message)) continue;
-      perRepo[it.repo] = (perRepo[it.repo] || 0) + 1;
-      if (perRepo[it.repo] > 3) continue;
-      html += format(it); n++;
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      if (isNoise(items[i].message)) continue;
+      html += format(items[i]);
     }
     list.innerHTML = html || '<li class="activity-state">No recent activity in scope. <a href="https://github.com/asuramaya">View on GitHub</a>.</li>';
   }
@@ -921,16 +959,17 @@
       .catch(function() { return null; });
   }
 
-  // Fetch the owner's repos newest-push first, keep the top MAX_CARDS public,
-  // non-fork, non-archived ones, attach each repo's README preview image, and
-  // pull a few recent commits per repo for the activity feed.
+  // Fetch every public, non-fork, non-archived repo once and use it for
+  // BOTH surfaces in Activity: the full-card carousel (README image per
+  // repo) and the one-latest-commit-per-repo ticker, sorted by recency.
+  // Nothing here is capped or curated — that's the point.
   function fetchData() {
     return fetchJson('https://api.github.com/users/' + OWNER + '/repos?sort=pushed&per_page=100')
       .then(function(list) {
         if (!Array.isArray(list)) throw new Error('repos unavailable');
         var repos = list.filter(function(r) {
           return r && !r.fork && !r.archived && !r.private && r.name !== OWNER;
-        }).slice(0, MAX_CARDS).map(function(r) {
+        }).map(function(r) {
           return {
             repo: r.name, url: r.html_url, desc: r.description || '',
             stars: r.stargazers_count || 0, language: r.language || '',
@@ -943,9 +982,8 @@
           return readmeImage(r).then(function(img) { r.image = img; });
         }));
 
-        var feedRepos = repos.slice(0, 8);
-        var feedP = Promise.all(feedRepos.map(function(rp) {
-          return fetchJson('https://api.github.com/repos/' + OWNER + '/' + rp.repo + '/commits?per_page=3')
+        var feedP = Promise.all(repos.map(function(rp) {
+          return fetchJson('https://api.github.com/repos/' + OWNER + '/' + rp.repo + '/commits?per_page=1')
             .then(function(cs) {
               return Array.isArray(cs) ? cs.map(function(c) {
                 return {
@@ -1190,24 +1228,17 @@
     if (!host || !jobs.length) return;
     var html = '';
     Array.prototype.forEach.call(jobs, function(job) {
-      var coEl = job.querySelector('.job-co');
-      var roleEl = job.querySelector('.job-role');
-      var role = rtext(roleEl);
-      var co = '';
-      if (coEl) {
-        var clone = coEl.cloneNode(true);
-        var r = clone.querySelector('.job-role');
-        if (r) r.remove();
-        co = rtext(clone);
-      }
+      var co = rtext(job.querySelector('.job-co'));
+      var role = rtext(job.querySelector('.job-role'));
       var when = rtext(job.querySelector('.job-when'));
       var scope = job.querySelector('.job-scope');
       var bullets = job.querySelectorAll('ul.bullets li');
       html += '<div class="xp">'
         +   '<div class="xp-head">'
-        +     '<span class="xp-co">' + escape(co) + (role ? ' <span class="xp-role">' + escape(role) + '</span>' : '') + '</span>'
+        +     '<span class="xp-co">' + escape(co) + '</span>'
         +     (when ? '<span class="xp-when">' + escape(when) + '</span>' : '')
         +   '</div>'
+        +   (role ? '<div class="xp-role">' + escape(role) + '</div>' : '')
         +   (scope ? '<p class="xp-scope">' + scope.innerHTML + '</p>' : '')
         +   (bullets.length ? '<ul class="xp-bullets">' + Array.prototype.map.call(bullets, function(li) { return '<li>' + li.innerHTML + '</li>'; }).join('') + '</ul>' : '')
         + '</div>';
@@ -1215,14 +1246,42 @@
     host.innerHTML = html;
   }
 
-  function renderResumeSkills(doc) {
-    var host = document.getElementById('skills-list');
-    var rows = doc.querySelectorAll('.skill-row');
-    if (!host || !rows.length) return;
+  // Resume has two skills sections ("Technical Skills" = day job, "Independent
+  // Engineering" = personal software/AI work) — keep them visually separate on
+  // the homepage instead of flattening every .skill-row into one undifferentiated list.
+  function skillRowsUnder(doc, h2Text) {
+    var hs = doc.querySelectorAll('h2');
+    for (var i = 0; i < hs.length; i++) {
+      if (rtext(hs[i]).toLowerCase() === h2Text.toLowerCase()) {
+        var sec = hs[i].closest('section');
+        return sec ? sec.querySelectorAll('.skill-row') : [];
+      }
+    }
+    return [];
+  }
+
+  // A plain .split(',') breaks entries like "LLM tool integration (Claude /
+  // Codex)" the moment a tag's own text contains a comma inside parens — it
+  // did, splitting one tag into "...(Claude" and "Codex)". Split only on
+  // commas at paren-depth 0.
+  function splitTopLevel(s) {
+    var parts = [], depth = 0, cur = '';
+    for (var i = 0; i < s.length; i++) {
+      var ch = s[i];
+      if (ch === '(') depth++;
+      else if (ch === ')') depth = Math.max(0, depth - 1);
+      if (ch === ',' && depth === 0) { parts.push(cur); cur = ''; }
+      else cur += ch;
+    }
+    if (cur) parts.push(cur);
+    return parts;
+  }
+
+  function skillRowsHtml(rows) {
     var html = '';
     Array.prototype.forEach.call(rows, function(row) {
       var label = rtext(row.querySelector('.k')).replace(/:\s*$/, '');
-      var tags = rtext(row.querySelector('.v')).split(',')
+      var tags = splitTopLevel(rtext(row.querySelector('.v')))
         .map(function(s) { return s.trim(); })
         .filter(Boolean)
         .map(function(t) { return '<span>' + escape(t) + '</span>'; })
@@ -1230,6 +1289,18 @@
       html += '<div class="skills-row"><span class="skills-label">' + escape(label) + '</span>'
         +   '<div class="skills-tags">' + tags + '</div></div>';
     });
+    return html;
+  }
+
+  function renderResumeSkills(doc) {
+    var host = document.getElementById('skills-list');
+    if (!host) return;
+    var itRows = skillRowsUnder(doc, 'Technical Skills');
+    var swRows = skillRowsUnder(doc, 'Independent Engineering');
+    if (!itRows.length && !swRows.length) return;
+    var html = '';
+    if (itRows.length) html += '<div class="skills-group"><span class="skills-group-label">Enterprise IT</span>' + skillRowsHtml(itRows) + '</div>';
+    if (swRows.length) html += '<div class="skills-group"><span class="skills-group-label">Software &amp; AI</span>' + skillRowsHtml(swRows) + '</div>';
     host.innerHTML = html;
   }
 
@@ -1274,7 +1345,45 @@
       .catch(function() {});   // keep the static fallback on any failure
   }
 
-  function start() { load(); syncResume(); }   // load() builds cards; syncResume() fills Background
+  // ---------- Work: embedded live apps ----------
+
+  // The FIRST app's src is set directly in the HTML with loading="lazy" — that
+  // native browser behavior is what makes it "just there" once you scroll to
+  // it, no JS required. This only handles switching once there's more than
+  // one. Add an app here (its own live, publicly-deployed build — not a
+  // localhost-only desktop/companion app) and a tab appears automatically.
+  var LIVE_APPS = [
+    { key: 'hector-vector', label: 'hector-vector', url: 'https://hector-vector.com' }
+    // { key: 'heinrich', label: 'heinrich', url: 'https://hcirnieh.com' }
+  ];
+
+  function initLiveApps() {
+    if (LIVE_APPS.length < 2) return;   // one app: the static tab-less embed is enough
+    var tabsBox = document.getElementById('live-app-tabs');
+    var frame = document.getElementById('live-app-frame');
+    var link = document.getElementById('live-app-link');
+    if (!tabsBox || !frame) return;
+
+    tabsBox.hidden = false;
+    tabsBox.innerHTML = LIVE_APPS.map(function(app, i) {
+      return '<button type="button" class="live-app-tab" role="tab" data-key="' + escape(app.key) + '" aria-selected="' + (i === 0 ? 'true' : 'false') + '">' + escape(app.label) + '</button>';
+    }).join('');
+
+    tabsBox.addEventListener('click', function(e) {
+      var btn = e.target.closest('button[data-key]');
+      if (!btn) return;
+      var app = LIVE_APPS.filter(function(a) { return a.key === btn.dataset.key; })[0];
+      if (!app) return;
+      frame.src = app.url;   // explicit click: load now, laziness already spent
+      frame.title = app.label + ' — live';
+      if (link) { link.href = app.url; link.textContent = 'open ' + app.url.replace(/^https?:\/\//, '') + ' directly'; }
+      Array.prototype.forEach.call(tabsBox.querySelectorAll('button'), function(b) {
+        b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+      });
+    });
+  }
+
+  function start() { load(); syncResume(); initLiveApps(); }   // load() builds cards; syncResume() fills Experience
   if (document.readyState !== 'loading') start();
   else document.addEventListener('DOMContentLoaded', start);
 })();
